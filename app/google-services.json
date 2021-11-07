@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "73207656980",
+    "project_id": "duan1-70e4b",
+    "storage_bucket": "duan1-70e4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73207656980:android:f6d8511d7f117666efad01",
+        "android_client_info": {
+          "package_name": "com.example.duan1_nhom5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73207656980-h8c3airf5eactrpmtmjrfes1s3k3v32l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5cVlaAc41b9aE6AJT0rLyf9soFeakB8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73207656980-h8c3airf5eactrpmtmjrfes1s3k3v32l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

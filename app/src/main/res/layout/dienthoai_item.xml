@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardviewdienthoai1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="6dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+
+        <ImageView
+            android:id="@+id/anhdt1"
+            android:layout_width="102dp"
+            android:layout_height="103dp"
+            android:src="@drawable/lenovo" />
+
+        <TextView
+            android:id="@+id/tendt1"
+            android:layout_width="100dp"
+            android:layout_height="37dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="107dp"
+            android:text="Tên Sản Phẩm" />
+
+        <TextView
+            android:id="@+id/giadt1"
+            android:layout_width="103dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="150dp"
+            android:text="Gía Tiền" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

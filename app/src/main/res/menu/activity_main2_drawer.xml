@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
+        <item android:title="Danh Sách Điện Thoại"
+            android:id="@+id/nav_qldienthoai"
+            android:icon="@drawable/ic_facebook"/>
+    </group>
+    <item android:title="Quản lý">
+    <menu >
+        <item android:title="Quản Lý Người Dùng"
+            android:id="@+id/nav_qlnguoidung"
+            android:icon="@drawable/ic_facebook"/>
+
+    </menu>
+    </item>
+</menu>

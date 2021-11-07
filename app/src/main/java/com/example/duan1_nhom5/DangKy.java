@@ -11,8 +11,6 @@ public class DangKy {
     private DangKy() {
     }
 
-///ngo thanh thong
-
     public DangKy(int id, String hoten, String email, String password) {
         Id = id;
         HoTen=hoten;

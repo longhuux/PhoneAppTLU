@@ -81,7 +81,7 @@
          <TextView
              android:id="@+id/tv_chitiet_dienthoai"
              android:layout_width="match_parent"
-             android:layout_height="301dp"
+             android:layout_height="match_parent"
              android:layout_below="@+id/tv_mota_chitiet_dienthoai"
              android:layout_marginBottom="30dp"
              android:text="Mới đây, Apple đã trình diện đến người dùng mẫu điện thoại iPhone 12 128 GB với sự tuyên bố về một kỷ nguyên mới của iPhone: iPhone 5G siêu nhanh, nâng cấp về màn hình và hiệu năng hứa hẹn đây sẽ là smartphone cao cấp đáng chú ý nhất trong năm nay."

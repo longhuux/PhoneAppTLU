@@ -1,13 +1,21 @@
 package com.example.duan1_nhom5;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +35,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class DienThoaiFragment extends Fragment {
 
@@ -38,6 +48,7 @@ public class DienThoaiFragment extends Fragment {
     TextView tao;
     EditText nhaptendt,nhapgiadt,nhapchitiet;
     Button regdt, huy;
+    ImageView themanh;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -86,6 +97,7 @@ public class DienThoaiFragment extends Fragment {
                 bundle.putString("name",dienThoai.getTen());
                 bundle.putDouble("gia",dienThoai.getGiaTien());
                 bundle.putString("chitiet",dienThoai.getChiTiet());
+                bundle.putString("anh",dienThoai.getLinkAnh());
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = fmgr.beginTransaction();
                 ft.replace(R.id.nav_host_fragment_content_main, fragment);
@@ -119,8 +131,20 @@ public class DienThoaiFragment extends Fragment {
         nhapgiadt = v1.findViewById(R.id.nhapgiadt);
         nhapchitiet = v1.findViewById(R.id.nhapctdt);
         regdt = v1.findViewById(R.id.adddt);
+        themanh = v1.findViewById(R.id.themanh);
         huy = v1.findViewById(R.id.huyadddt);
 
+        themanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pick=new Intent(Intent.ACTION_GET_CONTENT);
+                pick.setType("image/*");
+                Intent pho=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent chosser=Intent.createChooser(pick, "Lựa Chọn");
+                chosser.putExtra(Intent.EXTRA_INITIAL_INTENTS,new Intent[]{pho});
+                startActivityForResult(chosser, 999);
+            }
+        });
         //xử lý click
         regdt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,33 +152,20 @@ public class DienThoaiFragment extends Fragment {
                 String tendt = nhaptendt.getText().toString();
                 Double giadt = Double.valueOf(nhapgiadt.getText().toString());
                 String chitiet = nhapchitiet.getText().toString();
-                String anh = "anh";
+                byte[] anh=ImageView_To_Byte(themanh);
+                String chuoianh = Base64.getEncoder().encodeToString(anh);
                 int id = dsls.size()+1;
-                DienThoai dienThoai = new DienThoai(id,tendt,chitiet,giadt,anh);
+                DienThoai dienThoai = new DienThoai(id,tendt,chitiet,giadt,chuoianh);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child("DienThoai").child(String.valueOf(id)).setValue(dienThoai);
-                databaseReference.addChildEventListener(new ChildEventListener() {
+                databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Toast.makeText(getContext(), "Thêm Điện Thoại Thành Công", Toast.LENGTH_SHORT).show();
                         getlist();
+                        dsls.clear();
                         adapter.notifyDataSetChanged();
                         dialog.dismiss();
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
                     }
 
                     @Override
@@ -194,6 +205,32 @@ public class DienThoaiFragment extends Fragment {
         });
     }
 
+    public byte[] ImageView_To_Byte(ImageView imgv){
+
+        BitmapDrawable drawable = (BitmapDrawable) imgv.getDrawable();
+        Bitmap bmp = drawable.getBitmap();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 999 && resultCode == RESULT_OK) {
+
+            if (data.getExtras() != null) {
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                themanh.setImageBitmap(imageBitmap);
+            } else {
+                Uri uri = data.getData();
+                themanh.setImageURI(uri);
+            }
+
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

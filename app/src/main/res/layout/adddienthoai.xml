@@ -51,6 +51,11 @@
         android:paddingLeft="15dp"
         android:hint="Nhập Chi Tiết"
         tools:ignore="TouchTargetSizeCheck" />
+    <ImageView
+        android:id="@+id/themanh"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/add" />
 
     <LinearLayout
         android:layout_width="350dp"

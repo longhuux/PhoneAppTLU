@@ -1,5 +1,7 @@
 package com.example.duan1_nhom5;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class ChiTietDienThoaiFragment extends Fragment {
 
@@ -63,12 +66,16 @@ DienThoai dienThoai;
         sotien = v1.findViewById(R.id.tv_tien_chitiet_dienthoai);
         noidungchitiet = v1.findViewById(R.id.tv_chitiet_dienthoai);
         muahang = v1.findViewById(R.id.btn_muangay);
-        anhct=v1.findViewById(R.id.anhdtct);
+        anhct=v1.findViewById(R.id.img_chitiet_dienthoai);
 
         Bundle bundle = this.getArguments();
         String ten1 = bundle.getString("name");
         Double gia = bundle.getDouble("gia");
         String cht = bundle.getString("chitiet");
+        String anh = bundle.getString("anh");
+        byte[] manghinh = Base64.getDecoder().decode(anh);
+        Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
+        anhct.setImageBitmap(bm);
 
         ten.setText(ten1);
         sotien.setText(gia+"");

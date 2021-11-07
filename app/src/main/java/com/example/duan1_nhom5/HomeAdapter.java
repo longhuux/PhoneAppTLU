@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     private ArrayList<DienThoai> dsm;
@@ -56,6 +59,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         DienThoai lg = dsm.get(position);
         holder.tendt.setText(""+lg.getTen());
         holder.giadt.setText("Giá : "+lg.getGiaTien());
+        byte[] manghinh = Base64.getDecoder().decode(lg.getLinkAnh());
+        Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
+        holder.anhdt.setImageBitmap(bm);
 
     }
 

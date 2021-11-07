@@ -148,6 +148,7 @@ public class DangKyActivity extends AppCompatActivity {
         DangKy dangKy = new DangKy(id,hoten,tk,mk);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("NguoiDung").child(String.valueOf(id)).setValue(dangKy);
+        //Authentication
         mAuth.createUserWithEmailAndPassword(tk, mk)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

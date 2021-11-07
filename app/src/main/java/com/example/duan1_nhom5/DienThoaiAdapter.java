@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class DienThoaiAdapter extends RecyclerView.Adapter<DienThoaiAdapter.DienThoaiViewHolder> {
     private ArrayList<DienThoai> dsm;
@@ -64,6 +67,10 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<DienThoaiAdapter.Dien
         DienThoai lg = dsm.get(position);
         holder.tendt.setText(""+lg.getTen());
         holder.giadt.setText("Gia : "+lg.getGiaTien());
+
+        byte[] manghinh = Base64.getDecoder().decode(lg.getLinkAnh());
+        Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
+        holder.anhdt.setImageBitmap(bm);
         holder.anhdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,38 +107,7 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<DienThoaiAdapter.Dien
         }
     }
 
-    private void openDialogchitiet(DienThoai dienThoai){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        LayoutInflater layoutInflater = ((Activity)c).getLayoutInflater();
-        View v1 = layoutInflater.inflate(R.layout.fragment_dienthoai_chitiet,null);
-        builder.setView(v1);
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        TextView ten,gia,chitiet,sotien,noidungchitiet;
-        ImageView anhct;
-        Button muahang;
-
-        ten = v1.findViewById(R.id.tv_name_chitiet_dienthoai);
-        gia = v1.findViewById(R.id.tv_gia_chitiet_dienthoai);
-        chitiet = v1.findViewById(R.id.tv_mota_chitiet_dienthoai);
-        sotien = v1.findViewById(R.id.tv_tien_chitiet_dienthoai);
-        noidungchitiet = v1.findViewById(R.id.tv_chitiet_dienthoai);
-        muahang = v1.findViewById(R.id.btn_muangay);
-        anhct=v1.findViewById(R.id.anhdtct);
-        ten.setText(dienThoai.getTen());
-        sotien.setText(dienThoai.getGiaTien()+"");
-        noidungchitiet.setText(dienThoai.getChiTiet());
-
-        muahang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-    }
     private void getlist(){
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

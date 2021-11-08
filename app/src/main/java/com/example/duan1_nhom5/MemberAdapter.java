@@ -63,9 +63,6 @@ public class MemberAdapter extends FirebaseRecyclerAdapter<DangKy,MemberAdapter.
     protected void onBindViewHolder(ThanhVienViewHolder holder, @SuppressLint("RecyclerView") int i, DangKy dangKy) {
         holder.usern.setText("Tên : "+dangKy.getHoTen());
         holder.pquyen.setText("Email : "+dangKy.getEmail());
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        user.updateEmail(dangKy.getEmail());
-        user.updatePassword(dangKy.getPassword());
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override

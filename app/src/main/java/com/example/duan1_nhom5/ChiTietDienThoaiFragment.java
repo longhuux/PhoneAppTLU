@@ -2,11 +2,14 @@ package com.example.duan1_nhom5;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -27,6 +34,7 @@ DienThoai dienThoai;
     ImageView anhct,cong,tru;
     Button muahang;
     int so = 1;
+    DatabaseReference databaseReference;
     ArrayList<DienThoai> dsm = new ArrayList<DienThoai>();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -81,7 +89,7 @@ DienThoai dienThoai;
         anhct.setImageBitmap(bm);
 
         ten.setText(ten1);
-        sotien.setText("Giá : "+gia);
+
         noidungchitiet.setText(cht);
 
 
@@ -90,6 +98,7 @@ DienThoai dienThoai;
             public void onClick(View view) {
                 so = so+1;
                 soluong.setText(so+"");
+
 
             }
         });
@@ -100,10 +109,40 @@ DienThoai dienThoai;
                 soluong.setText(""+so);
             }
         });
-
-
+        int sl = Integer.parseInt(soluong.getText().toString());
+        Double tinhtong = gia * sl;
+        sotien.setText(tinhtong+"");
+        muahang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tengh = ten.getText().toString();
+                Double giagh = Double.valueOf(sotien.getText().toString());
+                int sogh = Integer.parseInt(soluong.getText().toString());
+                byte[] anh=ImageView_To_Byte(anhct);
+                String chuoianh = Base64.getEncoder().encodeToString(anh);
+                GioHang gioHang = new GioHang(tengh,giagh,sogh,chuoianh);
+                databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child("GioHang").push().setValue(gioHang);
+                Fragment fragment = new GioHangFragment();
+                FragmentManager fmgr =getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
     }
+    public byte[] ImageView_To_Byte(ImageView imgv){
 
+        BitmapDrawable drawable = (BitmapDrawable) imgv.getDrawable();
+        Bitmap bmp = drawable.getBitmap();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

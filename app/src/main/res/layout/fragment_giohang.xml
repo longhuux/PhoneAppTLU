@@ -2,83 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="10"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="fragment.GioHangFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_thongbao"
-                android:textSize="30dp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Không Có Sản Phẩm"/>
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/lv_giohang"/>
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:paddingTop="10dp"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <LinearLayout
+    android:background="@color/white">
 
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tổng Tiền:"
-                android:textSize="30dp"
-                android:textColor="#ff0000"/>
-            </LinearLayout>
-            <LinearLayout
-                android:gravity="right"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Giá Trị"
-                    android:textSize="30dp"
-                    android:textColor="#ff0000"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lv_giohang"
+            android:layout_width="match_parent"
+            android:layout_height="580dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:fontFamily="@font/poppins_medium"
+            android:id="@+id/tongtiengio"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="Tổng Tiền : "
+            android:gravity="center"
+            android:textColor="#550303"
+            android:textSize="25sp" />
+        <TextView
+            android:fontFamily="@font/poppins_medium"
+            android:id="@+id/sotiengio"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="#550303"
+            android:textSize="25sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/btn_thanhtoan"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:text="Thanh Toán"/>
+            android:text="Thanh Toán" />
+
         <Button
             android:id="@+id/btn_tieptucmua"
             android:layout_width="130dp"
-            android:layout_marginLeft="50dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="Tiếp Tục Mua"/>
+            android:layout_marginLeft="50dp"
+            android:text="Tiếp Tục Mua" />
     </LinearLayout>
 </LinearLayout>

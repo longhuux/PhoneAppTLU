@@ -7,11 +7,12 @@
     android:orientation="vertical">
 
     <TextView
+        android:background="@color/register_bk_color"
         android:id="@+id/tvudls"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
-        android:text="Chỉnh Sửa Loại Sách"
+        android:text="Chỉnh Sửa Thành Viên"
         android:textAlignment="center"
         android:textSize="30sp" />
 
@@ -61,6 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_gravity="center"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/joinbtn"
             android:text="Cập Nhật"
@@ -72,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@drawable/joinbtn"
             android:text="Hủy"

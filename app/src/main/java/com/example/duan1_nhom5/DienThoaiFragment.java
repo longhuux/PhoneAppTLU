@@ -34,6 +34,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -83,7 +85,7 @@ public class DienThoaiFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.reviewdt);
         FloatingActionButton button = view.findViewById(R.id.floating);
-        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         getlist();
 
@@ -119,12 +121,12 @@ public class DienThoaiFragment extends Fragment {
 
     }
     public void openDialogAdd () {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        LayoutInflater layoutInflater = this.getLayoutInflater();
-        View v1 = layoutInflater.inflate(R.layout.adddienthoai, null);
-        builder.setView(v1);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+      DialogPlus dialogPlus = DialogPlus.newDialog(getContext())
+              .setContentHolder(new ViewHolder(R.layout.adddienthoai))
+              .setExpanded(true,1400)
+              .create();
+      View v1 = dialogPlus.getHolderView();
+        dialogPlus.show();
         //khai bao
         tao = v1.findViewById(R.id.tvadd);
         nhaptendt = v1.findViewById(R.id.nhaptendt);
@@ -165,7 +167,7 @@ public class DienThoaiFragment extends Fragment {
                         getlist();
                         dsls.clear();
                         adapter.notifyDataSetChanged();
-                        dialog.dismiss();
+                        dialogPlus.dismiss();
                     }
 
                     @Override
@@ -179,7 +181,7 @@ public class DienThoaiFragment extends Fragment {
         huy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                dialogPlus.dismiss();
             }
         });
     }

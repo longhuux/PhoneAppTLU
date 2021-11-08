@@ -57,7 +57,7 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<DienThoaiAdapter.Dien
     @Override
     public DienThoaiViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity) c).getLayoutInflater();
-        View view = inflater.inflate(R.layout.dienthoai_item, parent, false);
+        View view = inflater.inflate(R.layout.item_dienthoai, parent, false);
         DienThoaiViewHolder viewHolder = new DienThoaiViewHolder(view);
         return viewHolder;
     }
@@ -66,7 +66,7 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<DienThoaiAdapter.Dien
     public void onBindViewHolder(DienThoaiViewHolder holder, @SuppressLint("RecyclerView") int position) {
         DienThoai lg = dsm.get(position);
         holder.tendt.setText(""+lg.getTen());
-        holder.giadt.setText("Gia : "+lg.getGiaTien());
+        holder.giadt.setText("Giá : "+lg.getGiaTien());
 
         byte[] manghinh = Base64.getDecoder().decode(lg.getLinkAnh());
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
@@ -93,15 +93,13 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<DienThoaiAdapter.Dien
     public class DienThoaiViewHolder extends RecyclerView.ViewHolder {
         TextView tendt,giadt;
         ImageView anhdt;
-        CardView cardView;
 
         public DienThoaiViewHolder(View view) {
             super(view);
 
-            tendt =view.findViewById(R.id.tendt1);
-            giadt = view.findViewById(R.id.giadt1);
-            anhdt = view.findViewById(R.id.anhdt1);
-            cardView = view.findViewById(R.id.cardviewdienthoai1);
+            tendt =view.findViewById(R.id.itemten);
+            giadt = view.findViewById(R.id.itemgia);
+            anhdt = view.findViewById(R.id.itemsp);
 
 
         }

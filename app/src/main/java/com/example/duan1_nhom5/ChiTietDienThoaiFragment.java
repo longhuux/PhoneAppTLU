@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,10 +23,10 @@ public class ChiTietDienThoaiFragment extends Fragment {
 
 DienThoaiAdapter adapter;
 DienThoai dienThoai;
-    TextView ten,gia,chitiet,sotien,noidungchitiet;
-    ImageView anhct;
+    TextView ten,gia,chitiet,sotien,noidungchitiet,soluong;
+    ImageView anhct,cong,tru;
     Button muahang;
-    int vitri ;
+    int so = 1;
     ArrayList<DienThoai> dsm = new ArrayList<DienThoai>();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -61,11 +62,13 @@ DienThoai dienThoai;
         super.onViewCreated(view, savedInstanceState);
         View v1=view;
         ten = v1.findViewById(R.id.tv_name_chitiet_dienthoai);
-        gia = v1.findViewById(R.id.tv_gia_chitiet_dienthoai);
-        chitiet = v1.findViewById(R.id.tv_mota_chitiet_dienthoai);
         sotien = v1.findViewById(R.id.tv_tien_chitiet_dienthoai);
         noidungchitiet = v1.findViewById(R.id.tv_chitiet_dienthoai);
         muahang = v1.findViewById(R.id.btn_muangay);
+        soluong = v1.findViewById(R.id.soluong);
+        cong = v1.findViewById(R.id.cong);
+        tru = v1.findViewById(R.id.tru);
+
         anhct=v1.findViewById(R.id.img_chitiet_dienthoai);
 
         Bundle bundle = this.getArguments();
@@ -78,8 +81,25 @@ DienThoai dienThoai;
         anhct.setImageBitmap(bm);
 
         ten.setText(ten1);
-        sotien.setText(gia+"");
+        sotien.setText("Giá : "+gia);
         noidungchitiet.setText(cht);
+
+
+        cong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                so = so+1;
+                soluong.setText(so+"");
+
+            }
+        });
+        tru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                so = so-1;
+                soluong.setText(""+so);
+            }
+        });
 
 
     }
@@ -88,6 +108,6 @@ DienThoai dienThoai;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dienthoai_chitiet, container, false);
+        return inflater.inflate(R.layout.fragment_sanpham, container, false);
     }
 }

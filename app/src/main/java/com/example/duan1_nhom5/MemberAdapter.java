@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 
 import java.util.ArrayList;
 
@@ -68,12 +70,12 @@ public class MemberAdapter extends FirebaseRecyclerAdapter<DangKy,MemberAdapter.
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                LayoutInflater layoutInflater = ((Activity)v.getContext()).getLayoutInflater();
-                View v1 = layoutInflater.inflate(R.layout.updatetv,null);
-                builder.setView(v1);
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                DialogPlus dialogPlus = DialogPlus.newDialog(v.getContext())
+                        .setContentHolder(new ViewHolder(R.layout.updatetv))
+                        .setExpanded(true,1100)
+                        .create();
+                View v1 = dialogPlus.getHolderView();
+                dialogPlus.show();
                 TextView tvls;
                 EditText nhaptenls,nhapemail,nhapmk;
 
@@ -101,7 +103,7 @@ public class MemberAdapter extends FirebaseRecyclerAdapter<DangKy,MemberAdapter.
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                                 Toast.makeText(v1.getContext(), "Cập Nhật Thành Công", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
+                                dialogPlus.dismiss();
 
                             }
                         });
@@ -111,7 +113,7 @@ public class MemberAdapter extends FirebaseRecyclerAdapter<DangKy,MemberAdapter.
                 huy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dialog.dismiss();
+                        dialogPlus.dismiss();
                     }
                 });
 

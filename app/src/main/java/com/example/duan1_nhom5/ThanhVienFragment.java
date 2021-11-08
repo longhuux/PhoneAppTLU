@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +27,7 @@ public class ThanhVienFragment extends Fragment {
 
     DangKy dangKy;
     ArrayList<DangKy> dsls = new ArrayList<DangKy>();
-    ThanhVienAdapter adapter;
+    MemberAdapter adapter;
     DatabaseReference databaseReference;
 
     private static final String ARG_PARAM1 = "param1";
@@ -61,14 +62,27 @@ public class ThanhVienFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.reviewm);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        getlist();
+        FirebaseRecyclerOptions<DangKy> options =
+                new FirebaseRecyclerOptions.Builder<DangKy>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("NguoiDung"), DangKy.class)
+                        .build();
 
-        adapter = new ThanhVienAdapter(getContext(),dsls);
+        adapter = new MemberAdapter(options);
         recyclerView.setAdapter(adapter);
         super.onViewCreated(view, savedInstanceState);
     }
 
+    @Override
+    public void onStart() {
+        adapter.startListening();
+        super.onStart();
+    }
 
+    @Override
+    public void onStop() {
+        adapter.stopListening();
+        super.onStop();
+    }
 
     private void getlist(){
 

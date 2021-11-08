@@ -90,9 +90,4 @@ DienThoai dienThoai;
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_dienthoai_chitiet, container, false);
     }
-
-    public void hien(DienThoai dienThoai) {
-
-
-    }
 }

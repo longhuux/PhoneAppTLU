@@ -50,6 +50,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
+    implementation 'com.firebaseui:firebase-ui-database:4.0.1'
+
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'

@@ -8,8 +8,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reviewm"
         android:layout_width="match_parent"
-        android:layout_height="681dp"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp" />
+         />
 
 </RelativeLayout>

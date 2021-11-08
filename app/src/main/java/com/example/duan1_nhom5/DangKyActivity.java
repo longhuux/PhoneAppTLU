@@ -114,7 +114,7 @@ public class DangKyActivity extends AppCompatActivity {
                             int id = dsls.size()+1;
                             DangKy dangKy = new DangKy(id,name,email,mk);
                             databaseReference = FirebaseDatabase.getInstance().getReference();
-                            databaseReference.child("NguoiDung").child(String.valueOf(id)).setValue(dangKy);
+                            databaseReference.child("NguoiDung").push().setValue(dangKy);
                             Toast.makeText(DangKyActivity.this, "Đăng Ký Thành Công", Toast.LENGTH_SHORT).show();
                             mAuth.getInstance().signOut();
                             startActivity(new Intent(DangKyActivity.this,LoginActivity.class));
@@ -147,7 +147,7 @@ public class DangKyActivity extends AppCompatActivity {
         int id = dsls.size()+1;
         DangKy dangKy = new DangKy(id,hoten,tk,mk);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("NguoiDung").child(String.valueOf(id)).setValue(dangKy);
+        databaseReference.child("NguoiDung").push().setValue(dangKy);
         //Authentication
         mAuth.createUserWithEmailAndPassword(tk, mk)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

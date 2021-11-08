@@ -36,7 +36,6 @@ public class Main2Activity extends AppCompatActivity {
     EditText formsearch1;
     ImageView nutsearch;
     ArrayList<DienThoai> dsls = new ArrayList<DienThoai>();
-    ThanhVienAdapter adapter;
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +100,6 @@ public class Main2Activity extends AppCompatActivity {
                             dsls.add(dienThoai);
                         }
                     }
-                    adapter.notifyDataSetChanged();
                 }
 
             }

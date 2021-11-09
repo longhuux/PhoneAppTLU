@@ -46,6 +46,7 @@ public class GioHangAdapter extends FirebaseRecyclerAdapter<GioHang,GioHangAdapt
         TextView ten,gia,soluong;
         ImageView anh;
         ImageView cong,tru;
+        int so=1;
 
         public GioHangViewHolder(View view) {
             super(view);
@@ -56,6 +57,23 @@ public class GioHangAdapter extends FirebaseRecyclerAdapter<GioHang,GioHangAdapt
             soluong = view.findViewById(R.id.soluonggio);
             cong = view.findViewById(R.id.conggio);
             tru = view.findViewById(R.id.trugio);
+
+            cong.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    so = so+1;
+                    soluong.setText(so+"");
+                }
+            });
+            tru.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    so = so-1;
+                    soluong.setText(so+"");
+                }
+            });
+
+
 
 
         }

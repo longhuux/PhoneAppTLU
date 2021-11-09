@@ -98,8 +98,6 @@ DienThoai dienThoai;
             public void onClick(View view) {
                 so = so+1;
                 soluong.setText(so+"");
-
-
             }
         });
         tru.setOnClickListener(new View.OnClickListener() {

@@ -140,9 +140,42 @@
             android:layout_height="20dp"
 
             android:layout_marginStart="16dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="198dp"
+            android:text="TOP ĐIỆN THOẠI THỊNH HÀNH"
+            android:textColor="#229E27"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_marginTop="445dp"
+        android:background="#F0F1F0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvtopphobien"
+            android:layout_width="match_parent"
+            android:layout_height="195dp"
+            android:layout_marginTop="29dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/topphobien"
+            android:layout_width="197dp"
+            android:layout_height="20dp"
+
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="198dp"
-            android:text="Top Điện Thoại Thịnh Hành"
+            android:text="ĐIỆN THOẠI PHỔ BIẾN 2021"
             android:textColor="#229E27"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

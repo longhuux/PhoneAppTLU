@@ -67,6 +67,7 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<DienThoaiAdapter.Dien
         DienThoai lg = dsm.get(position);
         holder.tendt.setText(""+lg.getTen());
         holder.giadt.setText("Giá : "+lg.getGiaTien());
+        holder.ct.setText(""+lg.getChiTiet());
 
         byte[] manghinh = Base64.getDecoder().decode(lg.getLinkAnh());
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
@@ -91,13 +92,14 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<DienThoaiAdapter.Dien
     }
 
     public class DienThoaiViewHolder extends RecyclerView.ViewHolder {
-        TextView tendt,giadt;
+        TextView tendt,giadt,ct;
         ImageView anhdt;
 
         public DienThoaiViewHolder(View view) {
             super(view);
 
             tendt =view.findViewById(R.id.itemten);
+            ct =view.findViewById(R.id.itemct);
             giadt = view.findViewById(R.id.itemgia);
             anhdt = view.findViewById(R.id.itemsp);
 

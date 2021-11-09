@@ -1,6 +1,9 @@
 package com.example.duan1_nhom5;
 
+import android.app.TaskStackBuilder;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.EditText;
@@ -8,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.Toolbar;
 
 import com.example.duan1_nhom5.databinding.AppBarMainBinding;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -76,15 +81,56 @@ public class Main2Activity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        BottomAppBar bottomAppBar = findViewById(R.id.bottomAppBar);
+
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.home:
+//                        Fragment mFragment = new HomeFragment();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment).commit();
+//                        break;
+//                    case R.id.sanpham:
+//                        Fragment mFragment1 = new DienThoaiFragment();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment1).commit();
+//                        break;
+//                    case R.id.giohang:
+//                        Fragment mFragment2 = new GioHangFragment();
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment2).commit();
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main2, menu);
+        getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected( MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                        Fragment mFragment = new HomeFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment).commit();
+                        break;
+                        case R.id.sanpham1:
+                        Fragment mFragment1 = new DienThoaiFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment1).commit();
+                        break;
+                    case R.id.giohang1:
+                        Fragment mFragment2 = new GioHangFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment2).commit();
+                        break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void seach(String keyword){
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -110,6 +156,9 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
     }
+
+
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

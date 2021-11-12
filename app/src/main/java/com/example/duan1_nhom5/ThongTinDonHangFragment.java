@@ -84,16 +84,16 @@ public class ThongTinDonHangFragment extends Fragment {
                 String tenngnhan = nhapten.getText().toString();
                 String diachi = nhapdiachi.getText().toString();
                 int sdt = Integer.parseInt(nhapsdt.getText().toString());
-                ThongTinDonHang donHang = new ThongTinDonHang(tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp);
+                String trangthai = "Chờ Xác Nhận";
+                ThongTinDonHang donHang = new ThongTinDonHang(tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child("ThongTinDonHang").push().setValue(donHang);
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Toast.makeText(getContext(), "Thanh toan thanh cong ", Toast.LENGTH_SHORT).show();
-                        Fragment fragment = new GioHangFragment();
+                        Fragment fragment = new DonHangCuaToiFragment();
                         FragmentManager fmgr =getActivity().getSupportFragmentManager();
-
                         FragmentTransaction ft = fmgr.beginTransaction();
                         ft.replace(R.id.nav_host_fragment_content_main, fragment);
                         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

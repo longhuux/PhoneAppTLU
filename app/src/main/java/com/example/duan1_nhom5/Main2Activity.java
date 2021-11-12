@@ -98,6 +98,10 @@ public class Main2Activity extends AppCompatActivity {
                         Fragment mFragment2 = new GioHangFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment2).commit();
                         break;
+                    case R.id.lichsu:
+                        Fragment mFragment3 = new DonHangCuaToiFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment3).commit();
+                        break;
                 }
                 return true;
             }

@@ -15,7 +15,6 @@ public class DonHang {
 
     public DonHang(String tennguoimua, String diachi, int sdt, String tensanpham, Double giaDonHang, int soLuong, String anhDonHang, String trangthai) {
         Tennguoimua = tennguoimua;
-
         Diachi = diachi;
         Sdt = sdt;
         Tensanpham = tensanpham;

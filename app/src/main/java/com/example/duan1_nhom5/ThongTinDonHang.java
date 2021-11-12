@@ -1,5 +1,8 @@
 package com.example.duan1_nhom5;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ThongTinDonHang {
     private String TenNguoiNhan;
     private String DiaChi;
@@ -8,11 +11,12 @@ public class ThongTinDonHang {
     private Double GiaSP;
     private int SoLuong;
     private String AnhSP;
+    private String TrangThai;
 
     public ThongTinDonHang() {
     }
 
-    public ThongTinDonHang(String tenNguoiNhan, String diaChi, int sdt, String tenSP, Double giaSP, int soLuong, String anhSP) {
+    public ThongTinDonHang(String tenNguoiNhan, String diaChi, int sdt, String tenSP, Double giaSP, int soLuong, String anhSP, String trangThai) {
         TenNguoiNhan = tenNguoiNhan;
         DiaChi = diaChi;
         Sdt = sdt;
@@ -20,6 +24,7 @@ public class ThongTinDonHang {
         GiaSP = giaSP;
         SoLuong = soLuong;
         AnhSP = anhSP;
+        TrangThai = trangThai;
     }
 
     public String getTenNguoiNhan() {
@@ -76,5 +81,25 @@ public class ThongTinDonHang {
 
     public void setAnhSP(String anhSP) {
         AnhSP = anhSP;
+    }
+
+    public String getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        TrangThai = trangThai;
+    }
+
+    public Map<String,Object> toMap(){
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("tenNguoiNhan",TenNguoiNhan);
+        result.put("diaChi",DiaChi);
+        result.put("sdt",Sdt);
+        result.put("tenSP",TenSP);
+        result.put("giaSP",GiaSP);
+        result.put("soLuong",SoLuong);
+        result.put("anhSP",AnhSP);
+        return result;
     }
 }

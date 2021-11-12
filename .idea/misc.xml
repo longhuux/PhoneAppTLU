@@ -26,6 +26,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/fragment_thanh_vien.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/fragment_thongtin.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/item_dienthoai.xml" value="0.1814814814814815" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/item_donhang.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/item_giohang.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/nav_header_main.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/updatetv.xml" value="0.1814814814814815" />
@@ -43,6 +44,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw440dp/fragment_thanh_vien.xml" value="0.14412568306010928" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw440dp/fragment_thongtin.xml" value="0.14412568306010928" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw440dp/item_dienthoai.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw440dp/item_donhang.xml" value="0.153125" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw440dp/item_giohang.xml" value="0.21" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw440dp/layoutsw440dp.xml" value="0.14412568306010928" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw440dp/nav_header_main.xml" value="0.14412568306010928" />
@@ -63,6 +65,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/fragment_dien_thoai.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/fragment_dienthoai.xml" value="0.16394927536231885" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/fragment_dienthoai_chitiet.xml" value="0.22" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/fragment_don_hang_cua_toi.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/fragment_gio_hang.xml" value="0.25" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/fragment_giohang.xml" value="0.2" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/fragment_home2.xml" value="0.22" />
@@ -72,6 +75,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/fragment_thong_tin_don_hang.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/fragment_thongtin.xml" value="0.16394927536231885" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/item_dienthoai.xml" value="0.2" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/item_donhang.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/item_giohang.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/nav_header_main.xml" value="0.16893115942028986" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/topthinhhanh.xml" value="0.20416666666666666" />

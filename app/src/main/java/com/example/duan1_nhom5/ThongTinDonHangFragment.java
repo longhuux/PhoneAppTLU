@@ -7,16 +7,32 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Base64;
 
 public class ThongTinDonHangFragment extends Fragment {
+
+    EditText nhapten,nhapdiachi,nhapsdt;
+    RadioButton thanhtoan;
+    Button xacnhan,trove;
+    DatabaseReference databaseReference;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -48,10 +64,57 @@ public class ThongTinDonHangFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        TextView username = view.findViewById(R.id.testtt);
+        nhapten = view.findViewById(R.id.nhaptenngmua);
+        nhapdiachi = view.findViewById(R.id.nhapdiachi);
+        nhapsdt = view.findViewById(R.id.nhapsodt);
+        thanhtoan = view.findViewById(R.id.rdthanhtoan);
+        xacnhan = view.findViewById(R.id.btn_xacnhan);
+        trove = view.findViewById(R.id.btn_trove);
+
+        //lấy thông tin từ bundle
         Bundle bundle = this.getArguments();
-        String ten1 = bundle.getString("tengh");
-        username.setText(ten1);
+        String tensp = bundle.getString("tengh");
+        Double giasp = bundle.getDouble("giagh");
+        int soluong = Integer.parseInt(bundle.getString("soluong"));
+        String anhsp = bundle.getString("anhgh");
+
+        xacnhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tenngnhan = nhapten.getText().toString();
+                String diachi = nhapdiachi.getText().toString();
+                int sdt = Integer.parseInt(nhapsdt.getText().toString());
+                ThongTinDonHang donHang = new ThongTinDonHang(tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp);
+                databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child("ThongTinDonHang").push().setValue(donHang);
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Toast.makeText(getContext(), "Thanh toan thanh cong ", Toast.LENGTH_SHORT).show();
+                        Fragment fragment = new GioHangFragment();
+                        FragmentManager fmgr =getActivity().getSupportFragmentManager();
+
+                        FragmentTransaction ft = fmgr.beginTransaction();
+                        ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ft.addToBackStack(null);
+                        ft.commit();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+
+
+
+
         super.onViewCreated(view, savedInstanceState);
 
     }

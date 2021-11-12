@@ -1,5 +1,6 @@
 package com.example.duan1_nhom5;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -89,7 +90,7 @@ public class GioHangFragment extends Fragment {
         FirebaseRecyclerAdapter<GioHang, GioHangViewHolder> adapter =
                 new FirebaseRecyclerAdapter<GioHang, GioHangViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull GioHangViewHolder holder, int i, @NonNull GioHang gioHang) {
+                    protected void onBindViewHolder(@NonNull GioHangViewHolder holder, @SuppressLint("RecyclerView") int i, @NonNull GioHang gioHang) {
                         Double tinhtong = gioHang.getGiaGioHang() * gioHang.getSoLuong();
                         holder.ten.setText(""+gioHang.getTenGioHang());
                         holder.gia.setText("Giá : "+tinhtong);
@@ -113,6 +114,10 @@ public class GioHangFragment extends Fragment {
                                btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
                                    @Override
                                    public void onClick(View view) {
+                                       //Xóa dữ liệu đã chọn trong bảng đã thanh toán
+                                       databaseReference = FirebaseDatabase.getInstance().getReference();
+                                       databaseReference.child("GioHang").child(getRef(i).getKey()).removeValue();
+
                                        FragmentTransaction ft = fmgr.beginTransaction();
                                        ft.replace(R.id.nav_host_fragment_content_main, fragment);
                                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

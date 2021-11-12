@@ -6,17 +6,17 @@
         android:id="@+id/sanpham"
         android:icon="@drawable/smartphone"
         app:showAsAction="always"
-        android:title="" />
+        android:title="Sản Phẩm" />
 
     <item
         android:id="@+id/giohang"
         android:icon="@drawable/giohang"
         app:showAsAction="always"
-        android:title="" />
+        android:title="Giỏ Hàng" />
 
     <item
         android:id="@+id/lichsu"
         android:icon="@drawable/lichsu"
         app:showAsAction="always"
-        android:title="" />
+        android:title="Lịch Sử" />
 </menu>

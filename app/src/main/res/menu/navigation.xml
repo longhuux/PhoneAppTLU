@@ -13,7 +13,11 @@
         android:icon="@drawable/giohang"
         app:showAsAction="never"
         android:title="Giỏ Hàng" />
-
+    <item
+        android:id="@+id/donhang"
+        android:icon="@drawable/lichsu"
+        app:showAsAction="never"
+        android:title="Đơn Hàng" />
     <item
         android:id="@+id/lichsu1"
         android:icon="@drawable/lichsu"

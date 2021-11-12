@@ -13,6 +13,7 @@ import android.widget.Toolbar;
 import com.example.duan1_nhom5.databinding.AppBarMainBinding;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -83,6 +84,7 @@ public class Main2Activity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
         BottomAppBar bottomAppBar = findViewById(R.id.bottomAppBar);
 
+
 //        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 //            @Override
 //            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -128,6 +130,10 @@ public class Main2Activity extends AppCompatActivity {
                         Fragment mFragment2 = new GioHangFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment2).commit();
                         break;
+            case R.id.donhang:
+                Fragment mFragment3 = new ThongTinDonHangFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment3).commit();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class DonHangCuaToiFragment extends Fragment {
 
     DonHangCuaToiAdapter adapter;
+    FirebaseAuth firebaseAuth;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -54,10 +56,11 @@ public class DonHangCuaToiFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.lv_dhct);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-
+        String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseRecyclerOptions<ThongTinDonHang> options =
                 new FirebaseRecyclerOptions.Builder<ThongTinDonHang>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("ThongTinDonHang"), ThongTinDonHang.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("ThongTinDonHang").child(uid)
+                                , ThongTinDonHang.class)
                         .build();
         adapter = new DonHangCuaToiAdapter(options);
         recyclerView.setAdapter(adapter);

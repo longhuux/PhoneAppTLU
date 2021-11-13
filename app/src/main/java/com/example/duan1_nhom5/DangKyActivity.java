@@ -111,8 +111,9 @@ public class DangKyActivity extends AppCompatActivity {
                             String email = user.getUid();
                             String name = user.getDisplayName();
                             String mk = "";
+                            String quyen = "Khách Hàng";
                             int id = dsls.size()+1;
-                            DangKy dangKy = new DangKy(id,name,email,mk);
+                            DangKy dangKy = new DangKy(id,name,email,mk,quyen);
                             databaseReference = FirebaseDatabase.getInstance().getReference();
                             databaseReference.child("NguoiDung").push().setValue(dangKy);
                             Toast.makeText(DangKyActivity.this, "Đăng Ký Thành Công", Toast.LENGTH_SHORT).show();
@@ -143,9 +144,9 @@ public class DangKyActivity extends AppCompatActivity {
         String tk = maildk.getEditText().getText().toString();
         String mk = passdk.getEditText().getText().toString();
         String hoten = tendk.getEditText().getText().toString();
-
+        String quyen = "Khách Hàng";
         int id = dsls.size()+1;
-        DangKy dangKy = new DangKy(id,hoten,tk,mk);
+        DangKy dangKy = new DangKy(id,hoten,tk,mk,quyen);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("NguoiDung").push().setValue(dangKy);
         //Authentication

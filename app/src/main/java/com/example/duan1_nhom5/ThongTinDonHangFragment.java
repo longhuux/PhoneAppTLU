@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +34,7 @@ public class ThongTinDonHangFragment extends Fragment {
     RadioButton thanhtoan;
     Button xacnhan,trove;
     DatabaseReference databaseReference;
+    FirebaseAuth firebaseAuth;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -85,9 +87,10 @@ public class ThongTinDonHangFragment extends Fragment {
                 String diachi = nhapdiachi.getText().toString();
                 int sdt = Integer.parseInt(nhapsdt.getText().toString());
                 String trangthai = "Chờ Xác Nhận";
+                String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
                 ThongTinDonHang donHang = new ThongTinDonHang(tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
-                databaseReference.child("ThongTinDonHang").push().setValue(donHang);
+                databaseReference.child("ThongTinDonHang").child(uid).push().setValue(donHang);
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

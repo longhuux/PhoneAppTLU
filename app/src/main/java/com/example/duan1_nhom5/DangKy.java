@@ -8,16 +8,17 @@ public class DangKy {
     private String HoTen;
     private String Email;
     private String Password;
+    private String PhanQuyen;
     private DangKy() {
     }
 
-    public DangKy(int id, String hoten, String email, String password) {
+    public DangKy(int id, String hoTen, String email, String password, String phanQuyen) {
         Id = id;
-        HoTen=hoten;
+        HoTen = hoTen;
         Email = email;
         Password = password;
+        PhanQuyen = phanQuyen;
     }
-
 
     public int getId() {
         return Id;
@@ -51,11 +52,20 @@ public class DangKy {
         Password = password;
     }
 
+    public String getPhanQuyen() {
+        return PhanQuyen;
+    }
+
+    public void setPhanQuyen(String phanQuyen) {
+        PhanQuyen = phanQuyen;
+    }
+
     public Map<String,Object> toMap(){
         HashMap<String,Object> result = new HashMap<>();
         result.put("email",Email);
         result.put("hoTen",HoTen);
         result.put("password",Password);
+        result.put("phanQuyen",PhanQuyen);
 
         return result;
     }

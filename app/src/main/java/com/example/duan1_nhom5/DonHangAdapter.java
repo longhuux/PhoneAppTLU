@@ -13,17 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Base64;
 
 public class DonHangAdapter extends FirebaseRecyclerAdapter<GioHang, DonHangAdapter.DonHangViewHolder> {
 
+    FirebaseAuth firebaseAuth;
     public DonHangAdapter(@NonNull FirebaseRecyclerOptions<GioHang> options) {
         super(options);
     }
 
     @Override
     protected void onBindViewHolder(@NonNull DonHangViewHolder holder, int i, @NonNull GioHang gioHang) {
+        String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
         Double tinhtong = gioHang.getGiaGioHang() * gioHang.getSoLuong();
         holder.ten.setText(""+gioHang.getTenGioHang());
         holder.gia.setText("Giá : "+tinhtong);

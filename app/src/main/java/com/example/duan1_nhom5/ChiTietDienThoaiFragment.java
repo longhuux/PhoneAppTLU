@@ -19,8 +19,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -33,8 +37,10 @@ DienThoai dienThoai;
     TextView ten,gia,chitiet,sotien,noidungchitiet,soluong;
     ImageView anhct,cong,tru;
     Button muahang;
+    int id;
     int so = 1;
     DatabaseReference databaseReference;
+    FirebaseAuth firebaseAuth;
     ArrayList<DienThoai> dsm = new ArrayList<DienThoai>();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -87,7 +93,7 @@ DienThoai dienThoai;
         byte[] manghinh = Base64.getDecoder().decode(anh);
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
         anhct.setImageBitmap(bm);
-
+        sotien.setText(""+gia);
         ten.setText(ten1);
 
         noidungchitiet.setText(cht);
@@ -98,6 +104,9 @@ DienThoai dienThoai;
             public void onClick(View view) {
                 so = so+1;
                 soluong.setText(so+"");
+                int sl = Integer.parseInt(soluong.getText().toString());
+                Double tinhtong = gia * sl;
+                sotien.setText(tinhtong+"");
             }
         });
         tru.setOnClickListener(new View.OnClickListener() {
@@ -105,11 +114,13 @@ DienThoai dienThoai;
             public void onClick(View view) {
                 so = so-1;
                 soluong.setText(""+so);
+                int sl = Integer.parseInt(soluong.getText().toString());
+                Double tinhtong = gia * sl;
+                sotien.setText(tinhtong+"");
             }
         });
-        int sl = Integer.parseInt(soluong.getText().toString());
-        Double tinhtong = gia * sl;
-        sotien.setText(tinhtong+"");
+
+
         muahang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,10 +128,14 @@ DienThoai dienThoai;
                 Double giagh = Double.valueOf(sotien.getText().toString());
                 int sogh = Integer.parseInt(soluong.getText().toString());
                 byte[] anh=ImageView_To_Byte(anhct);
+
                 String chuoianh = Base64.getEncoder().encodeToString(anh);
                 GioHang gioHang = new GioHang(tengh,giagh,sogh,chuoianh);
+
+                String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
+
                 databaseReference = FirebaseDatabase.getInstance().getReference();
-                databaseReference.child("GioHang").push().setValue(gioHang);
+                databaseReference.child("GioHang").child(uid).push().setValue(gioHang);
                 Fragment fragment = new GioHangFragment();
                 FragmentManager fmgr =getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fmgr.beginTransaction();

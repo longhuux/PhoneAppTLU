@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -36,6 +37,7 @@ public class GioHangFragment extends Fragment {
     FirebaseRecyclerAdapter<GioHang,GioHangAdapter.GioHangViewHolder> mFirebaseAdapter;
     RecyclerView recyclerView;
     Button btn_thanhtoan;
+    FirebaseAuth firebaseAuth;
     private LinearLayoutManager manager;
     //GioHangAdapter adapter;
     DatabaseReference databaseReference;
@@ -81,9 +83,10 @@ public class GioHangFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseRecyclerOptions<GioHang> options =
                 new FirebaseRecyclerOptions.Builder<GioHang>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("GioHang"), GioHang.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("GioHang").child(uid), GioHang.class)
                         .build();
 
 
@@ -91,9 +94,9 @@ public class GioHangFragment extends Fragment {
                 new FirebaseRecyclerAdapter<GioHang, GioHangViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull GioHangViewHolder holder, @SuppressLint("RecyclerView") int i, @NonNull GioHang gioHang) {
-                        Double tinhtong = gioHang.getGiaGioHang() * gioHang.getSoLuong();
+
                         holder.ten.setText(""+gioHang.getTenGioHang());
-                        holder.gia.setText("Giá : "+tinhtong);
+                        holder.gia.setText("Giá : "+gioHang.getGiaGioHang());
                         holder.soluong.setText(""+gioHang.getSoLuong());
                         byte[] manghinh = Base64.getDecoder().decode(gioHang.getAnhGioHang());
                         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
@@ -116,7 +119,7 @@ public class GioHangFragment extends Fragment {
                                    public void onClick(View view) {
                                        //Xóa dữ liệu đã chọn trong bảng đã thanh toán
                                        databaseReference = FirebaseDatabase.getInstance().getReference();
-                                       databaseReference.child("GioHang").child(getRef(i).getKey()).removeValue();
+                                       databaseReference.child("GioHang").child(uid).child(getRef(i).getKey()).removeValue();
 
                                        FragmentTransaction ft = fmgr.beginTransaction();
                                        ft.replace(R.id.nav_host_fragment_content_main, fragment);
@@ -128,7 +131,26 @@ public class GioHangFragment extends Fragment {
 
                            }
                        });
-
+                        holder.cong.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                holder.so = holder.so+1;
+                                holder.soluong.setText(holder.so+"");
+                                int sl = Integer.parseInt(holder.soluong.getText().toString());
+                                Double tinhtong = gioHang.getGiaGioHang() * sl;
+                                holder.gia.setText(tinhtong+"");
+                            }
+                        });
+                        holder.tru.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                holder.so = holder.so-1;
+                                holder.soluong.setText(holder.so+"");
+                                int sl = Integer.parseInt(holder.soluong.getText().toString());
+                                Double tinhtong = gioHang.getGiaGioHang() * sl;
+                                holder.gia.setText(tinhtong+"");
+                            }
+                        });
 
 
                     }
@@ -164,20 +186,7 @@ public class GioHangFragment extends Fragment {
             tru = view.findViewById(R.id.trugio);
             select = view.findViewById(R.id.select111);
 
-            cong.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    so = so+1;
-                    soluong.setText(so+"");
-                }
-            });
-            tru.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    so = so-1;
-                    soluong.setText(so+"");
-                }
-            });
+
 
 
 

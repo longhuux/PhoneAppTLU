@@ -61,17 +61,13 @@ public class HomeFragment extends Fragment {
         ImageView anhslide = view.findViewById(R.id.anhslide);
         anhslide.setBackgroundResource(R.drawable.slide);
         RecyclerView recyclerView = view.findViewById(R.id.rvtop);
-        RecyclerView recyclerView1 = view.findViewById(R.id.rvtopphobien);
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager layoutManager1= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView1.setLayoutManager(layoutManager1);
         dsls.clear();
         getlist();
 
         adapter = new HomeAdapter(getContext(), dsls);
         recyclerView.setAdapter(adapter);
-        recyclerView1.setAdapter(adapter);
 
         AnimationDrawable drawable1 = (AnimationDrawable) anhslide.getBackground();
             drawable1.start();

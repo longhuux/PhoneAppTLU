@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,8 +62,7 @@ public class HomeFragment extends Fragment {
         ImageView anhslide = view.findViewById(R.id.anhslide);
         anhslide.setBackgroundResource(R.drawable.slide);
         RecyclerView recyclerView = view.findViewById(R.id.rvtop);
-        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         dsls.clear();
         getlist();
 

@@ -34,23 +34,21 @@ import com.orhanobut.dialogplus.ViewHolder;
 import java.util.ArrayList;
 
 public class MemberAdapter extends FirebaseRecyclerAdapter<DangKy,MemberAdapter.ThanhVienViewHolder> {
-    private ArrayList<DangKy> dsm;
-    DangKy dangKy;
-    Context c;
     DatabaseReference databaseReference;
 
     public MemberAdapter(FirebaseRecyclerOptions<DangKy> options) {
         super(options);
     }
+
     class ThanhVienViewHolder extends RecyclerView.ViewHolder {
-        TextView usern,pquyen;
-        ImageView edit,delete;
+        TextView usern, pquyen;
+        ImageView edit, delete;
         CardView cardView;
 
         public ThanhVienViewHolder(View view) {
             super(view);
 
-            usern =view.findViewById(R.id.idls);
+            usern = view.findViewById(R.id.idls);
             pquyen = view.findViewById(R.id.tenls);
             edit = view.findViewById(R.id.editls);
             delete = view.findViewById(R.id.deletels);
@@ -59,30 +57,31 @@ public class MemberAdapter extends FirebaseRecyclerAdapter<DangKy,MemberAdapter.
 
         }
     }
+
     @Override
     protected void onBindViewHolder(ThanhVienViewHolder holder, @SuppressLint("RecyclerView") int i, DangKy dangKy) {
-        holder.usern.setText("Tên : "+dangKy.getHoTen());
-        holder.pquyen.setText("Email : "+dangKy.getEmail());
+        holder.usern.setText("Tên : " + dangKy.getHoTen());
+        holder.pquyen.setText("Email : " + dangKy.getEmail());
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogPlus dialogPlus = DialogPlus.newDialog(v.getContext())
                         .setContentHolder(new ViewHolder(R.layout.updatetv))
-                        .setExpanded(true,1100)
+                        .setExpanded(true, 850)
                         .create();
                 View v1 = dialogPlus.getHolderView();
                 dialogPlus.show();
                 TextView tvls;
-                EditText nhaptenls,nhapemail,nhapmk;
+                EditText nhaptenls, nhapemail, nhapmk;
 
-                Button capnhat,huy;
+                Button capnhat, huy;
                 tvls = v1.findViewById(R.id.tvudls);
                 nhaptenls = v1.findViewById(R.id.nhaptenls);
                 nhapemail = v1.findViewById(R.id.nhapemaills);
                 nhapmk = v1.findViewById(R.id.nhapmk);
                 capnhat = v1.findViewById(R.id.capnhatls);
-                huy=v1.findViewById(R.id.huyls);
+                huy = v1.findViewById(R.id.huyls);
                 nhaptenls.setText(dangKy.getHoTen());
                 nhapemail.setText(dangKy.getEmail());
                 nhapmk.setText(dangKy.getPassword());
@@ -119,7 +118,7 @@ public class MemberAdapter extends FirebaseRecyclerAdapter<DangKy,MemberAdapter.
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder1=new AlertDialog.Builder(v.getContext());
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(v.getContext());
                 builder1.setMessage("Bạn Có Chắc Chắn Muốn Xóa?");
                 builder1.setCancelable(true);
                 builder1.setPositiveButton("Có", new DialogInterface.OnClickListener() {
@@ -142,37 +141,15 @@ public class MemberAdapter extends FirebaseRecyclerAdapter<DangKy,MemberAdapter.
                         dialog.cancel();
                     }
                 });
-                AlertDialog alertDialog=builder1.create();
+                AlertDialog alertDialog = builder1.create();
                 alertDialog.show();
             }
         });
     }
 
     @Override
-    public ThanhVienViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public ThanhVienViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.two_item, parent, false);
         return new ThanhVienViewHolder(view);
-    }
-
-
-    private void getlist(){
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("NguoiDung");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    DangKy dangKy = dataSnapshot.getValue(DangKy.class);
-                    dsm.add(dangKy);
-                }
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 }

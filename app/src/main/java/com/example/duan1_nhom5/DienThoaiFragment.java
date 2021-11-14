@@ -87,8 +87,8 @@ public class DienThoaiFragment extends Fragment {
         FloatingActionButton button = view.findViewById(R.id.floating);
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        dsls.clear();
         getlist();
-
         adapter = new DienThoaiAdapter(getContext(), dsls, new DienThoaiAdapter.hienChiTiet() {
 
             @Override
@@ -157,7 +157,8 @@ public class DienThoaiFragment extends Fragment {
                 byte[] anh=ImageView_To_Byte(themanh);
                 String chuoianh = Base64.getEncoder().encodeToString(anh);
                 int id = dsls.size()+1;
-                DienThoai dienThoai = new DienThoai(id,tendt,chitiet,giadt,chuoianh);
+                int DaBan = 0;
+                DienThoai dienThoai = new DienThoai(id,tendt,chitiet,giadt,chuoianh,DaBan);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child("DienThoai").child(String.valueOf(id)).setValue(dienThoai);
                 databaseReference.addValueEventListener(new ValueEventListener() {
@@ -165,7 +166,6 @@ public class DienThoaiFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Toast.makeText(getContext(), "Thêm Điện Thoại Thành Công", Toast.LENGTH_SHORT).show();
                         getlist();
-                        dsls.clear();
                         adapter.notifyDataSetChanged();
                         dialogPlus.dismiss();
                     }

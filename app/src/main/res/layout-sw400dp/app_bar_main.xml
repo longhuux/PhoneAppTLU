@@ -17,30 +17,7 @@
         app:layout_anchorGravity="center"
         app:popupTheme="@style/Theme.DuAn1_Nhom5.NoActionBar.PopupOverlay">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FFSHOP"
-            android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/formsearch"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="20sp"
-            android:background="@color/whiteTextColor"
-            android:hint="  Bạn cần tìm gì..."
-            android:textSize="14sp"
-            tools:ignore="TouchTargetSizeCheck">
-
-        </EditText>
-
-        <ImageView
-            android:id="@+id/nutsearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/search" />
     </androidx.appcompat.widget.Toolbar>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

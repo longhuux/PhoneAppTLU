@@ -6,16 +6,18 @@ public class DienThoai {
     private String ChiTiet;
     private Double GiaTien;
     private String LinkAnh;
+    private int DaBan;
 
     public DienThoai() {
     }
 
-    public DienThoai(int id, String ten, String chiTiet, Double giaTien, String linkAnh) {
+    public DienThoai(int id, String ten, String chiTiet, Double giaTien, String linkAnh, int daBan) {
         Id = id;
         Ten = ten;
         ChiTiet = chiTiet;
         GiaTien = giaTien;
         LinkAnh = linkAnh;
+        DaBan = daBan;
     }
 
     public int getId() {
@@ -56,5 +58,13 @@ public class DienThoai {
 
     public void setLinkAnh(String linkAnh) {
         LinkAnh = linkAnh;
+    }
+
+    public int getDaBan() {
+        return DaBan;
+    }
+
+    public void setDaBan(int daBan) {
+        DaBan = daBan;
     }
 }

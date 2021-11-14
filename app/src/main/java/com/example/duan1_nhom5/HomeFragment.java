@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager1= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView1.setLayoutManager(layoutManager1);
-
+        dsls.clear();
         getlist();
 
         adapter = new HomeAdapter(getContext(), dsls);
@@ -78,7 +78,6 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
     private void getlist(){
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("DienThoai");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -86,6 +85,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     DienThoai dienThoai = dataSnapshot.getValue(DienThoai.class);
+
                     dsls.add(dienThoai);
                 }
                 adapter.notifyDataSetChanged();

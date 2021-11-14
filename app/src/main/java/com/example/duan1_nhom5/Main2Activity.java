@@ -46,9 +46,6 @@ public class Main2Activity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMain2Binding binding;
-    ContentMainBinding contentMainBinding ;
-    EditText formsearch1;
-    ImageView nutsearch;
     ArrayList<DienThoai> ds;
     int count;
     DatabaseReference databaseReference;
@@ -58,25 +55,6 @@ public class Main2Activity extends AppCompatActivity {
         
         binding = ActivityMain2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        formsearch1 = binding.appBarMain.toolbar.findViewById(R.id.formsearch);
-        nutsearch = binding.appBarMain.toolbar.findViewById(R.id.nutsearch);
-        formsearch1.setVisibility(View.INVISIBLE);
-        nutsearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                formsearch1.setVisibility(VISIBLE);
-                nutsearch.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        seach(formsearch1.getText().toString());
-                        formsearch1.setVisibility(View.INVISIBLE);
-                        Fragment mFragment = new DienThoaiFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment).commit();
-                    }
-                });
-            }
-        });
         setSupportActionBar(binding.appBarMain.toolbar);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -164,13 +142,21 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected( MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.home:
-                        Fragment mFragment = new HomeFragment();
+            case R.id.timkiem:
+                        Fragment mFragment = new DienThoaiFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment).commit();
                         break;
-            case R.id.donhang:
+            case R.id.lienhe:
                 Fragment mFragment3 = new ThongTinDonHangFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment3).commit();
+                break;
+            case R.id.danhgia:
+                Fragment mFragment4 = new ThongTinDonHangFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment4).commit();
+                break;
+            case R.id.caidat:
+                Fragment mFragment5 = new ThongTinDonHangFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment5).commit();
                 break;
         }
         return super.onOptionsItemSelected(item);

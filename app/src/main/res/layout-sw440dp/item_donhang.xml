@@ -67,7 +67,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/btn"
         android:text="Hủy"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

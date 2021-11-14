@@ -31,4 +31,5 @@
     <style name="Theme.DuAn1_Nhom5.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.DuAn1_Nhom5.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

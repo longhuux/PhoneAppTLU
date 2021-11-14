@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,7 +65,6 @@ public class DonHangCuaToiFragment extends Fragment {
                         .build();
         adapter = new DonHangCuaToiAdapter(options);
         recyclerView.setAdapter(adapter);
-
     }
 
     @Override

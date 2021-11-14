@@ -28,6 +28,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    viewBinding{
+        enabled=true
+    }
 }
 
 dependencies {
@@ -52,6 +56,9 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
     implementation 'com.orhanobut:dialogplus:1.11@aar'
     implementation 'com.firebaseui:firebase-ui-database:4.0.1'
+    implementation 'com.aurelhubert:ahbottomnavigation:2.3.4'
+
+
 
 }
 apply plugin: 'com.google.gms.google-services'

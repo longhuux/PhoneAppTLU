@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
-    android:layout_marginTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -23,7 +22,7 @@
     <TextView
         android:id="@+id/itemten"
         android:layout_width="242dp"
-        android:layout_height="wrap_content"
+        android:layout_height="58dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/poppins_medium"
@@ -38,34 +37,34 @@
         android:layout_width="wrap_content"
         android:layout_height="37dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Gia"
         android:textAlignment="textStart"
         android:textColor="#750A1F"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/itemsp"
-        app:layout_constraintTop_toBottomOf="@+id/itemten" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/itemct"
         android:layout_width="wrap_content"
-        android:layout_height="33dp"
+        android:layout_height="35dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="103dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Chi Tiết"
         android:textColor="#7A7879"
         android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/itemsp"
-        app:layout_constraintTop_toBottomOf="@+id/itemgia" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="139dp"
+        android:layout_marginTop="145dp"
         android:background="@drawable/dienthoaicach"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -44,32 +45,42 @@ public class DonHangCuaToiAdapter extends FirebaseRecyclerAdapter<ThongTinDonHan
         byte[] manghinh = Base64.getDecoder().decode(donHang.getAnhSP());
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
         holder.anh.setImageBitmap(bm);
-        holder.huy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder1=new AlertDialog.Builder(view.getContext());
-                builder1.setMessage("Bạn Có Chắc Chắn Muốn Hủy?");
-                builder1.setCancelable(true);
-                builder1.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        holder.trangthai.setText("Đã Hủy");
-                        String tt = holder.trangthai.getText().toString();
-                        databaseReference = FirebaseDatabase.getInstance().getReference();
-                        databaseReference.child("ThongTinDonHang").child(uid).child(getRef(i).getKey()).child("trangThai").setValue(tt);
+        if(holder.trangthai.getText().toString().equalsIgnoreCase("Chờ Xác Nhận")) {
+            holder.huy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
+                    builder1.setMessage("Bạn Có Chắc Chắn Muốn Hủy?");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            holder.trangthai.setText("Đã Hủy");
+                            String tt = holder.trangthai.getText().toString();
+                            databaseReference = FirebaseDatabase.getInstance().getReference();
+                            databaseReference.child("ThongTinDonHang").child(uid).child(getRef(i).getKey()).child("trangThai").setValue(tt);
 
-                    }
-                });
-                builder1.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alertDialog=builder1.create();
-                alertDialog.show();
-            }
-        });
+                        }
+                    });
+                    builder1.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog alertDialog = builder1.create();
+                    alertDialog.show();
+                }
+            });
+        }else {
+            holder.huy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(holder.itemView.getContext(), "Không Thể Hủy Do Đơn Hàng Này Đã Xác Nhận", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
 
     }
 

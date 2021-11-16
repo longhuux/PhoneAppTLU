@@ -3,6 +3,7 @@ package com.example.duan1_nhom5;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -26,9 +28,12 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Base64;
 
@@ -37,7 +42,12 @@ public class GioHangFragment extends Fragment {
     FirebaseRecyclerAdapter<GioHang,GioHangAdapter.GioHangViewHolder> mFirebaseAdapter;
     RecyclerView recyclerView;
     Button btn_thanhtoan;
+    TextView xoa;
+    int daban;
+    RadioButton chontatca;
     FirebaseAuth firebaseAuth;
+    TextView vnd;
+    int giadtchitiet;
     private LinearLayoutManager manager;
     //GioHangAdapter adapter;
     DatabaseReference databaseReference;
@@ -74,6 +84,9 @@ public class GioHangFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
          btn_thanhtoan = view.findViewById(R.id.btn_thanhtoan);
+         vnd = view.findViewById(R.id.vnd);
+         chontatca = view.findViewById(R.id.chontatca);
+         xoa = view.findViewById(R.id.xoagiohang);
          recyclerView = view.findViewById(R.id.lv_giohang);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -96,58 +109,96 @@ public class GioHangFragment extends Fragment {
                     protected void onBindViewHolder(@NonNull GioHangViewHolder holder, @SuppressLint("RecyclerView") int i, @NonNull GioHang gioHang) {
 
                         holder.ten.setText(""+gioHang.getTenGioHang());
-                        holder.gia.setText("Giá : "+gioHang.getGiaGioHang());
+                        holder.gia.setText(""+gioHang.getGiaGioHang());
                         holder.soluong.setText(""+gioHang.getSoLuong());
                         byte[] manghinh = Base64.getDecoder().decode(gioHang.getAnhGioHang());
                         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
                         holder.anh.setImageBitmap(bm);
-                        holder.select.setOnClickListener(new View.OnClickListener() {
-                           @Override
-                           public void onClick(View view) {
-                               holder.select.setImageResource(R.drawable.radio_checked);
-                               Toast.makeText(getContext(), "Đã Chọn", Toast.LENGTH_SHORT).show();
-                               Fragment fragment = new ThongTinDonHangFragment();
-                               FragmentManager fmgr =getActivity().getSupportFragmentManager();
-                               Bundle bundle = new Bundle();
-                               bundle.putString("tengh",gioHang.getTenGioHang());
-                               bundle.putDouble("giagh",gioHang.getGiaGioHang());
-                               bundle.putString("soluong", String.valueOf(gioHang.getSoLuong()));
-                               bundle.putString("anhgh",gioHang.getAnhGioHang());
-                               fragment.setArguments(bundle);
-                               btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
-                                   @Override
-                                   public void onClick(View view) {
-                                       //Xóa dữ liệu đã chọn trong bảng đã thanh toán
-                                       databaseReference = FirebaseDatabase.getInstance().getReference();
-                                       databaseReference.child("GioHang").child(uid).child(getRef(i).getKey()).removeValue();
 
-                                       FragmentTransaction ft = fmgr.beginTransaction();
-                                       ft.replace(R.id.nav_host_fragment_content_main, fragment);
-                                       ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                       ft.addToBackStack(null);
-                                       ft.commit();
-                                   }
-                               });
+                        holder.select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                if (compoundButton.isChecked()) {
+                                    vnd.setText(gioHang.getGiaGioHang() + " Đ");
+                                    Toast.makeText(getContext(), "Đã Chọn", Toast.LENGTH_SHORT).show();
+                                    Fragment fragment = new ThongTinDonHangFragment();
+                                    FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("tengh", gioHang.getTenGioHang());
+                                    bundle.putInt("giagh", gioHang.getGiaGioHang());
+                                    bundle.putString("soluong", String.valueOf(gioHang.getSoLuong()));
+                                    bundle.putString("anhgh", gioHang.getAnhGioHang());
+                                    fragment.setArguments(bundle);
 
-                           }
-                       });
+                                    xoa.setEnabled(true);
+                                    chontatca.setText("Bỏ Chọn");
+                                    btn_thanhtoan.setEnabled(true);
+                                    chontatca.setChecked(false);
+
+                                    btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            //Xóa dữ liệu đã chọn trong bảng đã thanh toán
+                                            databaseReference = FirebaseDatabase.getInstance().getReference();
+                                            databaseReference.child("GioHang").child(uid).child(getRef(i).getKey()).removeValue();
+
+                                            FragmentTransaction ft = fmgr.beginTransaction();
+                                            ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                            ft.addToBackStack(null);
+                                            ft.commit();
+                                        }
+                                    });
+
+                                    xoa.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            databaseReference = FirebaseDatabase.getInstance().getReference();
+                                            databaseReference.child("GioHang").child(uid).child(getRef(i).getKey()).removeValue();
+                                            Toast.makeText(getContext(), "Đã Xóa Thành Công", Toast.LENGTH_SHORT).show();
+                                            chontatca.setText("Chọn tất cả");
+                                            chontatca.setChecked(false);
+                                        }
+                                    });
+
+                                    chontatca.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                        @Override
+                                        public void onCheckedChanged(CompoundButton compoundButton1, boolean b) {
+                                            if (compoundButton1.isChecked()){
+                                                compoundButton.setChecked(false);
+                                                xoa.setEnabled(false);
+                                                chontatca.setText("Chọn tất cả");
+                                                chontatca.setChecked(false);
+                                            }
+                                        }
+                                    });
+
+
+
+                                }
+
+
+                            }
+                        });
+
+
                         holder.cong.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                holder.so = holder.so+1;
+                                int sl1 = Integer.parseInt(holder.soluong.getText().toString());
+                                holder.so =sl1 +1;
                                 holder.soluong.setText(holder.so+"");
-                                int sl = Integer.parseInt(holder.soluong.getText().toString());
-                                Double tinhtong = gioHang.getGiaGioHang() * sl;
+                                int tinhtong = gioHang.getGiaDT() * holder.so;
                                 holder.gia.setText(tinhtong+"");
                             }
                         });
                         holder.tru.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                holder.so = holder.so-1;
+                                int sl1 = Integer.parseInt(holder.soluong.getText().toString());
+                                holder.so =sl1 - 1;
                                 holder.soluong.setText(holder.so+"");
-                                int sl = Integer.parseInt(holder.soluong.getText().toString());
-                                Double tinhtong = gioHang.getGiaGioHang() * sl;
+                                int tinhtong = gioHang.getGiaDT()  * holder.so;
                                 holder.gia.setText(tinhtong+"");
                             }
                         });
@@ -171,9 +222,11 @@ public class GioHangFragment extends Fragment {
 
     public static class GioHangViewHolder extends RecyclerView.ViewHolder {
         TextView ten,gia,soluong;
-        ImageView anh,select;
+        ImageView anh;
+        RadioButton select;
+
         ImageView cong,tru;
-        int so=1;
+        int so;
 
         public GioHangViewHolder(View view) {
             super(view);
@@ -185,11 +238,6 @@ public class GioHangFragment extends Fragment {
             cong = view.findViewById(R.id.conggio);
             tru = view.findViewById(R.id.trugio);
             select = view.findViewById(R.id.select111);
-
-
-
-
-
 
         }
     }

@@ -83,6 +83,7 @@ public class DienThoaiFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         RecyclerView recyclerView = view.findViewById(R.id.reviewdt);
         FloatingActionButton button = view.findViewById(R.id.floating);
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
@@ -97,7 +98,7 @@ public class DienThoaiFragment extends Fragment {
                 FragmentManager fmgr =getActivity().getSupportFragmentManager();
                 Bundle bundle = new Bundle();
                 bundle.putString("name",dienThoai.getTen());
-                bundle.putDouble("gia",dienThoai.getGiaTien());
+                bundle.putInt("gia",dienThoai.getGiaTien());
                 bundle.putString("chitiet",dienThoai.getChiTiet());
                 bundle.putString("anh",dienThoai.getLinkAnh());
                 fragment.setArguments(bundle);
@@ -119,11 +120,13 @@ public class DienThoaiFragment extends Fragment {
             }
         });
 
+
+
     }
     public void openDialogAdd () {
       DialogPlus dialogPlus = DialogPlus.newDialog(getContext())
               .setContentHolder(new ViewHolder(R.layout.adddienthoai))
-              .setExpanded(true,1400)
+              .setExpanded(true,1200)
               .create();
       View v1 = dialogPlus.getHolderView();
         dialogPlus.show();
@@ -152,7 +155,7 @@ public class DienThoaiFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String tendt = nhaptendt.getText().toString();
-                Double giadt = Double.valueOf(nhapgiadt.getText().toString());
+                int giadt = Integer.parseInt(nhapgiadt.getText().toString());
                 String chitiet = nhapchitiet.getText().toString();
                 byte[] anh=ImageView_To_Byte(themanh);
                 String chuoianh = Base64.getEncoder().encodeToString(anh);
@@ -160,7 +163,7 @@ public class DienThoaiFragment extends Fragment {
                 int DaBan = 0;
                 DienThoai dienThoai = new DienThoai(id,tendt,chitiet,giadt,chuoianh,DaBan);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
-                databaseReference.child("DienThoai").child(String.valueOf(id)).setValue(dienThoai);
+                databaseReference.child("DienThoai").push().setValue(dienThoai);
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

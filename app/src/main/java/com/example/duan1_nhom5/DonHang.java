@@ -5,7 +5,7 @@ public class DonHang {
     private String Diachi;
     private int Sdt;
     private String Tensanpham;
-    private Double GiaDonHang;
+    private int GiaDonHang;
     private int SoLuong;
     private String AnhDonHang;
     private String Trangthai;
@@ -13,7 +13,7 @@ public class DonHang {
     public DonHang() {
     }
 
-    public DonHang(String tennguoimua, String diachi, int sdt, String tensanpham, Double giaDonHang, int soLuong, String anhDonHang, String trangthai) {
+    public DonHang(String tennguoimua, String diachi, int sdt, String tensanpham, Integer giaDonHang, int soLuong, String anhDonHang, String trangthai) {
         Tennguoimua = tennguoimua;
         Diachi = diachi;
         Sdt = sdt;
@@ -56,11 +56,11 @@ public class DonHang {
         Tensanpham = tensanpham;
     }
 
-    public Double getGiaDonHang() {
+    public Integer getGiaDonHang() {
         return GiaDonHang;
     }
 
-    public void setGiaDonHang(Double giaDonHang) {
+    public void setGiaDonHang(Integer giaDonHang) {
         GiaDonHang = giaDonHang;
     }
 

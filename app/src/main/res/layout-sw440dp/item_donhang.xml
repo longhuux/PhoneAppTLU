@@ -47,6 +47,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/vndsd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:text="Đ"
+        android:textColor="#232323"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/itemgiadh"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
         android:id="@+id/itemtrangthai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

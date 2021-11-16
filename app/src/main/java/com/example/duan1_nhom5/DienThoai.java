@@ -4,14 +4,14 @@ public class DienThoai {
     private int Id;
     private String Ten;
     private String ChiTiet;
-    private Double GiaTien;
+    private int GiaTien;
     private String LinkAnh;
     private int DaBan;
 
     public DienThoai() {
     }
 
-    public DienThoai(int id, String ten, String chiTiet, Double giaTien, String linkAnh, int daBan) {
+    public DienThoai(int id, String ten, String chiTiet, Integer giaTien, String linkAnh, int daBan) {
         Id = id;
         Ten = ten;
         ChiTiet = chiTiet;
@@ -44,11 +44,11 @@ public class DienThoai {
         ChiTiet = chiTiet;
     }
 
-    public Double getGiaTien() {
+    public Integer getGiaTien() {
         return GiaTien;
     }
 
-    public void setGiaTien(Double giaTien) {
+    public void setGiaTien(Integer giaTien) {
         GiaTien = giaTien;
     }
 

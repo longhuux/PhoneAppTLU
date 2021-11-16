@@ -8,7 +8,7 @@ public class ThongTinDonHang {
     private String DiaChi;
     private int Sdt;
     private String TenSP;
-    private Double GiaSP;
+    private int GiaSP;
     private int SoLuong;
     private String AnhSP;
     private String TrangThai;
@@ -16,7 +16,7 @@ public class ThongTinDonHang {
     public ThongTinDonHang() {
     }
 
-    public ThongTinDonHang(String tenNguoiNhan, String diaChi, int sdt, String tenSP, Double giaSP, int soLuong, String anhSP, String trangThai) {
+    public ThongTinDonHang(String tenNguoiNhan, String diaChi, int sdt, String tenSP, Integer giaSP, int soLuong, String anhSP, String trangThai) {
         TenNguoiNhan = tenNguoiNhan;
         DiaChi = diaChi;
         Sdt = sdt;
@@ -59,11 +59,11 @@ public class ThongTinDonHang {
         TenSP = tenSP;
     }
 
-    public Double getGiaSP() {
+    public Integer getGiaSP() {
         return GiaSP;
     }
 
-    public void setGiaSP(Double giaSP) {
+    public void setGiaSP(Integer giaSP) {
         GiaSP = giaSP;
     }
 

@@ -41,17 +41,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Main2Activity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity{
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMain2Binding binding;
-    ArrayList<DienThoai> ds;
+    ArrayList<DienThoai> ds = new ArrayList<DienThoai>();
     int count;
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        count = ds.size();
         binding = ActivityMain2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -96,7 +96,7 @@ public class Main2Activity extends AppCompatActivity {
         bottomNavigation.setCurrentItem(0);
 
 // Add or remove notification for each item
-        bottomNavigation.setNotification("7", 1);
+        bottomNavigation.setNotification(""+count, 1);
         bottomNavigation.setNotification("9", 2);
         bottomNavigation.setNotification("5", 3);
 
@@ -185,32 +185,11 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
     }
-
-       public void getListSanPham() {
-           String key = FirebaseDatabase.getInstance().getReference().push().getKey();
-           databaseReference = FirebaseDatabase.getInstance().getReference().child("DienThoai").child(key);
-           databaseReference.addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(DataSnapshot dataSnapshot) {
-
-                   for (DataSnapshot item : dataSnapshot.getChildren())
-                   {
-                       count = Math.toIntExact(item.getChildrenCount());
-                   }
-               }
-
-               @Override
-               public void onCancelled(DatabaseError databaseError) {
-
-               }
-           });
-
-       }
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }

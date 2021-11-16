@@ -87,7 +87,7 @@ DienThoai dienThoai;
 
         Bundle bundle = this.getArguments();
         String ten1 = bundle.getString("name");
-        Double gia = bundle.getDouble("gia");
+        int gia = bundle.getInt("gia");
         String cht = bundle.getString("chitiet");
         String anh = bundle.getString("anh");
         byte[] manghinh = Base64.getDecoder().decode(anh);
@@ -105,7 +105,7 @@ DienThoai dienThoai;
                 so = so+1;
                 soluong.setText(so+"");
                 int sl = Integer.parseInt(soluong.getText().toString());
-                Double tinhtong = gia * sl;
+                int tinhtong = gia * sl;
                 sotien.setText(tinhtong+"");
             }
         });
@@ -115,7 +115,7 @@ DienThoai dienThoai;
                 so = so-1;
                 soluong.setText(""+so);
                 int sl = Integer.parseInt(soluong.getText().toString());
-                Double tinhtong = gia * sl;
+                int tinhtong = gia * sl;
                 sotien.setText(tinhtong+"");
             }
         });
@@ -125,12 +125,12 @@ DienThoai dienThoai;
             @Override
             public void onClick(View view) {
                 String tengh = ten.getText().toString();
-                Double giagh = Double.valueOf(sotien.getText().toString());
+                int giagh = Integer.parseInt(sotien.getText().toString());
                 int sogh = Integer.parseInt(soluong.getText().toString());
                 byte[] anh=ImageView_To_Byte(anhct);
 
                 String chuoianh = Base64.getEncoder().encodeToString(anh);
-                GioHang gioHang = new GioHang(tengh,giagh,sogh,chuoianh);
+                GioHang gioHang = new GioHang(tengh,giagh,sogh,chuoianh,gia);
 
                 String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
 

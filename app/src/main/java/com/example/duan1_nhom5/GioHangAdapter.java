@@ -34,9 +34,9 @@ public class GioHangAdapter extends FirebaseRecyclerAdapter<GioHang,GioHangAdapt
 
     @Override
     protected void onBindViewHolder( GioHangViewHolder holder, int i,GioHang gioHang) {
-        Double tinhtong = gioHang.getGiaGioHang() * gioHang.getSoLuong();
+        int tinhtong = gioHang.getGiaGioHang() * gioHang.getSoLuong();
         holder.ten.setText(""+gioHang.getTenGioHang());
-        holder.gia.setText("Giá : "+tinhtong);
+        holder.gia.setText(""+tinhtong);
         holder.soluong.setText(""+gioHang.getSoLuong());
         byte[] manghinh = Base64.getDecoder().decode(gioHang.getAnhGioHang());
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
@@ -45,7 +45,7 @@ public class GioHangAdapter extends FirebaseRecyclerAdapter<GioHang,GioHangAdapt
             Fragment fragment = new ThongTinDonHangFragment();
             Bundle bundle = new Bundle();
             bundle.putString("tengh",gioHang.getTenGioHang());
-            bundle.putDouble("giagh",gioHang.getGiaGioHang());
+            bundle.putInt("giagh",gioHang.getGiaGioHang());
             bundle.putString("soluong", String.valueOf(gioHang.getSoLuong()));
             bundle.putString("anhgh",gioHang.getAnhGioHang());
             fragment.setArguments(bundle);

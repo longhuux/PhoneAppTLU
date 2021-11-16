@@ -2,18 +2,20 @@ package com.example.duan1_nhom5;
 
 public class GioHang {
     private String TenGioHang;
-    private Double GiaGioHang;
+    private int GiaGioHang;
     private int SoLuong;
     private String AnhGioHang;
+    private int GiaDT;
 
     public GioHang() {
     }
 
-    public GioHang(String tenGioHang, Double giaGioHang, int soLuong, String anhGioHang) {
+    public GioHang(String tenGioHang, int giaGioHang, int soLuong, String anhGioHang, int giaDT) {
         TenGioHang = tenGioHang;
         GiaGioHang = giaGioHang;
         SoLuong = soLuong;
         AnhGioHang = anhGioHang;
+        GiaDT = giaDT;
     }
 
     public String getTenGioHang() {
@@ -24,11 +26,11 @@ public class GioHang {
         TenGioHang = tenGioHang;
     }
 
-    public Double getGiaGioHang() {
+    public int getGiaGioHang() {
         return GiaGioHang;
     }
 
-    public void setGiaGioHang(Double giaGioHang) {
+    public void setGiaGioHang(int giaGioHang) {
         GiaGioHang = giaGioHang;
     }
 
@@ -46,5 +48,13 @@ public class GioHang {
 
     public void setAnhGioHang(String anhGioHang) {
         AnhGioHang = anhGioHang;
+    }
+
+    public int getGiaDT() {
+        return GiaDT;
+    }
+
+    public void setGiaDT(int giaDT) {
+        GiaDT = giaDT;
     }
 }

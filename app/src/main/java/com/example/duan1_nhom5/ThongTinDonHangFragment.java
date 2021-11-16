@@ -76,7 +76,7 @@ public class ThongTinDonHangFragment extends Fragment {
         //lấy thông tin từ bundle
         Bundle bundle = this.getArguments();
         String tensp = bundle.getString("tengh");
-        Double giasp = bundle.getDouble("giagh");
+        int giasp = bundle.getInt("giagh");
         int soluong = Integer.parseInt(bundle.getString("soluong"));
         String anhsp = bundle.getString("anhgh");
 

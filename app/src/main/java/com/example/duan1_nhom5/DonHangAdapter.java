@@ -27,7 +27,7 @@ public class DonHangAdapter extends FirebaseRecyclerAdapter<GioHang, DonHangAdap
     @Override
     protected void onBindViewHolder(@NonNull DonHangViewHolder holder, int i, @NonNull GioHang gioHang) {
         String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
-        Double tinhtong = gioHang.getGiaGioHang() * gioHang.getSoLuong();
+        int tinhtong = gioHang.getGiaGioHang() * gioHang.getSoLuong();
         holder.ten.setText(""+gioHang.getTenGioHang());
         holder.gia.setText("Giá : "+tinhtong);
         holder.soluong.setText(""+gioHang.getSoLuong());

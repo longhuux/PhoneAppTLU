@@ -1,28 +1,17 @@
 package com.example.duan1_nhom5;
 
-import static android.view.View.VISIBLE;
-
-import android.app.Notification;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -32,11 +21,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duan1_nhom5.databinding.ActivityMain2Binding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -46,12 +35,17 @@ public class Main2Activity extends AppCompatActivity{
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMain2Binding binding;
     ArrayList<DienThoai> ds = new ArrayList<DienThoai>();
+    FirebaseAuth firebaseAuth;
     int count;
+    int countgio;
+    int countdon;
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        count = ds.size();
+
+        String getuid = firebaseAuth.getInstance().getCurrentUser().getUid();
+
         binding = ActivityMain2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -68,9 +62,10 @@ public class Main2Activity extends AppCompatActivity{
         NavigationUI.setupWithNavController(navigationView, navController);
 
         Fragment home = new HomeFragment();
-        Fragment gio = new GioHangFragment();
+        final Fragment[] gio = {new GioHangFragment()};
         Fragment sp = new DienThoaiFragment();
         Fragment dh = new DonHangCuaToiFragment();
+        Fragment bl = new BlankFragment();
 
         AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
 
@@ -95,10 +90,59 @@ public class Main2Activity extends AppCompatActivity{
 // Set current item programmatically
         bottomNavigation.setCurrentItem(0);
 
-// Add or remove notification for each item
-        bottomNavigation.setNotification(""+count, 1);
-        bottomNavigation.setNotification("9", 2);
-        bottomNavigation.setNotification("5", 3);
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        // get count bảng dienthoai
+        database.child("DienThoai").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                count = (int) dataSnapshot.getChildrenCount();
+                bottomNavigation.setNotification(count +"", 1);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+        //get count bảng giỏ hàng
+        database.child("GioHang").child(getuid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot1) {
+
+                countgio =(int)dataSnapshot1.getChildrenCount();
+                bottomNavigation.setNotification(countgio +"", 2);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+        //get count bảng đơn hang
+        database.child("ThongTinDonHang").child(getuid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                countdon = (int)dataSnapshot2.getChildrenCount();
+                bottomNavigation.setNotification(countdon +"", 3);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+// Add or remove notificati
+
 
 // Set listeners
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
@@ -112,13 +156,13 @@ public class Main2Activity extends AppCompatActivity{
                         chuyenFragment(sp);
                         break;
                     case 2:
-                        chuyenFragment(gio);
+                        chuyenFragment(gio[0]);
                         break;
                     case 3:
                         chuyenFragment(dh);
                         break;
                     case 4:
-                        chuyenFragment(dh);
+                        chuyenFragment(bl);
                         break;
                 }
                 return true;
@@ -142,7 +186,7 @@ public class Main2Activity extends AppCompatActivity{
     public boolean onOptionsItemSelected( MenuItem item) {
         switch (item.getItemId()) {
             case R.id.timkiem:
-                        Fragment mFragment = new DienThoaiFragment();
+                        Fragment mFragment = new BlankFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment).commit();
                         break;
             case R.id.lienhe:
@@ -185,6 +229,8 @@ public class Main2Activity extends AppCompatActivity{
             }
         });
     }
+
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

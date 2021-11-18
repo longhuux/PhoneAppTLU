@@ -6,16 +6,21 @@ public class GioHang {
     private int SoLuong;
     private String AnhGioHang;
     private int GiaDT;
+    private String KeyDT;
+    private int DaBan;
 
     public GioHang() {
     }
 
-    public GioHang(String tenGioHang, int giaGioHang, int soLuong, String anhGioHang, int giaDT) {
+    public GioHang(String tenGioHang, int giaGioHang, int soLuong, String anhGioHang, int giaDT, String keyDT, int daBan) {
+
         TenGioHang = tenGioHang;
         GiaGioHang = giaGioHang;
         SoLuong = soLuong;
         AnhGioHang = anhGioHang;
         GiaDT = giaDT;
+        KeyDT = keyDT;
+        DaBan = daBan;
     }
 
     public String getTenGioHang() {
@@ -56,5 +61,21 @@ public class GioHang {
 
     public void setGiaDT(int giaDT) {
         GiaDT = giaDT;
+    }
+
+    public String getKeyDT() {
+        return KeyDT;
+    }
+
+    public void setKeyDT(String keyDT) {
+        KeyDT = keyDT;
+    }
+
+    public int getDaBan() {
+        return DaBan;
+    }
+
+    public void setDaBan(int daBan) {
+        DaBan = daBan;
     }
 }

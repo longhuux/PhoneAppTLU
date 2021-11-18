@@ -77,6 +77,8 @@ public class ThongTinDonHangFragment extends Fragment {
         Bundle bundle = this.getArguments();
         String tensp = bundle.getString("tengh");
         int giasp = bundle.getInt("giagh");
+        String key = bundle.getString("keygio");
+        int daban = bundle.getInt("dabangio");
         int soluong = Integer.parseInt(bundle.getString("soluong"));
         String anhsp = bundle.getString("anhgh");
 
@@ -90,11 +92,12 @@ public class ThongTinDonHangFragment extends Fragment {
                 String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
                 ThongTinDonHang donHang = new ThongTinDonHang(tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child("DienThoai").child(key).child("daBan").setValue(daban+1);
                 databaseReference.child("ThongTinDonHang").child(uid).push().setValue(donHang);
-                databaseReference.addValueEventListener(new ValueEventListener() {
+                databaseReference.child("ThongTinDonHang").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Toast.makeText(getContext(), "Thanh toan thanh cong ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thanh Toán Thành Công", Toast.LENGTH_SHORT).show();
                         Fragment fragment = new DonHangCuaToiFragment();
                         FragmentManager fmgr =getActivity().getSupportFragmentManager();
                         FragmentTransaction ft = fmgr.beginTransaction();

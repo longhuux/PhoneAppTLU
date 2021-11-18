@@ -43,7 +43,6 @@ public class GioHangFragment extends Fragment {
     RecyclerView recyclerView;
     Button btn_thanhtoan;
     TextView xoa;
-    int daban;
     RadioButton chontatca;
     FirebaseAuth firebaseAuth;
     TextView vnd;
@@ -91,8 +90,8 @@ public class GioHangFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -126,6 +125,8 @@ public class GioHangFragment extends Fragment {
                                     Bundle bundle = new Bundle();
                                     bundle.putString("tengh", gioHang.getTenGioHang());
                                     bundle.putInt("giagh", gioHang.getGiaGioHang());
+                                    bundle.putString("keygio", gioHang.getKeyDT());
+                                    bundle.putInt("dabangio", gioHang.getDaBan());
                                     bundle.putString("soluong", String.valueOf(gioHang.getSoLuong()));
                                     bundle.putString("anhgh", gioHang.getAnhGioHang());
                                     fragment.setArguments(bundle);
@@ -141,7 +142,6 @@ public class GioHangFragment extends Fragment {
                                             //Xóa dữ liệu đã chọn trong bảng đã thanh toán
                                             databaseReference = FirebaseDatabase.getInstance().getReference();
                                             databaseReference.child("GioHang").child(uid).child(getRef(i).getKey()).removeValue();
-
                                             FragmentTransaction ft = fmgr.beginTransaction();
                                             ft.replace(R.id.nav_host_fragment_content_main, fragment);
                                             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -241,10 +241,8 @@ public class GioHangFragment extends Fragment {
 
         }
     }
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

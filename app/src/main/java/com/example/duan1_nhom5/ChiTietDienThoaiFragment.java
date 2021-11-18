@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,6 @@ import java.util.Base64;
 
 public class ChiTietDienThoaiFragment extends Fragment {
 
-DienThoaiAdapter adapter;
 DienThoai dienThoai;
     TextView ten,gia,chitiet,sotien,noidungchitiet,soluong;
     ImageView anhct,cong,tru;
@@ -81,6 +81,9 @@ DienThoai dienThoai;
         muahang = v1.findViewById(R.id.btn_muangay);
         soluong = v1.findViewById(R.id.soluong);
         cong = v1.findViewById(R.id.cong);
+         TextView tv_log = (TextView) view.findViewById(R.id.tv_chitiet_dienthoai);
+        tv_log.setMovementMethod(new ScrollingMovementMethod());
+
         tru = v1.findViewById(R.id.tru);
 
         anhct=v1.findViewById(R.id.img_chitiet_dienthoai);
@@ -90,6 +93,8 @@ DienThoai dienThoai;
         int gia = bundle.getInt("gia");
         String cht = bundle.getString("chitiet");
         String anh = bundle.getString("anh");
+        int daban = bundle.getInt("daban");
+        String key = bundle.getString("keydt");
         byte[] manghinh = Base64.getDecoder().decode(anh);
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
         anhct.setImageBitmap(bm);
@@ -130,14 +135,17 @@ DienThoai dienThoai;
                 byte[] anh=ImageView_To_Byte(anhct);
 
                 String chuoianh = Base64.getEncoder().encodeToString(anh);
-                GioHang gioHang = new GioHang(tengh,giagh,sogh,chuoianh,gia);
+                GioHang gioHang = new GioHang(tengh,giagh,sogh,chuoianh,gia,key,daban);
 
                 String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
 
                 databaseReference = FirebaseDatabase.getInstance().getReference();
+
                 databaseReference.child("GioHang").child(uid).push().setValue(gioHang);
                 Fragment fragment = new GioHangFragment();
-                FragmentManager fmgr =getActivity().getSupportFragmentManager();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                fragment.setArguments(bundle);
                 FragmentTransaction ft = fmgr.beginTransaction();
                 ft.replace(R.id.nav_host_fragment_content_main, fragment);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

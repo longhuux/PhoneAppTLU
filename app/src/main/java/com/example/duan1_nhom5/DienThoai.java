@@ -7,17 +7,19 @@ public class DienThoai {
     private int GiaTien;
     private String LinkAnh;
     private int DaBan;
+    private int SoLike;
 
     public DienThoai() {
     }
 
-    public DienThoai(int id, String ten, String chiTiet, Integer giaTien, String linkAnh, int daBan) {
+    public DienThoai(int id, String ten, String chiTiet, int giaTien, String linkAnh, int daBan, int soLike) {
         Id = id;
         Ten = ten;
         ChiTiet = chiTiet;
         GiaTien = giaTien;
         LinkAnh = linkAnh;
         DaBan = daBan;
+        SoLike = soLike;
     }
 
     public int getId() {
@@ -44,11 +46,11 @@ public class DienThoai {
         ChiTiet = chiTiet;
     }
 
-    public Integer getGiaTien() {
+    public int getGiaTien() {
         return GiaTien;
     }
 
-    public void setGiaTien(Integer giaTien) {
+    public void setGiaTien(int giaTien) {
         GiaTien = giaTien;
     }
 
@@ -66,5 +68,13 @@ public class DienThoai {
 
     public void setDaBan(int daBan) {
         DaBan = daBan;
+    }
+
+    public int getSoLike() {
+        return SoLike;
+    }
+
+    public void setSoLike(int soLike) {
+        SoLike = soLike;
     }
 }

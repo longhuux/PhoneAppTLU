@@ -2,9 +2,11 @@ package com.example.duan1_nhom5;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,9 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +31,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,12 +52,15 @@ public class DienThoaiFragment extends Fragment {
 
     DienThoai dienThoai;
     ArrayList<DienThoai> dsls = new ArrayList<DienThoai>();
-    DienThoaiAdapter adapter;
+    FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
+    String ttt ;
     TextView tao;
+    boolean check=false;
     EditText nhaptendt,nhapgiadt,nhapchitiet;
     Button regdt, huy;
     ImageView themanh;
+    RecyclerView recyclerView;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -83,35 +93,12 @@ public class DienThoaiFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dsls.clear();
 
-        RecyclerView recyclerView = view.findViewById(R.id.reviewdt);
+        recyclerView = view.findViewById(R.id.reviewdt);
         FloatingActionButton button = view.findViewById(R.id.floating);
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        dsls.clear();
-        getlist();
-        adapter = new DienThoaiAdapter(getContext(), dsls, new DienThoaiAdapter.hienChiTiet() {
-
-            @Override
-            public void chuyenFragment(DienThoai dienThoai) {
-                Fragment fragment = new ChiTietDienThoaiFragment();
-                FragmentManager fmgr =getActivity().getSupportFragmentManager();
-                Bundle bundle = new Bundle();
-                bundle.putString("name",dienThoai.getTen());
-                bundle.putInt("gia",dienThoai.getGiaTien());
-                bundle.putString("chitiet",dienThoai.getChiTiet());
-                bundle.putString("anh",dienThoai.getLinkAnh());
-                fragment.setArguments(bundle);
-                FragmentTransaction ft = fmgr.beginTransaction();
-                ft.replace(R.id.nav_host_fragment_content_main, fragment);
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-
-        });
-        recyclerView.setAdapter(adapter);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,15 +148,15 @@ public class DienThoaiFragment extends Fragment {
                 String chuoianh = Base64.getEncoder().encodeToString(anh);
                 int id = dsls.size()+1;
                 int DaBan = 0;
-                DienThoai dienThoai = new DienThoai(id,tendt,chitiet,giadt,chuoianh,DaBan);
+                int SoLike = 0;
+                DienThoai dienThoai = new DienThoai(id,tendt,chitiet,giadt,chuoianh,DaBan,SoLike);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child("DienThoai").push().setValue(dienThoai);
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Toast.makeText(getContext(), "Thêm Điện Thoại Thành Công", Toast.LENGTH_SHORT).show();
-                        getlist();
-                        adapter.notifyDataSetChanged();
+
                         dialogPlus.dismiss();
                     }
 
@@ -178,7 +165,7 @@ public class DienThoaiFragment extends Fragment {
 
                     }
                 });
-                getlist();
+
             }
         });
         huy.setOnClickListener(new View.OnClickListener() {
@@ -189,26 +176,6 @@ public class DienThoaiFragment extends Fragment {
         });
     }
 
-    private void getlist(){
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("DienThoai");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    DienThoai dienThoai = dataSnapshot.getValue(DienThoai.class);
-                    dsls.add(dienThoai);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     public byte[] ImageView_To_Byte(ImageView imgv){
 
@@ -236,6 +203,101 @@ public class DienThoaiFragment extends Fragment {
 
         }
     }
+
+    @Override
+    public void onStart() {
+        FirebaseRecyclerOptions<DienThoai> options =
+                new FirebaseRecyclerOptions.Builder<DienThoai>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("DienThoai")
+                                , DienThoai.class)
+                        .build();
+
+
+        FirebaseRecyclerAdapter<DienThoai, DienThoaiFragment.DienThoaiViewHolder> adapter =
+                new FirebaseRecyclerAdapter<DienThoai, DienThoaiFragment.DienThoaiViewHolder>(options) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull DienThoaiFragment.DienThoaiViewHolder holder, @SuppressLint("RecyclerView") int i, @NonNull DienThoai dienThoai) {
+
+                        holder.tendt.setText("" + dienThoai.getTen());
+                        holder.giadt.setText("Giá : " + dienThoai.getGiaTien());
+                        holder.ct.setText("" + dienThoai.getChiTiet());
+                        holder.solike.setText("" + dienThoai.getSoLike());
+
+                        byte[] manghinh = Base64.getDecoder().decode(dienThoai.getLinkAnh());
+                        Bitmap bm = BitmapFactory.decodeByteArray(manghinh, 0, manghinh.length);
+                        holder.anhdt.setImageBitmap(bm);
+                        holder.anhdt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Fragment fragment = new ChiTietDienThoaiFragment();
+                                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("name", dienThoai.getTen());
+                                bundle.putInt("gia", dienThoai.getGiaTien());
+                                bundle.putString("chitiet", dienThoai.getChiTiet());
+                                bundle.putString("anh", dienThoai.getLinkAnh());
+                                bundle.putInt("tim", dienThoai.getSoLike());
+                                bundle.putInt("daban", dienThoai.getDaBan());
+                                bundle.putString("keydt",getRef(i).getKey());
+                                fragment.setArguments(bundle);
+                                FragmentTransaction ft = fmgr.beginTransaction();
+                                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                            }
+                        });
+
+
+                        holder.tim.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int conglike = dienThoai.getSoLike() + 1;
+                                holder.tim.setEnabled(false);
+                                holder.tim.setImageResource(R.drawable.heartred);
+                                databaseReference = FirebaseDatabase.getInstance().getReference();
+                                databaseReference.child("DienThoai").child(getRef(i).getKey()).child("soLike").setValue(conglike);
+                                holder.solike.setText("" + conglike);
+                            }
+                        });
+                    }
+
+                    @NonNull
+                    @Override
+                    public DienThoaiViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dienthoai, parent, false);
+                        return new DienThoaiViewHolder(view);
+                    }
+                };
+
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+        super.onStart();
+        onResume();
+        onPause();
+
+
+    }
+
+    public static class DienThoaiViewHolder extends RecyclerView.ViewHolder {
+        TextView tendt,giadt,ct,solike;
+        ImageView anhdt,tim;
+
+        public DienThoaiViewHolder(View view) {
+            super(view);
+
+            tendt =view.findViewById(R.id.itemten);
+            ct =view.findViewById(R.id.itemct);
+            giadt = view.findViewById(R.id.itemgia);
+            anhdt = view.findViewById(R.id.itemsp);
+            solike = view.findViewById(R.id.sotim);
+            tim = view.findViewById(R.id.tim);
+
+
+        }
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

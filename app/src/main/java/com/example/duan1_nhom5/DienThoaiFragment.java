@@ -273,10 +273,6 @@ public class DienThoaiFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.startListening();
         super.onStart();
-        onResume();
-        onPause();
-
-
     }
 
     public static class DienThoaiViewHolder extends RecyclerView.ViewHolder {

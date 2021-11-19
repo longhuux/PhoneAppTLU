@@ -1,5 +1,6 @@
 package com.example.duan1_nhom5;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,11 +13,12 @@ public class ThongTinDonHang {
     private int SoLuong;
     private String AnhSP;
     private String TrangThai;
-
+    private String ngaydat;
+    private int GiaDT;
     public ThongTinDonHang() {
     }
 
-    public ThongTinDonHang(String tenNguoiNhan, String diaChi, int sdt, String tenSP, Integer giaSP, int soLuong, String anhSP, String trangThai) {
+    public ThongTinDonHang(String tenNguoiNhan, String diaChi, int sdt, String tenSP, int giaSP, int soLuong, String anhSP, String trangThai, String ngaydat, int giaDT) {
         TenNguoiNhan = tenNguoiNhan;
         DiaChi = diaChi;
         Sdt = sdt;
@@ -25,6 +27,8 @@ public class ThongTinDonHang {
         SoLuong = soLuong;
         AnhSP = anhSP;
         TrangThai = trangThai;
+        this.ngaydat = ngaydat;
+        GiaDT = giaDT;
     }
 
     public String getTenNguoiNhan() {
@@ -59,11 +63,11 @@ public class ThongTinDonHang {
         TenSP = tenSP;
     }
 
-    public Integer getGiaSP() {
+    public int getGiaSP() {
         return GiaSP;
     }
 
-    public void setGiaSP(Integer giaSP) {
+    public void setGiaSP(int giaSP) {
         GiaSP = giaSP;
     }
 
@@ -89,6 +93,22 @@ public class ThongTinDonHang {
 
     public void setTrangThai(String trangThai) {
         TrangThai = trangThai;
+    }
+
+    public String getNgaydat() {
+        return ngaydat;
+    }
+
+    public void setNgaydat(String ngaydat) {
+        this.ngaydat = ngaydat;
+    }
+
+    public int getGiaDT() {
+        return GiaDT;
+    }
+
+    public void setGiaDT(int giaDT) {
+        GiaDT = giaDT;
     }
 
     public Map<String,Object> toMap(){

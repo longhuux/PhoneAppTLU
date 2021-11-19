@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -62,24 +63,29 @@ public class HomeFragment extends Fragment {
         ImageView anhslide = view.findViewById(R.id.anhslide);
         anhslide.setBackgroundResource(R.drawable.slide);
         RecyclerView recyclerView = view.findViewById(R.id.rvtop);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        RecyclerView recyclerView1 = view.findViewById(R.id.rvbanchay);
+        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+        recyclerView1.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setLayoutManager(layoutManager);
         dsls.clear();
         getlist();
 
         adapter = new HomeAdapter(getContext(), dsls);
         recyclerView.setAdapter(adapter);
+        recyclerView1.setAdapter(adapter);
 
         AnimationDrawable drawable1 = (AnimationDrawable) anhslide.getBackground();
             drawable1.start();
         super.onViewCreated(view, savedInstanceState);
     }
     private void getlist(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("DienThoai");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        Query query = databaseReference.child("DienThoai");
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    databaseReference.child(dataSnapshot.getKey()).orderByChild( "daBan").limitToFirst(10);
                     DienThoai dienThoai = dataSnapshot.getValue(DienThoai.class);
 
                     dsls.add(dienThoai);
@@ -88,7 +94,7 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });

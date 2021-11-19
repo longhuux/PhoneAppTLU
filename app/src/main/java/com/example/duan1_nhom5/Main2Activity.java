@@ -65,7 +65,6 @@ public class Main2Activity extends AppCompatActivity{
         final Fragment[] gio = {new GioHangFragment()};
         Fragment sp = new DienThoaiFragment();
         Fragment dh = new DonHangCuaToiFragment();
-        Fragment bl = new BlankFragment();
 
         AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
 
@@ -162,7 +161,7 @@ public class Main2Activity extends AppCompatActivity{
                         chuyenFragment(dh);
                         break;
                     case 4:
-                        chuyenFragment(bl);
+                        chuyenFragment(dh);
                         break;
                 }
                 return true;
@@ -186,7 +185,7 @@ public class Main2Activity extends AppCompatActivity{
     public boolean onOptionsItemSelected( MenuItem item) {
         switch (item.getItemId()) {
             case R.id.timkiem:
-                        Fragment mFragment = new BlankFragment();
+                        Fragment mFragment = new GioHangFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment).commit();
                         break;
             case R.id.lienhe:

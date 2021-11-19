@@ -26,7 +26,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
+import java.util.Locale;
 
 public class ThongTinDonHangFragment extends Fragment {
 
@@ -69,9 +72,7 @@ public class ThongTinDonHangFragment extends Fragment {
         nhapten = view.findViewById(R.id.nhaptenngmua);
         nhapdiachi = view.findViewById(R.id.nhapdiachi);
         nhapsdt = view.findViewById(R.id.nhapsodt);
-        thanhtoan = view.findViewById(R.id.rdthanhtoan);
         xacnhan = view.findViewById(R.id.btn_xacnhan);
-        trove = view.findViewById(R.id.btn_trove);
 
         //lấy thông tin từ bundle
         Bundle bundle = this.getArguments();
@@ -79,6 +80,7 @@ public class ThongTinDonHangFragment extends Fragment {
         int giasp = bundle.getInt("giagh");
         String key = bundle.getString("keygio");
         int daban = bundle.getInt("dabangio");
+        int giadt = bundle.getInt("giaspgio");
         int soluong = Integer.parseInt(bundle.getString("soluong"));
         String anhsp = bundle.getString("anhgh");
 
@@ -90,7 +92,8 @@ public class ThongTinDonHangFragment extends Fragment {
                 int sdt = Integer.parseInt(nhapsdt.getText().toString());
                 String trangthai = "Chờ Xác Nhận";
                 String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
-                ThongTinDonHang donHang = new ThongTinDonHang(tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai);
+                String ngay = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                ThongTinDonHang donHang = new ThongTinDonHang(tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai,ngay,giadt);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child("DienThoai").child(key).child("daBan").setValue(daban+1);
                 databaseReference.child("ThongTinDonHang").child(uid).push().setValue(donHang);

@@ -86,24 +86,4 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
         }
     }
-    private void getlist(){
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("DienThoai");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    DienThoai dienThoai = dataSnapshot.getValue(DienThoai.class);
-                    dsm.add(dienThoai);
-                }
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 }

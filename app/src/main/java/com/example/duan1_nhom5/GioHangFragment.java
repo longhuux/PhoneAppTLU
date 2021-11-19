@@ -36,13 +36,16 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Base64;
+import java.util.List;
 
 public class GioHangFragment extends Fragment {
 
     FirebaseRecyclerAdapter<GioHang,GioHangAdapter.GioHangViewHolder> mFirebaseAdapter;
     RecyclerView recyclerView;
     Button btn_thanhtoan;
+    int tongtiengh;
     TextView xoa;
+    List<GioHang> gioHangList;
     RadioButton chontatca;
     FirebaseAuth firebaseAuth;
     TextView vnd;
@@ -126,6 +129,7 @@ public class GioHangFragment extends Fragment {
                                     bundle.putString("tengh", gioHang.getTenGioHang());
                                     bundle.putInt("giagh", gioHang.getGiaGioHang());
                                     bundle.putString("keygio", gioHang.getKeyDT());
+                                    bundle.putInt("giaspgio", gioHang.getGiaDT());
                                     bundle.putInt("dabangio", gioHang.getDaBan());
                                     bundle.putString("soluong", String.valueOf(gioHang.getSoLuong()));
                                     bundle.putString("anhgh", gioHang.getAnhGioHang());

@@ -223,6 +223,7 @@ public class DienThoaiFragment extends Fragment {
                         holder.giadt.setText("Giá : " + dienThoai.getGiaTien());
                         holder.ct.setText("" + dienThoai.getChiTiet());
                         holder.solike.setText("" + dienThoai.getSoLike());
+                        int solikke = dienThoai.getSoLike();
 
                         byte[] manghinh = Base64.getDecoder().decode(dienThoai.getLinkAnh());
                         Bitmap bm = BitmapFactory.decodeByteArray(manghinh, 0, manghinh.length);
@@ -248,19 +249,18 @@ public class DienThoaiFragment extends Fragment {
                                 ft.commit();
                             }
                         });
+                            holder.tim.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    int conglike = dienThoai.getSoLike() + 1;
+                                    holder.tim.setEnabled(false);
+                                    holder.tim.setImageResource(R.drawable.heartred);
+                                    databaseReference = FirebaseDatabase.getInstance().getReference();
+                                    databaseReference.child("DienThoai").child(getRef(i).getKey()).child("soLike").setValue(conglike);
+                                    holder.solike.setText("" + conglike);
 
-
-                        holder.tim.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                int conglike = dienThoai.getSoLike() + 1;
-                                holder.tim.setEnabled(false);
-                                holder.tim.setImageResource(R.drawable.heartred);
-                                databaseReference = FirebaseDatabase.getInstance().getReference();
-                                databaseReference.child("DienThoai").child(getRef(i).getKey()).child("soLike").setValue(conglike);
-                                holder.solike.setText("" + conglike);
-                            }
-                        });
+                                }
+                            });
                     }
 
                     @NonNull

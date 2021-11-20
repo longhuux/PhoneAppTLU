@@ -5,8 +5,8 @@
     <item
         android:id="@+id/timkiem"
         android:icon="@drawable/search"
-        app:showAsAction="always"
-        android:title="Sản Phẩm" />
+        app:showAsAction="never"
+        android:title="Tìm Kiếm" />
 
     <item
         android:id="@+id/lienhe"

@@ -141,17 +141,18 @@ public class DienThoaiFragment extends Fragment {
         regdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                databaseReference = FirebaseDatabase.getInstance().getReference().child("DienThoai");
+                String uid = databaseReference.push().getKey();
                 String tendt = nhaptendt.getText().toString();
                 int giadt = Integer.parseInt(nhapgiadt.getText().toString());
                 String chitiet = nhapchitiet.getText().toString();
                 byte[] anh=ImageView_To_Byte(themanh);
                 String chuoianh = Base64.getEncoder().encodeToString(anh);
-                int id = dsls.size()+1;
                 int DaBan = 0;
                 int SoLike = 0;
-                DienThoai dienThoai = new DienThoai(id,tendt,chitiet,giadt,chuoianh,DaBan,SoLike);
-                databaseReference = FirebaseDatabase.getInstance().getReference();
-                databaseReference.child("DienThoai").push().setValue(dienThoai);
+                DienThoai dienThoai = new DienThoai(uid,tendt,chitiet,giadt,chuoianh,DaBan,SoLike);
+
+                databaseReference.child(uid).setValue(dienThoai);
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -238,7 +239,7 @@ public class DienThoaiFragment extends Fragment {
                                 bundle.putString("anh", dienThoai.getLinkAnh());
                                 bundle.putInt("tim", dienThoai.getSoLike());
                                 bundle.putInt("daban", dienThoai.getDaBan());
-                                bundle.putString("keydt",getRef(i).getKey());
+                                bundle.putString("keydt",dienThoai.getId());
                                 fragment.setArguments(bundle);
                                 FragmentTransaction ft = fmgr.beginTransaction();
                                 ft.replace(R.id.nav_host_fragment_content_main, fragment);

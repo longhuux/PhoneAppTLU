@@ -1,7 +1,7 @@
 package com.example.duan1_nhom5;
 
 public class DienThoai {
-    private int Id;
+    private String Id;
     private String Ten;
     private String ChiTiet;
     private int GiaTien;
@@ -12,7 +12,7 @@ public class DienThoai {
     public DienThoai() {
     }
 
-    public DienThoai(int id, String ten, String chiTiet, int giaTien, String linkAnh, int daBan, int soLike) {
+    public DienThoai(String id, String ten, String chiTiet, int giaTien, String linkAnh, int daBan, int soLike) {
         Id = id;
         Ten = ten;
         ChiTiet = chiTiet;
@@ -22,11 +22,11 @@ public class DienThoai {
         SoLike = soLike;
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         Id = id;
     }
 

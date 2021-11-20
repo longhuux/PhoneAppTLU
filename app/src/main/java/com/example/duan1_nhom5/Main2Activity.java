@@ -62,9 +62,10 @@ public class Main2Activity extends AppCompatActivity{
         NavigationUI.setupWithNavController(navigationView, navController);
 
         Fragment home = new HomeFragment();
-        final Fragment[] gio = {new GioHangFragment()};
+        Fragment gio = new GioHangFragment();
         Fragment sp = new DienThoaiFragment();
         Fragment dh = new DonHangCuaToiFragment();
+        Fragment tk = new TaiKhoanFragment();
 
         AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
 
@@ -155,13 +156,13 @@ public class Main2Activity extends AppCompatActivity{
                         chuyenFragment(sp);
                         break;
                     case 2:
-                        chuyenFragment(gio[0]);
+                        chuyenFragment(gio);
                         break;
                     case 3:
                         chuyenFragment(dh);
                         break;
                     case 4:
-                        chuyenFragment(dh);
+                        chuyenFragment(tk);
                         break;
                 }
                 return true;
@@ -175,8 +176,6 @@ public class Main2Activity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main2, menu);
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
@@ -185,7 +184,8 @@ public class Main2Activity extends AppCompatActivity{
     public boolean onOptionsItemSelected( MenuItem item) {
         switch (item.getItemId()) {
             case R.id.timkiem:
-                        Fragment mFragment = new GioHangFragment();
+                        item.setVisible(false);
+                        Fragment mFragment = new SearchFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment).commit();
                         break;
             case R.id.lienhe:
@@ -203,31 +203,7 @@ public class Main2Activity extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
-    private void seach(String keyword){
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("DienThoai");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    DienThoai dienThoai = dataSnapshot.getValue(DienThoai.class);
-                    if (dienThoai !=null){
-                        if (dienThoai.getTen().contains(keyword)){
-                            ds.clear();
-                            ds.add(dienThoai);
-                        }
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
 
     @Override

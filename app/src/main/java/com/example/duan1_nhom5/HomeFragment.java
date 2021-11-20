@@ -6,14 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +32,9 @@ public class HomeFragment extends Fragment {
 
     DatabaseReference databaseReference;
     ArrayList<DienThoai> dsls = new ArrayList<DienThoai>();
+    ArrayList<DienThoai> ds = new ArrayList<DienThoai>();
     HomeAdapter adapter;
+    BanChayAdapter banChayAdapter;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -62,39 +68,116 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ImageView anhslide = view.findViewById(R.id.anhslide);
         anhslide.setBackgroundResource(R.drawable.slide);
+        TextView xem = view.findViewById(R.id.xemtatca);
         RecyclerView recyclerView = view.findViewById(R.id.rvtop);
         RecyclerView recyclerView1 = view.findViewById(R.id.rvbanchay);
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
         recyclerView1.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setLayoutManager(layoutManager);
         dsls.clear();
-        getlist();
+        ds.clear();
+        thinhhanh();
+        yeuthich();
 
-        adapter = new HomeAdapter(getContext(), dsls);
+        xem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new DienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
+        banChayAdapter =new BanChayAdapter(getContext(), ds, new BanChayAdapter.banchaynhat() {
+            @Override
+            public void banchay(DienThoai dienThoai) {
+                Fragment fragment = new ChiTietDienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("name", dienThoai.getTen());
+                bundle.putInt("gia", dienThoai.getGiaTien());
+                bundle.putString("chitiet", dienThoai.getChiTiet());
+                bundle.putString("anh", dienThoai.getLinkAnh());
+                bundle.putInt("tim", dienThoai.getSoLike());
+                bundle.putInt("daban", dienThoai.getDaBan());
+                bundle.putString("keydt",dienThoai.getId());
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+        adapter = new HomeAdapter(getContext(), dsls, new HomeAdapter.thinhhanh() {
+            @Override
+            public void thinhhanh(DienThoai dienThoai) {
+                Fragment fragment = new ChiTietDienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("name", dienThoai.getTen());
+                bundle.putInt("gia", dienThoai.getGiaTien());
+                bundle.putString("chitiet", dienThoai.getChiTiet());
+                bundle.putString("anh", dienThoai.getLinkAnh());
+                bundle.putInt("tim", dienThoai.getSoLike());
+                bundle.putInt("daban", dienThoai.getDaBan());
+                bundle.putString("keydt",dienThoai.getId());
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
         recyclerView.setAdapter(adapter);
-        recyclerView1.setAdapter(adapter);
+        recyclerView1.setAdapter(banChayAdapter);
 
         AnimationDrawable drawable1 = (AnimationDrawable) anhslide.getBackground();
             drawable1.start();
         super.onViewCreated(view, savedInstanceState);
     }
-    private void getlist(){
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        Query query = databaseReference.child("DienThoai");
+    private void yeuthich(){
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("DienThoai");
+        Query query = databaseReference.orderByChild("soLike").startAt(50);
         query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    databaseReference.child(dataSnapshot.getKey()).orderByChild( "daBan").limitToFirst(10);
                     DienThoai dienThoai = dataSnapshot.getValue(DienThoai.class);
-
-                    dsls.add(dienThoai);
+                        ds.add(dienThoai);
+                        banChayAdapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void thinhhanh(){
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("DienThoai");
+        Query query = databaseReference.orderByChild("daBan").startAt(10);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    DienThoai dienThoai = dataSnapshot.getValue(DienThoai.class);
+                    if(dienThoai!=null){
+                        dsls.add(dienThoai);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });

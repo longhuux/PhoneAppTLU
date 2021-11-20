@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/itemsp"
+        android:id="@+id/cim"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginStart="5dp"
@@ -20,8 +20,8 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/itemten"
-        android:layout_width="340dp"
+        android:id="@+id/tencim"
+        android:layout_width="242dp"
         android:layout_height="58dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
@@ -29,11 +29,11 @@
         android:text="Tên Điện Thoai"
         android:textColor="#0D5A9E"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/itemsp"
+        app:layout_constraintStart_toEndOf="@+id/cim"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/itemgia"
+        android:id="@+id/tiencim"
         android:layout_width="wrap_content"
         android:layout_height="37dp"
         android:layout_marginStart="10dp"
@@ -43,7 +43,7 @@
         android:textAlignment="textStart"
         android:textColor="#750A1F"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/itemsp"
+        app:layout_constraintStart_toEndOf="@+id/cim"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -54,15 +54,15 @@
         android:layout_marginTop="70dp"
         android:fontFamily="@font/poppins_medium"
         android:gravity="center"
-        android:text="Đ"
+        android:text="VNĐ"
         android:textColor="#750A1F"
         android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@+id/itemgia"
+        app:layout_constraintStart_toEndOf="@+id/tiencim"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/itemct"
+        android:id="@+id/ctcim"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginStart="10dp"
@@ -71,7 +71,7 @@
         android:text="Chi Tiết"
         android:textColor="#7A7879"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/itemsp"
+        app:layout_constraintStart_toEndOf="@+id/cim"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -85,25 +85,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/tim"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="70dp"
-        android:src="@drawable/heart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/sotim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:text="1"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tim"
-        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

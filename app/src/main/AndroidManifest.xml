@@ -20,7 +20,7 @@
             android:name=".Main2Activity"
             android:exported="true"
             android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.DuAn1_Nhom5.NoActionBar.NoActionBar"></activity>
+            android:theme="@style/Theme.DuAn1_Nhom5.NoActionBar.NoActionBar" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

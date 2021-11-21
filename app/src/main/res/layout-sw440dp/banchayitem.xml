@@ -21,13 +21,13 @@
         <ImageView
             android:id="@+id/anhdt1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:src="@drawable/lenovo" />
 
         <TextView
             android:id="@+id/tendt1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:text="Tên Sản Phẩm" />
 

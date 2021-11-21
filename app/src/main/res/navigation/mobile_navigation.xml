@@ -16,8 +16,14 @@
         android:label=""
         tools:layout="@layout/fragment_thanh_vien" />
     <fragment
-        android:id="@+id/nav_qldienthoai"
+        android:id="@+id/nav_dienthoai"
         android:name="com.example.duan1_nhom5.DienThoaiFragment"
         android:label=""
         tools:layout="@layout/fragment_dien_thoai" />
+    <fragment
+        android:id="@+id/nav_qldienthoai"
+        android:name="com.example.duan1_nhom5.QuanLyDienThoaiFragment"
+        android:label=""
+        tools:layout="@layout/fragment_quanlydienthoai" />
+
 </navigation>

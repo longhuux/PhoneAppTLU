@@ -60,7 +60,12 @@ public class BanChayAdapter extends RecyclerView.Adapter<BanChayAdapter.HomeView
                 banchaynhat.banchay(lg);
             }
         });
-
+        holder.tendt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                banchaynhat.banchay(lg);
+            }
+        });
     }
 
     @Override

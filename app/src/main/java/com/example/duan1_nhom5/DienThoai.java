@@ -1,5 +1,8 @@
 package com.example.duan1_nhom5;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DienThoai {
     private String Id;
     private String Ten;
@@ -20,6 +23,15 @@ public class DienThoai {
         LinkAnh = linkAnh;
         DaBan = daBan;
         SoLike = soLike;
+    }
+
+    public DienThoai(String ten, int gia, String ct, String suaanh, int daban, int like) {
+        Ten = ten;
+        ChiTiet = ct;
+        GiaTien = gia;
+        LinkAnh = suaanh;
+        DaBan = daban;
+        SoLike = like;
     }
 
     public String getId() {
@@ -76,5 +88,17 @@ public class DienThoai {
 
     public void setSoLike(int soLike) {
         SoLike = soLike;
+    }
+
+    public Map<String,Object> toMap(){
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("ten",Ten);
+        result.put("giaTien",GiaTien);
+        result.put("chiTiet",ChiTiet);
+        result.put("linkAnh",LinkAnh);
+        result.put("daBan",DaBan);
+        result.put("soLike",SoLike);
+
+        return result;
     }
 }

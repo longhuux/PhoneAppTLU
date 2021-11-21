@@ -7,11 +7,11 @@
     android:orientation="vertical">
 
     <TextView
+        android:background="@drawable/dialog"
         android:id="@+id/tvudls"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_gravity="center"
-        android:background="@color/register_bk_color"
         android:text="Chỉnh Sửa Thành Viên"
         android:textAlignment="center"
         android:textSize="30sp" />
@@ -19,9 +19,9 @@
     <EditText
         android:id="@+id/nhaptenls"
         android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_gravity="center"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/btn"
         android:elevation="5dp"
         android:hint="Nhập Tên Mới"
@@ -52,15 +52,17 @@
         android:inputType="text"
         android:paddingLeft="15dp"
         tools:ignore="TouchTargetSizeCheck" />
+
     <LinearLayout
         android:layout_width="350dp"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center">
 
         <Button
             android:id="@+id/capnhatls"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
@@ -72,7 +74,7 @@
         <Button
             android:id="@+id/huyls"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"

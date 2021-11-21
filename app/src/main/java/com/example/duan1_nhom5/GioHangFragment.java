@@ -177,8 +177,6 @@ public class GioHangFragment extends Fragment {
                                         }
                                     });
 
-
-
                                 }
 
 

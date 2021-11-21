@@ -96,113 +96,12 @@ public class DienThoaiFragment extends Fragment {
         dsls.clear();
 
         recyclerView = view.findViewById(R.id.reviewdt);
-        FloatingActionButton button = view.findViewById(R.id.floating);
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                openDialogAdd();
-            }
-        });
 
 
 
-    }
-    public void openDialogAdd () {
-      DialogPlus dialogPlus = DialogPlus.newDialog(getContext())
-              .setContentHolder(new ViewHolder(R.layout.adddienthoai))
-              .setExpanded(true,1200)
-              .create();
-      View v1 = dialogPlus.getHolderView();
-        dialogPlus.show();
-        //khai bao
-        tao = v1.findViewById(R.id.tvadd);
-        nhaptendt = v1.findViewById(R.id.nhaptendt);
-        nhapgiadt = v1.findViewById(R.id.nhapgiadt);
-        nhapchitiet = v1.findViewById(R.id.nhapctdt);
-        regdt = v1.findViewById(R.id.adddt);
-        themanh = v1.findViewById(R.id.themanh);
-        huy = v1.findViewById(R.id.huyadddt);
 
-        themanh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent pick=new Intent(Intent.ACTION_GET_CONTENT);
-                pick.setType("image/*");
-                Intent pho=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                Intent chosser=Intent.createChooser(pick, "Lựa Chọn");
-                chosser.putExtra(Intent.EXTRA_INITIAL_INTENTS,new Intent[]{pho});
-                startActivityForResult(chosser, 999);
-            }
-        });
-        //xử lý click
-        regdt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                databaseReference = FirebaseDatabase.getInstance().getReference().child("DienThoai");
-                String uid = databaseReference.push().getKey();
-                String tendt = nhaptendt.getText().toString();
-                int giadt = Integer.parseInt(nhapgiadt.getText().toString());
-                String chitiet = nhapchitiet.getText().toString();
-                byte[] anh=ImageView_To_Byte(themanh);
-                String chuoianh = Base64.getEncoder().encodeToString(anh);
-                int DaBan = 0;
-                int SoLike = 0;
-                DienThoai dienThoai = new DienThoai(uid,tendt,chitiet,giadt,chuoianh,DaBan,SoLike);
-
-                databaseReference.child(uid).setValue(dienThoai);
-                databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Toast.makeText(getContext(), "Thêm Điện Thoại Thành Công", Toast.LENGTH_SHORT).show();
-
-                        dialogPlus.dismiss();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-            }
-        });
-        huy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogPlus.dismiss();
-            }
-        });
-    }
-
-
-    public byte[] ImageView_To_Byte(ImageView imgv){
-
-        BitmapDrawable drawable = (BitmapDrawable) imgv.getDrawable();
-        Bitmap bmp = drawable.getBitmap();
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 999 && resultCode == RESULT_OK) {
-
-            if (data.getExtras() != null) {
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                themanh.setImageBitmap(imageBitmap);
-            } else {
-                Uri uri = data.getData();
-                themanh.setImageURI(uri);
-            }
-
-        }
     }
 
     @Override
@@ -229,6 +128,27 @@ public class DienThoaiFragment extends Fragment {
                         Bitmap bm = BitmapFactory.decodeByteArray(manghinh, 0, manghinh.length);
                         holder.anhdt.setImageBitmap(bm);
                         holder.anhdt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Fragment fragment = new ChiTietDienThoaiFragment();
+                                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("name", dienThoai.getTen());
+                                bundle.putInt("gia", dienThoai.getGiaTien());
+                                bundle.putString("chitiet", dienThoai.getChiTiet());
+                                bundle.putString("anh", dienThoai.getLinkAnh());
+                                bundle.putInt("tim", dienThoai.getSoLike());
+                                bundle.putInt("daban", dienThoai.getDaBan());
+                                bundle.putString("keydt",dienThoai.getId());
+                                fragment.setArguments(bundle);
+                                FragmentTransaction ft = fmgr.beginTransaction();
+                                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                            }
+                        });
+                        holder.tendt.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Fragment fragment = new ChiTietDienThoaiFragment();
@@ -293,6 +213,7 @@ public class DienThoaiFragment extends Fragment {
 
         }
     }
+
 
 
     @Override

@@ -9,11 +9,14 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item android:title="Danh Sách Điện Thoại"
-            android:id="@+id/nav_qldienthoai"
+            android:id="@+id/nav_dienthoai"
             android:icon="@drawable/smartphone"/>
     </group>
     <item android:title="Quản lý">
     <menu >
+        <item android:title="Quản Lý Điện Thoại"
+            android:id="@+id/nav_qldienthoai"
+            android:icon="@drawable/smartphone"/>
         <item android:title="Quản Lý Người Dùng"
             android:id="@+id/nav_qlnguoidung"
             android:icon="@drawable/avt"/>

@@ -73,6 +73,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 thinhhanh.thinhhanh(lg);
             }
         });
+        holder.tendt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                thinhhanh.thinhhanh(lg);
+            }
+        });
 
     }
 

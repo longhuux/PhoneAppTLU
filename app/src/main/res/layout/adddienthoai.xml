@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:background="@color/register_bk_color"
+        android:background="@drawable/dialog"
         android:id="@+id/tvadd"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -21,7 +21,7 @@
         android:layout_width="350dp"
         android:layout_height="45dp"
         android:layout_gravity="center"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/btn"
         android:elevation="5dp"
         android:hint="Nhập Tên Điện Thoại"
@@ -55,7 +55,7 @@
     <ImageView
         android:id="@+id/themanh"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:src="@drawable/add" />
 
     <LinearLayout

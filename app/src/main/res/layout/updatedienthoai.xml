@@ -8,11 +8,11 @@
 
     <TextView
         android:background="@drawable/dialog"
-        android:id="@+id/tvadd"
+        android:id="@+id/tvudls"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="center"
-        android:text="Thêm Điện Thoại"
+        android:text="Chỉnh Sửa Điện Thoại"
         android:textAlignment="center"
         android:textSize="30sp" />
 
@@ -24,66 +24,92 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/btn"
         android:elevation="5dp"
-        android:hint="Nhập Tên Điện Thoại"
+        android:hint="Nhập Tên Mới"
         android:inputType="text"
         android:paddingLeft="15dp"
         tools:ignore="TouchTargetSizeCheck" />
     <EditText
-        android:id="@+id/nhapgiadt"
+        android:id="@+id/nhapgiamoi"
         android:layout_width="350dp"
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/btn"
         android:elevation="5dp"
-        android:hint="Nhập Giá Điện Thoại"
+        android:hint="Nhập Giá Mới"
         android:inputType="text"
         android:paddingLeft="15dp"
         tools:ignore="TouchTargetSizeCheck" />
     <EditText
-        android:id="@+id/nhapctdt"
+        android:id="@+id/nhapchitiet"
         android:layout_width="350dp"
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/btn"
         android:elevation="5dp"
+        android:hint="Nhập Chi Tiết Mới"
         android:inputType="text"
         android:paddingLeft="15dp"
-        android:hint="Nhập Chi Tiết"
+        tools:ignore="TouchTargetSizeCheck" />
+    <EditText
+        android:id="@+id/nhapdaban"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn"
+        android:elevation="5dp"
+        android:hint="Nhập Số Lượng Đã Bán Mới"
+        android:inputType="text"
+        android:paddingLeft="15dp"
+        tools:ignore="TouchTargetSizeCheck" />
+    <EditText
+        android:id="@+id/nhapsolike"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn"
+        android:elevation="5dp"
+        android:hint="Nhập Số Lượt Thích Mới"
+        android:inputType="text"
+        android:paddingLeft="15dp"
         tools:ignore="TouchTargetSizeCheck" />
     <ImageView
-        android:id="@+id/themanh"
-        android:layout_width="match_parent"
+        android:id="@+id/nhapanh"
+        android:layout_width="70dp"
+        android:layout_gravity="center"
         android:layout_height="50dp"
-        android:src="@drawable/add" />
+        android:src="@drawable/logovip3"/>
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="70dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/adddt"
+            android:id="@+id/capnhatdt"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/joinbtn"
-            android:text="Thêm"
+            android:text="Cập Nhật"
             android:textColor="@color/whitecolor"
-            android:layout_marginRight="10dp"
             tools:ignore="TouchTargetSizeCheck" />
 
         <Button
-            android:id="@+id/huyadddt"
+            android:id="@+id/huydt"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@drawable/joinbtn"
             android:text="Hủy"
-            android:layout_marginLeft="10dp"
             android:textColor="@color/whitecolor"
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>

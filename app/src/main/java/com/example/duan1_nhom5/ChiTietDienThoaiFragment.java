@@ -1,5 +1,8 @@
 package com.example.duan1_nhom5;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,21 +13,29 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
@@ -33,12 +44,16 @@ import java.util.Base64;
 
 public class ChiTietDienThoaiFragment extends Fragment {
 
-DienThoai dienThoai;
     TextView ten,gia,chitiet,sotien,noidungchitiet,soluong;
     ImageView anhct,cong,tru;
     Button muahang;
-    int id;
+    ArrayList<BinhLuan> dsbl = new ArrayList<BinhLuan>();
+    EditText nhapcmt;
+    Button cmt;
+    String key;
+    String uid;
     int so = 1;
+    BinhLuanAdapter adapter;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     ArrayList<DienThoai> dsm = new ArrayList<DienThoai>();
@@ -74,19 +89,26 @@ DienThoai dienThoai;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        View v1=view;
-        ten = v1.findViewById(R.id.tv_name_chitiet_dienthoai);
-        sotien = v1.findViewById(R.id.tv_tien_chitiet_dienthoai);
-        noidungchitiet = v1.findViewById(R.id.tv_chitiet_dienthoai);
-        muahang = v1.findViewById(R.id.btn_muangay);
-        soluong = v1.findViewById(R.id.soluong);
-        cong = v1.findViewById(R.id.cong);
-         TextView tv_log = (TextView) view.findViewById(R.id.tv_chitiet_dienthoai);
-        tv_log.setMovementMethod(new ScrollingMovementMethod());
+        RecyclerView recyclerView = view.findViewById(R.id.rvcmt);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
 
-        tru = v1.findViewById(R.id.tru);
 
-        anhct=v1.findViewById(R.id.img_chitiet_dienthoai);
+        nhapcmt = view.findViewById(R.id.nhapbinhluan);
+        cmt = view.findViewById(R.id.btnbinhluan);
+        ten = view.findViewById(R.id.tv_name_chitiet_dienthoai);
+        sotien = view.findViewById(R.id.tv_tien_chitiet_dienthoai);
+        noidungchitiet = view.findViewById(R.id.tv_chitiet_dienthoai);
+        muahang = view.findViewById(R.id.btn_muangay);
+        soluong = view.findViewById(R.id.soluong);
+        cong = view.findViewById(R.id.cong);
+
+
+
+
+        tru = view.findViewById(R.id.tru);
+
+        anhct=view.findViewById(R.id.img_chitiet_dienthoai);
 
         Bundle bundle = this.getArguments();
         String ten1 = bundle.getString("name");
@@ -94,15 +116,41 @@ DienThoai dienThoai;
         String cht = bundle.getString("chitiet");
         String anh = bundle.getString("anh");
         int daban = bundle.getInt("daban");
-        String key = bundle.getString("keydt");
+        key = bundle.getString("keydt");
         byte[] manghinh = Base64.getDecoder().decode(anh);
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
         anhct.setImageBitmap(bm);
         sotien.setText(""+gia);
         ten.setText(ten1);
+        FirebaseRecyclerOptions<BinhLuan> options =
+                new FirebaseRecyclerOptions.Builder<BinhLuan>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("DienThoai").child(key).child("BinhLuan")
+                                , BinhLuan.class)
+                        .build();
+        adapter = new BinhLuanAdapter(options);
+        recyclerView.setAdapter(adapter);
 
         noidungchitiet.setText(cht);
 
+        cmt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                databaseReference = FirebaseDatabase.getInstance().getReference();
+                uid = databaseReference.push().getKey();
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("ThongTin", MODE_PRIVATE);
+                String email = sharedPref.getString("email","");
+                String noidung = nhapcmt.getText().toString();
+                String ngay = String.valueOf(System.currentTimeMillis());
+                BinhLuan binhLuan = new BinhLuan(uid,email,noidung,ngay);
+
+                databaseReference.child("DienThoai").child(key).child("BinhLuan").child(uid).setValue(binhLuan).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        nhapcmt.setText("");
+                    }
+                });
+            }
+        });
 
         cong.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +201,7 @@ DienThoai dienThoai;
                 ft.commit();
             }
         });
+
     }
     public byte[] ImageView_To_Byte(ImageView imgv){
 
@@ -164,6 +213,39 @@ DienThoai dienThoai;
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
+
+    @Override
+    public void onStart() {
+        adapter.startListening();
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        adapter.stopListening();
+        super.onStop();
+    }
+
+    private void getlist(){
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("DienThoai").child(key+"").child("BinhLuan").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    BinhLuan binhLuan = dataSnapshot.getValue(BinhLuan.class);
+                    dsbl.add(binhLuan);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

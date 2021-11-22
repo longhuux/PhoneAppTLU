@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     ArrayList<DangKy> dsls = new ArrayList<DangKy>();
     FirebaseAuth mAuth;
     CallbackManager mCallbackManage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,9 +122,16 @@ public class LoginActivity extends AppCompatActivity {
         mCallbackManage.onActivityResult(requestCode, resultCode, data);
         mAuth.getInstance().signOut();
     }
+
     private void DangNhap(){
         String tk = maildn.getEditText().getText().toString();
         String mk = passdn.getEditText().getText().toString();
+        SharedPreferences sharedPref = getSharedPreferences("ThongTin", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("email", tk);
+        editor.putString("pass", mk);
+        editor.apply();
+
         mAuth.signInWithEmailAndPassword(tk, mk)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

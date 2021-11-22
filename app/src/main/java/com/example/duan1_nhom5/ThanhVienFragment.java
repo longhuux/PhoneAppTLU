@@ -84,26 +84,7 @@ public class ThanhVienFragment extends Fragment {
         super.onStop();
     }
 
-    private void getlist(){
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("NguoiDung");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    DangKy dangKy = dataSnapshot.getValue(DangKy.class);
-                    dsls.add(dangKy);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

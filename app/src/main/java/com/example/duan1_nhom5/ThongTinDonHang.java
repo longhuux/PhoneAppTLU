@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ThongTinDonHang {
+    private String KeyDT;
     private String TenNguoiNhan;
     private String DiaChi;
     private int Sdt;
@@ -18,7 +19,8 @@ public class ThongTinDonHang {
     public ThongTinDonHang() {
     }
 
-    public ThongTinDonHang(String tenNguoiNhan, String diaChi, int sdt, String tenSP, int giaSP, int soLuong, String anhSP, String trangThai, String ngaydat, int giaDT) {
+    public ThongTinDonHang(String keyDT, String tenNguoiNhan, String diaChi, int sdt, String tenSP, int giaSP, int soLuong, String anhSP, String trangThai, String ngaydat, int giaDT) {
+        KeyDT = keyDT;
         TenNguoiNhan = tenNguoiNhan;
         DiaChi = diaChi;
         Sdt = sdt;
@@ -29,6 +31,14 @@ public class ThongTinDonHang {
         TrangThai = trangThai;
         this.ngaydat = ngaydat;
         GiaDT = giaDT;
+    }
+
+    public String getKeyDT() {
+        return KeyDT;
+    }
+
+    public void setKeyDT(String keyDT) {
+        KeyDT = keyDT;
     }
 
     public String getTenNguoiNhan() {

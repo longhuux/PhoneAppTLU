@@ -50,17 +50,9 @@ import java.util.Base64;
 
 public class DienThoaiFragment extends Fragment {
 
-    DienThoai dienThoai;
     ArrayList<DienThoai> dsls = new ArrayList<DienThoai>();
-    FirebaseAuth firebaseAuth;
-    DatabaseReference databaseReference;
-    String ttt ;
-    TextView tao;
-    boolean check=false;
-    EditText nhaptendt,nhapgiadt,nhapchitiet;
-    Button regdt, huy;
-    ImageView themanh;
     RecyclerView recyclerView;
+    int sosaone;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -118,11 +110,11 @@ public class DienThoaiFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull DienThoaiFragment.DienThoaiViewHolder holder, @SuppressLint("RecyclerView") int i, @NonNull DienThoai dienThoai) {
 
+
                         holder.tendt.setText("" + dienThoai.getTen());
                         holder.giadt.setText("Giá : " + dienThoai.getGiaTien());
                         holder.ct.setText("" + dienThoai.getChiTiet());
                         holder.solike.setText("" + dienThoai.getSoLike());
-                        int solikke = dienThoai.getSoLike();
 
                         byte[] manghinh = Base64.getDecoder().decode(dienThoai.getLinkAnh());
                         Bitmap bm = BitmapFactory.decodeByteArray(manghinh, 0, manghinh.length);
@@ -137,7 +129,7 @@ public class DienThoaiFragment extends Fragment {
                                 bundle.putInt("gia", dienThoai.getGiaTien());
                                 bundle.putString("chitiet", dienThoai.getChiTiet());
                                 bundle.putString("anh", dienThoai.getLinkAnh());
-                                bundle.putInt("tim", dienThoai.getSoLike());
+                                bundle.putFloat("tim", dienThoai.getSoLike());
                                 bundle.putInt("daban", dienThoai.getDaBan());
                                 bundle.putString("keydt",dienThoai.getId());
                                 fragment.setArguments(bundle);
@@ -158,7 +150,7 @@ public class DienThoaiFragment extends Fragment {
                                 bundle.putInt("gia", dienThoai.getGiaTien());
                                 bundle.putString("chitiet", dienThoai.getChiTiet());
                                 bundle.putString("anh", dienThoai.getLinkAnh());
-                                bundle.putInt("tim", dienThoai.getSoLike());
+                                bundle.putFloat("tim", dienThoai.getSoLike());
                                 bundle.putInt("daban", dienThoai.getDaBan());
                                 bundle.putString("keydt",dienThoai.getId());
                                 fragment.setArguments(bundle);
@@ -169,18 +161,7 @@ public class DienThoaiFragment extends Fragment {
                                 ft.commit();
                             }
                         });
-                            holder.tim.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    int conglike = dienThoai.getSoLike() + 1;
-                                    holder.tim.setEnabled(false);
-                                    holder.tim.setImageResource(R.drawable.heartred);
-                                    databaseReference = FirebaseDatabase.getInstance().getReference();
-                                    databaseReference.child("DienThoai").child(getRef(i).getKey()).child("soLike").setValue(conglike);
-                                    holder.solike.setText("" + conglike);
 
-                                }
-                            });
                     }
 
                     @NonNull
@@ -207,13 +188,12 @@ public class DienThoaiFragment extends Fragment {
             ct =view.findViewById(R.id.itemct);
             giadt = view.findViewById(R.id.itemgia);
             anhdt = view.findViewById(R.id.itemsp);
-            solike = view.findViewById(R.id.sotim);
+            solike = view.findViewById(R.id.sosaodt);
             tim = view.findViewById(R.id.tim);
 
 
         }
     }
-
 
 
     @Override

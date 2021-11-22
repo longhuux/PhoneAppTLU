@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment {
                 bundle.putInt("gia", dienThoai.getGiaTien());
                 bundle.putString("chitiet", dienThoai.getChiTiet());
                 bundle.putString("anh", dienThoai.getLinkAnh());
-                bundle.putInt("tim", dienThoai.getSoLike());
+                bundle.putFloat("tim", dienThoai.getSoLike());
                 bundle.putInt("daban", dienThoai.getDaBan());
                 bundle.putString("keydt",dienThoai.getId());
                 fragment.setArguments(bundle);
@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment {
                 bundle.putInt("gia", dienThoai.getGiaTien());
                 bundle.putString("chitiet", dienThoai.getChiTiet());
                 bundle.putString("anh", dienThoai.getLinkAnh());
-                bundle.putInt("tim", dienThoai.getSoLike());
+                bundle.putFloat("tim", dienThoai.getSoLike());
                 bundle.putInt("daban", dienThoai.getDaBan());
                 bundle.putString("keydt",dienThoai.getId());
                 fragment.setArguments(bundle);
@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
     }
     private void yeuthich(){
         databaseReference = FirebaseDatabase.getInstance().getReference().child("DienThoai");
-        Query query = databaseReference.orderByChild("soLike").startAt(50);
+        Query query = databaseReference.orderByChild("soLike").equalTo(5);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -93,7 +93,7 @@ public class ThongTinDonHangFragment extends Fragment {
                 String trangthai = "Chờ Xác Nhận";
                 String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
                 String ngay = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                ThongTinDonHang donHang = new ThongTinDonHang(tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai,ngay,giadt);
+                ThongTinDonHang donHang = new ThongTinDonHang(key,tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai,ngay,giadt);
                 databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child("DienThoai").child(key).child("daBan").setValue(daban+1);
                 databaseReference.child("ThongTinDonHang").child(uid).push().setValue(donHang);

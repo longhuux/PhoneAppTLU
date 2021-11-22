@@ -39,8 +39,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
+import java.util.Locale;
 
 public class ChiTietDienThoaiFragment extends Fragment {
 
@@ -48,8 +51,6 @@ public class ChiTietDienThoaiFragment extends Fragment {
     ImageView anhct,cong,tru;
     Button muahang;
     ArrayList<BinhLuan> dsbl = new ArrayList<BinhLuan>();
-    EditText nhapcmt;
-    Button cmt;
     String key;
     String uid;
     int so = 1;
@@ -93,9 +94,6 @@ public class ChiTietDienThoaiFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-
-        nhapcmt = view.findViewById(R.id.nhapbinhluan);
-        cmt = view.findViewById(R.id.btnbinhluan);
         ten = view.findViewById(R.id.tv_name_chitiet_dienthoai);
         sotien = view.findViewById(R.id.tv_tien_chitiet_dienthoai);
         noidungchitiet = view.findViewById(R.id.tv_chitiet_dienthoai);
@@ -132,25 +130,6 @@ public class ChiTietDienThoaiFragment extends Fragment {
 
         noidungchitiet.setText(cht);
 
-        cmt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                databaseReference = FirebaseDatabase.getInstance().getReference();
-                uid = databaseReference.push().getKey();
-                SharedPreferences sharedPref = getActivity().getSharedPreferences("ThongTin", MODE_PRIVATE);
-                String email = sharedPref.getString("email","");
-                String noidung = nhapcmt.getText().toString();
-                String ngay = String.valueOf(System.currentTimeMillis());
-                BinhLuan binhLuan = new BinhLuan(uid,email,noidung,ngay);
-
-                databaseReference.child("DienThoai").child(key).child("BinhLuan").child(uid).setValue(binhLuan).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        nhapcmt.setText("");
-                    }
-                });
-            }
-        });
 
         cong.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,25 +205,6 @@ public class ChiTietDienThoaiFragment extends Fragment {
         super.onStop();
     }
 
-    private void getlist(){
-
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("DienThoai").child(key+"").child("BinhLuan").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    BinhLuan binhLuan = dataSnapshot.getValue(BinhLuan.class);
-                    dsbl.add(binhLuan);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

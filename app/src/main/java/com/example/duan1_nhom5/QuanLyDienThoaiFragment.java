@@ -148,7 +148,7 @@ public class QuanLyDienThoaiFragment extends Fragment {
                 byte[] anh=ImageView_To_Byte(themanh);
                 String chuoianh = Base64.getEncoder().encodeToString(anh);
                 int DaBan = 0;
-                int SoLike = 0;
+                float SoLike = 0;
                 DienThoai dienThoai = new DienThoai(uid,tendt,chitiet,giadt,chuoianh,DaBan,SoLike);
 
                 databaseReference.child(uid).setValue(dienThoai);
@@ -248,7 +248,7 @@ public class QuanLyDienThoaiFragment extends Fragment {
                                                     int gia = Integer.parseInt(nhapgia.getText().toString());
                                                     String ct = nhapct.getText().toString();
                                                     int daban = Integer.parseInt(nhapdaban.getText().toString());
-                                                    int like = Integer.parseInt(nhaplike.getText().toString());
+                                                    float like = Float.parseFloat(nhaplike.getText().toString());
                                                     byte[] anh=ImageView_To_Byte(nhapanh);
                                                     String suaanh = Base64.getEncoder().encodeToString(anh);
                                                     DienThoai thoai = new DienThoai(ten,gia,ct,suaanh,daban,like);
@@ -288,18 +288,6 @@ public class QuanLyDienThoaiFragment extends Fragment {
                         });
 
 
-                        holder.tim.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    int conglike = dienThoai.getSoLike() + 1;
-                                    holder.tim.setEnabled(false);
-                                    holder.tim.setImageResource(R.drawable.heartred);
-                                    databaseReference = FirebaseDatabase.getInstance().getReference();
-                                    databaseReference.child("DienThoai").child(getRef(i).getKey()).child("soLike").setValue(conglike);
-                                    holder.solike.setText("" + conglike);
-
-                                }
-                            });
                     }
 
                     @NonNull

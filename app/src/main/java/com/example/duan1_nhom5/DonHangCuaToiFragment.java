@@ -122,7 +122,27 @@ public class DonHangCuaToiFragment extends Fragment {
                             alertDialog.show();
                         }
                     });
-                }else {
+                } else if (holder.trangthai.getText().toString().equalsIgnoreCase("Đã Nhận Hàng")){
+                    holder.huy.setText("Đánh Giá");
+                    holder.huy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Fragment fragment = new DanhGiaFragment();
+                            FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("tendtbl",donHang.getTenSP());
+                            bundle.putString("anhdtbl", donHang.getAnhSP());
+                            bundle.putString("keydtbl", donHang.getKeyDT());
+                            fragment.setArguments(bundle);
+                            FragmentTransaction ft = fmgr.beginTransaction();
+                            ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            ft.addToBackStack(null);
+                            ft.commit();
+
+                        }
+                    });
+                } else {
                     holder.huy.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

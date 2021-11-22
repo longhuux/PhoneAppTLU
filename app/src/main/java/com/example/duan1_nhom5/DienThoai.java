@@ -10,13 +10,13 @@ public class DienThoai {
     private int GiaTien;
     private String LinkAnh;
     private int DaBan;
-    private int SoLike;
+    private float SoLike;
 
 
     public DienThoai() {
     }
 
-    public DienThoai(String id, String ten, String chiTiet, int giaTien, String linkAnh, int daBan, int soLike) {
+    public DienThoai(String id, String ten, String chiTiet, int giaTien, String linkAnh, int daBan, float soLike) {
         Id = id;
         Ten = ten;
         ChiTiet = chiTiet;
@@ -26,7 +26,7 @@ public class DienThoai {
         SoLike = soLike;
     }
 
-    public DienThoai(String ten, int gia, String ct, String suaanh, int daban, int like) {
+    public DienThoai(String ten, int gia, String ct, String suaanh, int daban, float like) {
         Ten = ten;
         ChiTiet = ct;
         GiaTien = gia;
@@ -83,11 +83,11 @@ public class DienThoai {
         DaBan = daBan;
     }
 
-    public int getSoLike() {
+    public float getSoLike() {
         return SoLike;
     }
 
-    public void setSoLike(int soLike) {
+    public void setSoLike(float soLike) {
         SoLike = soLike;
     }
 

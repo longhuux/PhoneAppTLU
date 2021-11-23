@@ -31,36 +31,42 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/samsung"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:src="@drawable/samsung" />
 
 
         <ImageView
+            android:id="@+id/ios"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:src="@drawable/ios" />
 
         <ImageView
+            android:id="@+id/vivo"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:src="@drawable/vivo" />
 
         <ImageView
+            android:id="@+id/oppo"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:src="@drawable/oppo" />
 
         <ImageView
+            android:id="@+id/xiaomi"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:src="@drawable/redmi" />
 
         <ImageView
+            android:id="@+id/lenovo"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"

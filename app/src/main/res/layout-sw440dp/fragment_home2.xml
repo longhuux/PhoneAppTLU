@@ -31,46 +31,46 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/samsung"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:src="@drawable/samsung" />
 
 
             <ImageView
+                android:id="@+id/ios"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/ios" />
 
             <ImageView
+                android:id="@+id/vivo"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/vivo" />
 
             <ImageView
+                android:id="@+id/oppo"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/oppo" />
 
             <ImageView
+                android:id="@+id/xiaomi"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/redmi" />
 
             <ImageView
+                android:id="@+id/lenovo"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/lenovo" />
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/iphone12xanhla" />
-
 
         </LinearLayout>
 
@@ -124,13 +124,6 @@
                 android:layout_marginLeft="31dp"
                 android:text="Lenovo"
                 android:textSize="12sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="36dp"
-                android:text="Khác"
-                android:textSize="12sp" />
-
 
         </LinearLayout>
 

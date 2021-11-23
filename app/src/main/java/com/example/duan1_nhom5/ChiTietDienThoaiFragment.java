@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,6 +53,7 @@ public class ChiTietDienThoaiFragment extends Fragment {
     Button muahang;
     ArrayList<BinhLuan> dsbl = new ArrayList<BinhLuan>();
     String key;
+    SanPhamLienQuanAdapter sanPhamLienQuanAdapter;
     String uid;
     int so = 1;
     BinhLuanAdapter adapter;
@@ -93,6 +95,9 @@ public class ChiTietDienThoaiFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.rvcmt);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        RecyclerView rvlq = view.findViewById(R.id.rvlienquan);
+        LinearLayoutManager layoutManager1= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+        rvlq.setLayoutManager(layoutManager1);
 
         ten = view.findViewById(R.id.tv_name_chitiet_dienthoai);
         sotien = view.findViewById(R.id.tv_tien_chitiet_dienthoai);
@@ -100,9 +105,6 @@ public class ChiTietDienThoaiFragment extends Fragment {
         muahang = view.findViewById(R.id.btn_muangay);
         soluong = view.findViewById(R.id.soluong);
         cong = view.findViewById(R.id.cong);
-
-
-
 
         tru = view.findViewById(R.id.tru);
 
@@ -117,6 +119,29 @@ public class ChiTietDienThoaiFragment extends Fragment {
         key = bundle.getString("keydt");
         byte[] manghinh = Base64.getDecoder().decode(anh);
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
+
+        String laykey = ten1.substring(0,3);
+        getList(laykey);
+        sanPhamLienQuanAdapter = new SanPhamLienQuanAdapter(getContext(), dsm, new SanPhamLienQuanAdapter.chuyen() {
+            @Override
+            public void ChuyenFragment(DienThoai dienThoai) {
+                Fragment fragment = new ChiTietDienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("name", dienThoai.getTen());
+                bundle.putInt("gia", dienThoai.getGiaTien());
+                bundle.putString("chitiet", dienThoai.getChiTiet());
+                bundle.putString("anh", dienThoai.getLinkAnh());
+                bundle.putString("keydt",dienThoai.getId());
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+        rvlq.setAdapter(sanPhamLienQuanAdapter);
         anhct.setImageBitmap(bm);
         sotien.setText(""+gia);
         ten.setText(ten1);
@@ -205,6 +230,27 @@ public class ChiTietDienThoaiFragment extends Fragment {
         super.onStop();
     }
 
+    public void getList(String keyword){
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("DienThoai").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    DienThoai dienThoai = dataSnapshot.getValue(DienThoai.class);
+                    if(dienThoai.getTen().contains(keyword)){
+                        dsm.add(dienThoai);
+                    }
+                    sanPhamLienQuanAdapter.notifyDataSetChanged();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

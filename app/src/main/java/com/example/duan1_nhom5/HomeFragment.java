@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
     ArrayList<DienThoai> ds = new ArrayList<DienThoai>();
     HomeAdapter adapter;
     BanChayAdapter banChayAdapter;
+    ImageView samsung,oppo,lenovo,ios,vivo,xiaomi;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -68,7 +69,14 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ImageView anhslide = view.findViewById(R.id.anhslide);
         anhslide.setBackgroundResource(R.drawable.slide);
+
         TextView xem = view.findViewById(R.id.xemtatca);
+        samsung = view.findViewById(R.id.samsung);
+        ios = view.findViewById(R.id.ios);
+        vivo = view.findViewById(R.id.vivo);
+        lenovo = view.findViewById(R.id.lenovo);
+        xiaomi = view.findViewById(R.id.xiaomi);
+        oppo = view.findViewById(R.id.oppo);
         RecyclerView recyclerView = view.findViewById(R.id.rvtop);
         RecyclerView recyclerView1 = view.findViewById(R.id.rvbanchay);
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
@@ -78,6 +86,97 @@ public class HomeFragment extends Fragment {
         ds.clear();
         thinhhanh();
         yeuthich();
+
+        samsung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new HangDienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("keyword", "Samsung");
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+        oppo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new HangDienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("keyword", "Oppo");
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+        ios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new HangDienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("keyword", "IPhone");
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+        lenovo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new HangDienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("keyword", "Lenovo");
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+        xiaomi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new HangDienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("keyword", "Xiaomi");
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+        vivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new HangDienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("keyword", "Vivo");
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
 
         xem.setOnClickListener(new View.OnClickListener() {
             @Override

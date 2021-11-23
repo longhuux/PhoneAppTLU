@@ -30,11 +30,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     private ArrayList<DienThoai> dsm;
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
     private Context c;
     DienThoai dienThoai;
     DatabaseReference databaseReference;
@@ -63,7 +65,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     public void onBindViewHolder(HomeAdapter.HomeViewHolder holder, int position) {
         DienThoai lg = dsm.get(position);
         holder.tendt.setText(""+lg.getTen());
-        holder.giadt.setText("Giá : "+lg.getGiaTien());
+        holder.giadt.setText("Giá: "+formatter.format(lg.getGiaTien()));
         byte[] manghinh = Base64.getDecoder().decode(lg.getLinkAnh());
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
         holder.anhdt.setImageBitmap(bm);

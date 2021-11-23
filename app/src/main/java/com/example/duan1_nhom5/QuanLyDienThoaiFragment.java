@@ -44,11 +44,12 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 
 public class QuanLyDienThoaiFragment extends Fragment {
-
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
     DienThoai dienThoai;
     ArrayList<DienThoai> dsls = new ArrayList<DienThoai>();
     FirebaseAuth firebaseAuth;
@@ -194,7 +195,7 @@ public class QuanLyDienThoaiFragment extends Fragment {
                     protected void onBindViewHolder(@NonNull QuanLyDienThoaiFragment.DienThoaiViewHolder holder, @SuppressLint("RecyclerView") int i, @NonNull DienThoai dienThoai) {
 
                         holder.tendt.setText("" + dienThoai.getTen());
-                        holder.giadt.setText("Giá : " + dienThoai.getGiaTien());
+                        holder.giadt.setText("Giá : " + formatter.format(dienThoai.getGiaTien()));
                         holder.ct.setText("" + dienThoai.getChiTiet());
                         holder.solike.setText("" + dienThoai.getSoLike());
 

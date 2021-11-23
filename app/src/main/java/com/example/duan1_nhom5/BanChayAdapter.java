@@ -16,12 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 
 public class BanChayAdapter extends RecyclerView.Adapter<BanChayAdapter.HomeViewHolder> {
     private ArrayList<DienThoai> dsm;
     private Context c;
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
     DienThoai dienThoai;
     DatabaseReference databaseReference;
     FirebaseAuth mAuth;
@@ -49,7 +51,7 @@ public class BanChayAdapter extends RecyclerView.Adapter<BanChayAdapter.HomeView
     public void onBindViewHolder(BanChayAdapter.HomeViewHolder holder, int position) {
         DienThoai lg = dsm.get(position);
         holder.tendt.setText(""+lg.getTen());
-        holder.giadt.setText("Giá : "+lg.getGiaTien());
+        holder.giadt.setText("Giá : "+formatter.format(lg.getGiaTien()));
         byte[] manghinh = Base64.getDecoder().decode(lg.getLinkAnh());
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
         holder.anhdt.setImageBitmap(bm);

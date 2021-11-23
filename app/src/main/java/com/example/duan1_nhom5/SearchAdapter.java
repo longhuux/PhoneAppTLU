@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.logging.LogRecord;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> implements Filterable {
     private List<DienThoai> dsm;
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
     private List<DienThoai> dsm1;
     private Context c;
     DienThoai dienThoai;
@@ -50,7 +52,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public void onBindViewHolder(SearchAdapter.SearchViewHolder holder, int position) {
         DienThoai lg = dsm.get(position);
         holder.tendt.setText(""+lg.getTen());
-        holder.giadt.setText("Giá : "+lg.getGiaTien());
+        holder.giadt.setText("Giá : "+formatter.format(lg.getGiaTien()));
         holder.chitiet.setText(""+lg.getChiTiet());
         byte[] manghinh = Base64.getDecoder().decode(lg.getLinkAnh());
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);

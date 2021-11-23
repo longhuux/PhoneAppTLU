@@ -24,9 +24,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
+import java.text.DecimalFormat;
 import java.util.Base64;
 
 public class GioHangAdapter extends FirebaseRecyclerAdapter<GioHang,GioHangAdapter.GioHangViewHolder> {
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
     public GioHangAdapter(FirebaseRecyclerOptions<GioHang> options) {
        //this.truyenDuLieu = truyenDuLieu;
         super(options);
@@ -36,7 +38,7 @@ public class GioHangAdapter extends FirebaseRecyclerAdapter<GioHang,GioHangAdapt
     protected void onBindViewHolder( GioHangViewHolder holder, int i,GioHang gioHang) {
         int tinhtong = gioHang.getGiaGioHang() * gioHang.getSoLuong();
         holder.ten.setText(""+gioHang.getTenGioHang());
-        holder.gia.setText(""+tinhtong);
+        holder.gia.setText(""+formatter.format(tinhtong));
         holder.soluong.setText(""+gioHang.getSoLuong());
         byte[] manghinh = Base64.getDecoder().decode(gioHang.getAnhGioHang());
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);

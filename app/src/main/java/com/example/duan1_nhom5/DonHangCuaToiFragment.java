@@ -29,10 +29,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DecimalFormat;
 import java.util.Base64;
 
 public class DonHangCuaToiFragment extends Fragment {
-
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
@@ -89,7 +90,7 @@ public class DonHangCuaToiFragment extends Fragment {
             @Override
             protected void onBindViewHolder(DonHangCuaToiViewHolder holder, @SuppressLint("RecyclerView") int i, @NonNull ThongTinDonHang donHang) {
                 holder.tendt.setText(""+donHang.getTenSP());
-                holder.gia.setText("Số Tiền: "+donHang.getGiaSP());
+                holder.gia.setText("Số Tiền: "+formatter.format(donHang.getGiaSP()));
                 holder.trangthai.setText(""+donHang.getTrangThai());
                 holder.tongtien.setText("Tổng Tiền("+donHang.getSoLuong()+" Sản Phẩm): "+donHang.getGiaSP());
                 byte[] manghinh = Base64.getDecoder().decode(donHang.getAnhSP());

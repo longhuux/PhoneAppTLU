@@ -62,7 +62,7 @@
         android:layout_marginTop="70dp"
         android:fontFamily="@font/poppins_medium"
         android:gravity="center"
-        android:text="Đ"
+        android:text="VNĐ"
         android:textColor="#750A1F"
         android:textSize="20dp"
         app:layout_constraintStart_toEndOf="@+id/itemqlgia"
@@ -98,7 +98,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="70dp"
-        android:src="@drawable/heart"
+        android:src="@drawable/saosau"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />

@@ -72,7 +72,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
                     android:layout_marginLeft="5dp"
-                    android:text="Đ"
+                    android:text="VNĐ"
                     android:textColor="#232323"
                     android:textSize="18dp" />
             </LinearLayout>

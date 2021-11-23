@@ -45,11 +45,12 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 
 public class DienThoaiFragment extends Fragment {
-
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
     ArrayList<DienThoai> dsls = new ArrayList<DienThoai>();
     RecyclerView recyclerView;
     int sosaone;
@@ -112,7 +113,7 @@ public class DienThoaiFragment extends Fragment {
 
 
                         holder.tendt.setText("" + dienThoai.getTen());
-                        holder.giadt.setText("Giá : " + dienThoai.getGiaTien());
+                        holder.giadt.setText("Giá : " + formatter.format(dienThoai.getGiaTien()));
                         holder.ct.setText("" + dienThoai.getChiTiet());
                         holder.solike.setText("" + dienThoai.getSoLike());
 

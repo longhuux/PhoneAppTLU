@@ -35,11 +35,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.Base64;
 import java.util.List;
 
 public class GioHangFragment extends Fragment {
-
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
     FirebaseRecyclerAdapter<GioHang,GioHangAdapter.GioHangViewHolder> mFirebaseAdapter;
     RecyclerView recyclerView;
     Button btn_thanhtoan;
@@ -111,7 +112,7 @@ public class GioHangFragment extends Fragment {
                     protected void onBindViewHolder(@NonNull GioHangViewHolder holder, @SuppressLint("RecyclerView") int i, @NonNull GioHang gioHang) {
 
                         holder.ten.setText(""+gioHang.getTenGioHang());
-                        holder.gia.setText(""+gioHang.getGiaGioHang());
+                        holder.gia.setText(""+formatter.format(gioHang.getGiaGioHang()));
                         holder.soluong.setText(""+gioHang.getSoLuong());
                         byte[] manghinh = Base64.getDecoder().decode(gioHang.getAnhGioHang());
                         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
@@ -191,7 +192,7 @@ public class GioHangFragment extends Fragment {
                                 holder.so =sl1 +1;
                                 holder.soluong.setText(holder.so+"");
                                 int tinhtong = gioHang.getGiaDT() * holder.so;
-                                holder.gia.setText(tinhtong+"");
+                                holder.gia.setText(formatter.format(tinhtong)+"");
                             }
                         });
                         holder.tru.setOnClickListener(new View.OnClickListener() {
@@ -201,7 +202,7 @@ public class GioHangFragment extends Fragment {
                                 holder.so =sl1 - 1;
                                 holder.soluong.setText(holder.so+"");
                                 int tinhtong = gioHang.getGiaDT()  * holder.so;
-                                holder.gia.setText(tinhtong+"");
+                                holder.gia.setText(formatter.format(tinhtong)+"");
                             }
                         });
 

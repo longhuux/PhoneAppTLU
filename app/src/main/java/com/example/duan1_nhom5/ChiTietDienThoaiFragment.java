@@ -40,6 +40,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -47,7 +48,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ChiTietDienThoaiFragment extends Fragment {
-
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
     TextView ten,gia,chitiet,sotien,noidungchitiet,soluong;
     ImageView anhct,cong,tru;
     Button muahang;
@@ -143,7 +144,8 @@ public class ChiTietDienThoaiFragment extends Fragment {
         });
         rvlq.setAdapter(sanPhamLienQuanAdapter);
         anhct.setImageBitmap(bm);
-        sotien.setText(""+gia);
+
+        sotien.setText(""+formatter.format(gia));
         ten.setText(ten1);
         FirebaseRecyclerOptions<BinhLuan> options =
                 new FirebaseRecyclerOptions.Builder<BinhLuan>()
@@ -163,7 +165,7 @@ public class ChiTietDienThoaiFragment extends Fragment {
                 soluong.setText(so+"");
                 int sl = Integer.parseInt(soluong.getText().toString());
                 int tinhtong = gia * sl;
-                sotien.setText(tinhtong+"");
+                sotien.setText(formatter.format(tinhtong)+"");
             }
         });
         tru.setOnClickListener(new View.OnClickListener() {
@@ -173,7 +175,7 @@ public class ChiTietDienThoaiFragment extends Fragment {
                 soluong.setText(""+so);
                 int sl = Integer.parseInt(soluong.getText().toString());
                 int tinhtong = gia * sl;
-                sotien.setText(tinhtong+"");
+                sotien.setText(formatter.format(tinhtong)+"");
             }
         });
 

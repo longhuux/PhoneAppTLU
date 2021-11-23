@@ -19,10 +19,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DecimalFormat;
 import java.util.Base64;
 
 public class ChiTietDonHangFragment extends Fragment {
-
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
     TextView ma,ngay,tenkh,diachi,sdt,sosp,tongtien,trangthai,tensp,giasp;
     ImageView anh;
     Button back;
@@ -92,11 +93,11 @@ public class ChiTietDonHangFragment extends Fragment {
         diachi.setText(diachidh+"");
         sdt.setText(sdtdh+"");
         sosp.setText(soluong+"");
-        tongtien.setText(gia+" VNĐ");
+        tongtien.setText(formatter.format(gia)+" VNĐ");
         trangthai.setText(trangthaidh+"");
         anh.setImageBitmap(bm);
         tensp.setText(tenspdh+"");
-        giasp.setText(giadt+"");
+        giasp.setText(formatter.format(giadt)+"");
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

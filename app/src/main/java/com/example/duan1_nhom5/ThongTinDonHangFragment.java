@@ -26,13 +26,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Locale;
 
 public class ThongTinDonHangFragment extends Fragment {
-
     EditText nhapten,nhapdiachi,nhapsdt;
     RadioButton thanhtoan;
     Button xacnhan,trove;

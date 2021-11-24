@@ -35,10 +35,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="50dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="15dp"
+            android:id="@+id/hiensao"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="1dp"
             android:src="@drawable/sao"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -54,7 +54,7 @@
             android:text="Hello Guyus , how r you ? "
             android:textColor="#252424"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/hiensao" />
 
         <TextView
             android:id="@+id/tvTime"

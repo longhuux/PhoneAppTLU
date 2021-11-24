@@ -49,6 +49,7 @@ import java.util.Locale;
 
 public class ChiTietDienThoaiFragment extends Fragment {
     DecimalFormat formatter = new DecimalFormat("###,###,###");
+    DecimalFormat formatter1 = new DecimalFormat("#########");
     TextView ten,gia,chitiet,sotien,noidungchitiet,soluong;
     ImageView anhct,cong,tru;
     Button muahang;
@@ -145,7 +146,7 @@ public class ChiTietDienThoaiFragment extends Fragment {
         rvlq.setAdapter(sanPhamLienQuanAdapter);
         anhct.setImageBitmap(bm);
 
-        sotien.setText(""+formatter.format(gia));
+        sotien.setText(""+gia);
         ten.setText(ten1);
         FirebaseRecyclerOptions<BinhLuan> options =
                 new FirebaseRecyclerOptions.Builder<BinhLuan>()
@@ -165,7 +166,7 @@ public class ChiTietDienThoaiFragment extends Fragment {
                 soluong.setText(so+"");
                 int sl = Integer.parseInt(soluong.getText().toString());
                 int tinhtong = gia * sl;
-                sotien.setText(formatter.format(tinhtong)+"");
+                sotien.setText(tinhtong+"");
             }
         });
         tru.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +176,7 @@ public class ChiTietDienThoaiFragment extends Fragment {
                 soluong.setText(""+so);
                 int sl = Integer.parseInt(soluong.getText().toString());
                 int tinhtong = gia * sl;
-                sotien.setText(formatter.format(tinhtong)+"");
+                sotien.setText(tinhtong+"");
             }
         });
 

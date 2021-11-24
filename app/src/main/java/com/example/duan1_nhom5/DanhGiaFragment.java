@@ -164,10 +164,11 @@ public class DanhGiaFragment extends Fragment {
                 String email = sharedPref.getString("email","");
                 String noidung = nhanxet.getText().toString();
                 String ngay = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                BinhLuan binhLuan = new BinhLuan(uid,email,noidung,ngay);
                 float sosaosau = Float.parseFloat(sosao.getText().toString());
                 float tongsao = saobandau + sosaosau;
                 float tongsao1 = tongsao / 2 ;
+                BinhLuan binhLuan = new BinhLuan(uid,email,noidung,ngay,tongsao1);
+
 
                 databaseReference.child("DienThoai").child(key).child("BinhLuan").child(uid).setValue(binhLuan);
                 databaseReference.child("DienThoai").child(key).child("soLike").setValue(tongsao1).addOnCompleteListener(new OnCompleteListener<Void>() {

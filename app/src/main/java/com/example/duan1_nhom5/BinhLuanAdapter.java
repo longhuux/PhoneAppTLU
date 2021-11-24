@@ -14,11 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Base64;
 
 public class BinhLuanAdapter extends FirebaseRecyclerAdapter<BinhLuan, BinhLuanAdapter.BinhLuanViewHolder> {
-
+    float sosaodau;
     FirebaseAuth firebaseAuth;
     public BinhLuanAdapter(@NonNull FirebaseRecyclerOptions<BinhLuan> options) {
         super(options);
@@ -29,6 +34,27 @@ public class BinhLuanAdapter extends FirebaseRecyclerAdapter<BinhLuan, BinhLuanA
         holder.ten.setText(""+binhLuan.getUsername());
         holder.nd.setText(""+binhLuan.getNoiDung());
         holder.ngay.setText(""+binhLuan.getNgay());
+        sosaodau = binhLuan.getSao();
+        if (sosaodau == 1){
+            holder.sao.setImageResource(R.drawable.motsao);
+        }if (sosaodau == 1.5){
+            holder.sao.setImageResource(R.drawable.motru);
+        }if (sosaodau == 2){
+            holder.sao.setImageResource(R.drawable.haisao);
+        }if (sosaodau == 2.5){
+            holder.sao.setImageResource(R.drawable.hairu);
+        }if (sosaodau == 3){
+            holder.sao.setImageResource(R.drawable.bonsao);
+        }if (sosaodau == 3.5){
+            holder.sao.setImageResource(R.drawable.baru);
+        }if (sosaodau == 4){
+            holder.sao.setImageResource(R.drawable.bonsaoreal);
+        }if (sosaodau == 4.5){
+            holder.sao.setImageResource(R.drawable.bonru);
+        }if (sosaodau == 5){
+            holder.sao.setImageResource(R.drawable.namsao);
+        }
+
     }
 
     @NonNull
@@ -40,6 +66,7 @@ public class BinhLuanAdapter extends FirebaseRecyclerAdapter<BinhLuan, BinhLuanA
 
     class BinhLuanViewHolder extends RecyclerView.ViewHolder {
         TextView ten,nd,ngay;
+        ImageView sao;
 
         public BinhLuanViewHolder(View view) {
             super(view);
@@ -47,6 +74,9 @@ public class BinhLuanAdapter extends FirebaseRecyclerAdapter<BinhLuan, BinhLuanA
             ten =view.findViewById(R.id.tvUser);
             nd = view.findViewById(R.id.tvText);
             ngay = view.findViewById(R.id.tvTime);
+            sao = view.findViewById(R.id.hiensao);
         }
     }
+
+
 }

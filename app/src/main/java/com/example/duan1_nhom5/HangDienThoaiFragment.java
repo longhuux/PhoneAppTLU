@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 
 public class HangDienThoaiFragment extends Fragment {
-
     HangDienThoaiAdapter adapter;
     ArrayList<DienThoai> list = new ArrayList<DienThoai>();
     DatabaseReference databaseReference;

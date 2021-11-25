@@ -87,16 +87,18 @@ public class ThongTinDonHangFragment extends Fragment {
         xacnhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                databaseReference = FirebaseDatabase.getInstance().getReference();
+                String keydh = databaseReference.push().getKey();
                 String tenngnhan = nhapten.getText().toString();
                 String diachi = nhapdiachi.getText().toString();
                 int sdt = Integer.parseInt(nhapsdt.getText().toString());
                 String trangthai = "Chờ Xác Nhận";
                 String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
                 String ngay = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                ThongTinDonHang donHang = new ThongTinDonHang(key,tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai,ngay,giadt);
-                databaseReference = FirebaseDatabase.getInstance().getReference();
+                ThongTinDonHang donHang = new ThongTinDonHang(keydh,uid,key,tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai,ngay,giadt);
+
                 databaseReference.child("DienThoai").child(key).child("daBan").setValue(daban+1);
-                databaseReference.child("ThongTinDonHang").child(uid).push().setValue(donHang);
+                databaseReference.child("ThongTinDonHang").child(uid).child(keydh).setValue(donHang);
                 databaseReference.child("ThongTinDonHang").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

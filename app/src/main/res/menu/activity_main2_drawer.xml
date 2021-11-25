@@ -17,6 +17,9 @@
         <item android:title="Quản Lý Điện Thoại"
             android:id="@+id/nav_qldienthoai"
             android:icon="@drawable/smartphone"/>
+        <item android:title="Quản Lý Đơn Hàng"
+            android:id="@+id/nav_qldonhang"
+            android:icon="@drawable/smartphone"/>
         <item android:title="Quản Lý Người Dùng"
             android:id="@+id/nav_qlnguoidung"
             android:icon="@drawable/avt"/>

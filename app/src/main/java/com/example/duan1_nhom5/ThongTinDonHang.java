@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ThongTinDonHang {
+    private String KeyDH;
+    private String UID;
     private String KeyDT;
     private String TenNguoiNhan;
     private String DiaChi;
@@ -19,7 +21,9 @@ public class ThongTinDonHang {
     public ThongTinDonHang() {
     }
 
-    public ThongTinDonHang(String keyDT, String tenNguoiNhan, String diaChi, int sdt, String tenSP, int giaSP, int soLuong, String anhSP, String trangThai, String ngaydat, int giaDT) {
+    public ThongTinDonHang(String keyDH, String UID, String keyDT, String tenNguoiNhan, String diaChi, int sdt, String tenSP, int giaSP, int soLuong, String anhSP, String trangThai, String ngaydat, int giaDT) {
+        KeyDH = keyDH;
+        this.UID = UID;
         KeyDT = keyDT;
         TenNguoiNhan = tenNguoiNhan;
         DiaChi = diaChi;
@@ -31,6 +35,22 @@ public class ThongTinDonHang {
         TrangThai = trangThai;
         this.ngaydat = ngaydat;
         GiaDT = giaDT;
+    }
+
+    public String getKeyDH() {
+        return KeyDH;
+    }
+
+    public void setKeyDH(String keyDH) {
+        KeyDH = keyDH;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getKeyDT() {
@@ -119,17 +139,5 @@ public class ThongTinDonHang {
 
     public void setGiaDT(int giaDT) {
         GiaDT = giaDT;
-    }
-
-    public Map<String,Object> toMap(){
-        HashMap<String,Object> result = new HashMap<>();
-        result.put("tenNguoiNhan",TenNguoiNhan);
-        result.put("diaChi",DiaChi);
-        result.put("sdt",Sdt);
-        result.put("tenSP",TenSP);
-        result.put("giaSP",GiaSP);
-        result.put("soLuong",SoLuong);
-        result.put("anhSP",AnhSP);
-        return result;
     }
 }

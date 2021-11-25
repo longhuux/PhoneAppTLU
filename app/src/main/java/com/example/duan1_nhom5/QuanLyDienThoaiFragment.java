@@ -230,6 +230,9 @@ public class QuanLyDienThoaiFragment extends Fragment {
                                             sua = v1.findViewById(R.id.capnhatdt);
                                             huy = v1.findViewById(R.id.huydt);
                                             nhapten.setText(dienThoai.getTen());
+                                            nhapct.setText(""+dienThoai.getGiaTien());
+                                            nhapdaban.setText(""+dienThoai.getDaBan());
+                                            nhaplike.setText(""+dienThoai.getSoLike());
 
                                             nhapanh.setOnClickListener(new View.OnClickListener() {
                                                 @Override

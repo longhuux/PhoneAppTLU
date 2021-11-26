@@ -22,8 +22,11 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/joinbtn.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/lichsu.xml" value="0.188" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/like.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/mic.xml" value="0.21388888888888888" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/muahang.xml" value="0.188" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/nen_appbar.xml" value="0.21388888888888888" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/saosau.xml" value="0.2203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/search.xml" value="0.21388888888888888" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/smartphone.xml" value="0.188" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/toi.xml" value="0.188" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/trangchu.xml" value="0.188" />
@@ -41,6 +44,8 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/fragment_dien_thoai.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/fragment_gio_hang.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/fragment_gioi_thieu1.xml" value="0.1814814814814815" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/fragment_gioi_thieu2.xml" value="0.17527173913043478" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/fragment_gioi_thieu3.xml" value="0.17527173913043478" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/fragment_home2.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/fragment_lienhe.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout-sw400dp/fragment_sanpham.xml" value="0.1814814814814815" />

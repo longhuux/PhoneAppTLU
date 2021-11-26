@@ -1,10 +1,19 @@
 package com.example.duan1_nhom5;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -12,7 +21,11 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -29,6 +42,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class Main2Activity extends AppCompatActivity{
 
@@ -39,6 +54,10 @@ public class Main2Activity extends AppCompatActivity{
     int count;
     int countgio;
     int countdon;
+    EditText text;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+    Context context = Main2Activity.this;
+    TextToSpeech textToSpeech;
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +70,7 @@ public class Main2Activity extends AppCompatActivity{
         setSupportActionBar(binding.appBarMain.toolbar);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+         text = binding.appBarMain.timkiemappbar;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -60,6 +80,20 @@ public class Main2Activity extends AppCompatActivity{
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+//        if (firebaseAuth.getInstance().getCurrentUser().getEmail()=="admin@gmail.com"){
+//            navigationView = (NavigationView) findViewById(R.id.nav_view);
+//            Menu nav_Menu = navigationView.getMenu();
+//            nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(true);
+//            nav_Menu.findItem(R.id.nav_qldonhang).setVisible(true);
+//
+//        }else {
+//            navigationView = (NavigationView) findViewById(R.id.nav_view);
+//            Menu nav_Menu = navigationView.getMenu();
+//            nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(false);
+//            nav_Menu.findItem(R.id.nav_qldonhang).setVisible(false);
+//        }
+
 
         Fragment home = new HomeFragment();
         Fragment gio = new GioHangFragment();
@@ -184,28 +218,82 @@ public class Main2Activity extends AppCompatActivity{
     public boolean onOptionsItemSelected( MenuItem item) {
         switch (item.getItemId()) {
             case R.id.timkiem:
-                        item.setVisible(false);
-                        Fragment mFragment = new SearchFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment).commit();
-                        break;
-            case R.id.lienhe:
-                Fragment mFragment3 = new ThongTinDonHangFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment3).commit();
+                String danhap= text.getText().toString();
+                Fragment fragment = new SearchFragment();
+                FragmentManager fmgr = Main2Activity.this.getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("keyw",danhap);
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+                text.setText("");
                 break;
-            case R.id.danhgia:
-                Fragment mFragment4 = new ThongTinDonHangFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment4).commit();
-                break;
-            case R.id.caidat:
-                Fragment mFragment5 = new ThongTinDonHangFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, mFragment5).commit();
+
+            case R.id.mic:
+                    ChuyenAmThanhSangVanBan();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
 
+    public void ChuyenAmThanhSangVanBan(){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Đang Nghe...");
+        try {
+            startActivityForResult(intent,REQ_CODE_SPEECH_INPUT);
+        }catch (ActivityNotFoundException e){
+            Toast.makeText(context, "Thiết bị của bạn không hỗ trợ", Toast.LENGTH_SHORT).show();
+        }
 
+    }
+    public void  tts(String text){
+        textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onInit(int status) {
+                if ( status != TextToSpeech.ERROR ){
+                    textToSpeech.setLanguage( new Locale("vi_VN") );
+                    textToSpeech.setSpeechRate((float) 1.5);
+                    textToSpeech.speak(text , TextToSpeech.QUEUE_FLUSH , null);
+
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode){
+            case REQ_CODE_SPEECH_INPUT:{
+                if(resultCode == RESULT_OK && data != null){
+                    List<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    String text1 = result.get(0);
+                    text.setText(text1);
+                    tts("Bạn Đang Tìm "+text1+"Cảm Ơn Bạn");
+                    String danhap= text.getText().toString();
+                    Fragment fragment = new SearchFragment();
+                    FragmentManager fmgr = Main2Activity.this.getSupportFragmentManager();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("keyw",danhap);
+                    fragment.setArguments(bundle);
+                    FragmentTransaction ft = fmgr.beginTransaction();
+                    ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                    text.setText("");
+                }
+            }
+            break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

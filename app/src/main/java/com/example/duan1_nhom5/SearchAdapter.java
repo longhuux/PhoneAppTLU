@@ -24,7 +24,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.logging.LogRecord;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> implements Filterable {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
     private List<DienThoai> dsm;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
     private List<DienThoai> dsm1;
@@ -82,35 +82,5 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
 
         }
-    }
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String keyword = charSequence.toString();
-                if (keyword.isEmpty()){
-                    dsm = dsm1;
-                }else {
-                    List<DienThoai> list = new ArrayList<>();
-                    for (DienThoai thoai:dsm1){
-                        if (thoai.getTen().toLowerCase().contains(keyword.toLowerCase())){
-                            list.add(thoai);
-                        }
-                    }
-                        dsm = list;
-                }
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = dsm;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-
-                dsm = (List<DienThoai>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
     }
 }

@@ -16,9 +16,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toolbar;
 
-import com.example.duan1_nhom5.databinding.SearchItemBinding;
+
+import com.example.duan1_nhom5.databinding.ActivityMain2Binding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +35,7 @@ public class SearchFragment extends Fragment {
     SearchAdapter adapter;
     DatabaseReference databaseReference;
     SearchView searchView;
+    ActivityMain2Binding binding;
 
     ArrayList<DienThoai> dsls = new ArrayList<DienThoai>();
     private static final String ARG_PARAM1 = "param1";
@@ -67,28 +70,33 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
         RecyclerView recyclerView = view.findViewById(R.id.rvserch);
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         dsls.clear();
-        getlist();
-
+        Bundle bundle = this.getArguments();
+        String ten1 = bundle.getString("keyw");
+        getlist(ten1);
         adapter = new SearchAdapter(getContext(), dsls);
         recyclerView.setAdapter(adapter);
+
+
+
     }
 
-    private void getlist(){
+    private void getlist(String key){
         databaseReference = FirebaseDatabase.getInstance().getReference().child("DienThoai");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
                     DienThoai dienThoai = dataSnapshot.getValue(DienThoai.class);
-                    if(dienThoai!=null){
+
+                    if(dienThoai.getTen().toLowerCase().contains(key.toLowerCase())){
                         dsls.add(dienThoai);
-                        adapter.notifyDataSetChanged();
                     }
+                    adapter.notifyDataSetChanged();
+
                 }
             }
 
@@ -99,26 +107,6 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-      inflater.inflate(R.menu.search, menu);
-        searchView = (SearchView) menu.findItem(R.id.searchne).getActionView();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                adapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -164,26 +164,44 @@ public class DanhGiaFragment extends Fragment {
                 String email = sharedPref.getString("email","");
                 String noidung = nhanxet.getText().toString();
                 String ngay = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                float sosaosau = Float.parseFloat(sosao.getText().toString());
-                float tongsao = saobandau + sosaosau;
-                float tongsao1 = tongsao / 2 ;
-                BinhLuan binhLuan = new BinhLuan(uid,email,noidung,ngay,tongsao1);
+                if (saobandau!=0.0) {
+                    float sosaosau = Float.parseFloat(sosao.getText().toString());
+                    float tongsao = saobandau + sosaosau;
+                    float tongsao1 = tongsao / 2;
+                    BinhLuan binhLuan = new BinhLuan(uid, email, noidung, ngay, tongsao1);
 
 
-                databaseReference.child("DienThoai").child(key).child("BinhLuan").child(uid).setValue(binhLuan);
-                databaseReference.child("DienThoai").child(key).child("soLike").setValue(tongsao1).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Fragment fragment = new DonHangCuaToiFragment();
-                        FragmentManager fmgr = getActivity().getSupportFragmentManager();
-                        FragmentTransaction ft = fmgr.beginTransaction();
-                        ft.replace(R.id.nav_host_fragment_content_main, fragment);
-                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                        ft.addToBackStack(null);
-                        ft.commit();
-                    }
-                });
-
+                    databaseReference.child("DienThoai").child(key).child("BinhLuan").child(uid).setValue(binhLuan);
+                    databaseReference.child("DienThoai").child(key).child("soLike").setValue(tongsao1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Fragment fragment = new DonHangCuaToiFragment();
+                            FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                            FragmentTransaction ft = fmgr.beginTransaction();
+                            ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            ft.addToBackStack(null);
+                            ft.commit();
+                        }
+                    });
+                }
+                else {
+                    float sosaosau = Float.parseFloat(sosao.getText().toString());
+                    BinhLuan binhLuan = new BinhLuan(uid, email, noidung, ngay, sosaosau);
+                    databaseReference.child("DienThoai").child(key).child("BinhLuan").child(uid).setValue(binhLuan);
+                    databaseReference.child("DienThoai").child(key).child("soLike").setValue(sosaosau).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Fragment fragment = new DonHangCuaToiFragment();
+                            FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                            FragmentTransaction ft = fmgr.beginTransaction();
+                            ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            ft.addToBackStack(null);
+                            ft.commit();
+                        }
+                    });
+                }
             }
         });
     }

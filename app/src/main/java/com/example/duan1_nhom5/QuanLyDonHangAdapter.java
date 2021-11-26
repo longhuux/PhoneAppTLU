@@ -89,7 +89,8 @@ public class QuanLyDonHangAdapter extends RecyclerView.Adapter<QuanLyDonHangAdap
                         String trangthai = (String)nhaptrangthai.getSelectedItem();
                         databaseReference = FirebaseDatabase.getInstance().getReference();
                         databaseReference.child("ThongTinDonHang").child(donHang.getUID()).child(donHang.getKeyDH()).child("trangThai").setValue(trangthai);
-
+                        dialog.dismiss();
+                        Toast.makeText(v1.getContext(), "Cập Nhật Thành Công", Toast.LENGTH_SHORT).show();
                     }
                 });
                 huy.setOnClickListener(new View.OnClickListener() {

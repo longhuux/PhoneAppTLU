@@ -76,7 +76,7 @@ public class DonHangCuaToiAdapter extends FirebaseRecyclerAdapter<ThongTinDonHan
             holder.huy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(holder.itemView.getContext(), "Không Thể Hủy Do Đơn Hàng Này Đã Xác Nhận", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(holder.itemView.getContext(), "Không Thể Hủy Do Đơn Hàng "+holder.trangthai.getText().toString(), Toast.LENGTH_SHORT).show();
                 }
             });
 

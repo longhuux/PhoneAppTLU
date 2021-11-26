@@ -4,27 +4,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DangKy {
-    private int Id;
+    private String Id;
     private String HoTen;
     private String Email;
+    private String DiaChi;
+    private int SDT;
     private String Password;
     private String PhanQuyen;
     private DangKy() {
     }
 
-    public DangKy(int id, String hoTen, String email, String password, String phanQuyen) {
+    public DangKy(String id, String hoTen, String email, String diaChi, int SDT, String password, String phanQuyen) {
         Id = id;
         HoTen = hoTen;
         Email = email;
+        DiaChi = diaChi;
+        this.SDT = SDT;
         Password = password;
         PhanQuyen = phanQuyen;
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         Id = id;
     }
 
@@ -42,6 +46,22 @@ public class DangKy {
 
     public void setEmail(String email) {
         Email = email;
+    }
+
+    public String getDiaChi() {
+        return DiaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        DiaChi = diaChi;
+    }
+
+    public int getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(int SDT) {
+        this.SDT = SDT;
     }
 
     public String getPassword() {

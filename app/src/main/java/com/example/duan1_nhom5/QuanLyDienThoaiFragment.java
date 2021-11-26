@@ -230,9 +230,13 @@ public class QuanLyDienThoaiFragment extends Fragment {
                                             sua = v1.findViewById(R.id.capnhatdt);
                                             huy = v1.findViewById(R.id.huydt);
                                             nhapten.setText(dienThoai.getTen());
-                                            nhapct.setText(""+dienThoai.getGiaTien());
+                                            nhapgia.setText(""+dienThoai.getGiaTien());
+                                            nhapct.setText(""+dienThoai.getChiTiet());
                                             nhapdaban.setText(""+dienThoai.getDaBan());
                                             nhaplike.setText(""+dienThoai.getSoLike());
+                                            byte[] manghinh = Base64.getDecoder().decode(dienThoai.getLinkAnh());
+                                            Bitmap bm = BitmapFactory.decodeByteArray(manghinh, 0, manghinh.length);
+                                            nhapanh.setImageBitmap(bm);
 
                                             nhapanh.setOnClickListener(new View.OnClickListener() {
                                                 @Override

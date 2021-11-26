@@ -37,20 +37,12 @@ public class BinhLuanAdapter extends FirebaseRecyclerAdapter<BinhLuan, BinhLuanA
         sosaodau = binhLuan.getSao();
         if (sosaodau == 1){
             holder.sao.setImageResource(R.drawable.motsao);
-        }if (sosaodau == 1.5){
-            holder.sao.setImageResource(R.drawable.motru);
         }if (sosaodau == 2){
             holder.sao.setImageResource(R.drawable.haisao);
-        }if (sosaodau == 2.5){
-            holder.sao.setImageResource(R.drawable.hairu);
         }if (sosaodau == 3){
             holder.sao.setImageResource(R.drawable.bonsao);
-        }if (sosaodau == 3.5){
-            holder.sao.setImageResource(R.drawable.baru);
         }if (sosaodau == 4){
             holder.sao.setImageResource(R.drawable.bonsaoreal);
-        }if (sosaodau == 4.5){
-            holder.sao.setImageResource(R.drawable.bonru);
         }if (sosaodau == 5){
             holder.sao.setImageResource(R.drawable.namsao);
         }

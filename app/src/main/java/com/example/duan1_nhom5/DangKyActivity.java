@@ -41,6 +41,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import com.facebook.FacebookSdk;
@@ -141,14 +143,16 @@ public class DangKyActivity extends AppCompatActivity {
         mAuth.getInstance().signOut();
     }
     private void DangKy(){
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         String tk = maildk.getEditText().getText().toString();
         String mk = passdk.getEditText().getText().toString();
         String hoten = tendk.getEditText().getText().toString();
         String quyen = "Khách Hàng";
-        String id = String.valueOf(dsls.size()+1);
+        String uid = databaseReference.push().getKey();
+        String id = uid;
         DangKy dangKy = new DangKy(id,hoten,tk,"",0,mk,quyen);
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("NguoiDung").push().setValue(dangKy);
+
+        databaseReference.child("NguoiDung").child(uid).setValue(dangKy);
         //Authentication
         mAuth.createUserWithEmailAndPassword(tk, mk)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

@@ -5,12 +5,18 @@ import static android.service.controls.ControlsProviderService.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -41,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     ArrayList<DangKy> dsls = new ArrayList<DangKy>();
     FirebaseAuth mAuth;
     CallbackManager mCallbackManage;
+    TextView quenpass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +57,42 @@ public class LoginActivity extends AppCompatActivity {
         maildn = findViewById(R.id.textEmail);
         passdn = findViewById(R.id.textPassword);
         login = findViewById(R.id.cirLoginButton);
+        quenpass = findViewById(R.id.quenpass);
         mAuth = FirebaseAuth.getInstance();
         mAuth.getInstance().signOut();
+
+        quenpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                LayoutInflater layoutInflater = ((Activity) LoginActivity.this).getLayoutInflater();
+                View v1 = layoutInflater.inflate(R.layout.quenmatkhau, null);
+                builder.setView(v1);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                EditText nhapmail = v1.findViewById(R.id.nhapmailquenpass);
+                Button gui = v1.findViewById(R.id.guipass);
+                gui.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String emailAddress = nhapmail.getText().toString();
+
+                        mAuth.sendPasswordResetEmail(emailAddress)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(LoginActivity.this, "Đã gửi liên kết đặt mật khẩu về email", Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+                                        }
+                                    }
+                                });
+                    }
+                });
+
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

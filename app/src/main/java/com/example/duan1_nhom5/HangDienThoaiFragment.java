@@ -94,7 +94,7 @@ public class HangDienThoaiFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot:snapshot.getChildren()){
                     DienThoai dienThoai = dataSnapshot.getValue(DienThoai.class);
-                    if(dienThoai.getTen().contains(keyword)){
+                    if(dienThoai.getTen().toLowerCase().contains(keyword.toLowerCase())){
                         list.add(dienThoai);
                     }
                     adapter.notifyDataSetChanged();

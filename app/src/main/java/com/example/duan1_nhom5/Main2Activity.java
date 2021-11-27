@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -50,11 +52,17 @@ public class Main2Activity extends AppCompatActivity{
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMain2Binding binding;
     ArrayList<DienThoai> ds = new ArrayList<DienThoai>();
+    ArrayList<DangKy> dstv = new ArrayList<DangKy>();
     FirebaseAuth firebaseAuth;
+    TextView tend,quyenadmin;
     int count;
     int countgio;
     int countdon;
     EditText text;
+    int vitri=0;
+    String getemail;
+    String getten;
+    String tenne;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     Context context = Main2Activity.this;
     TextToSpeech textToSpeech;
@@ -62,8 +70,12 @@ public class Main2Activity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         String getuid = firebaseAuth.getInstance().getCurrentUser().getUid();
+
+        getemail = firebaseAuth.getInstance().getCurrentUser().getEmail();
+
 
         binding = ActivityMain2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -81,18 +93,28 @@ public class Main2Activity extends AppCompatActivity{
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-//        if (firebaseAuth.getInstance().getCurrentUser().getEmail()=="admin@gmail.com"){
-//            navigationView = (NavigationView) findViewById(R.id.nav_view);
-//            Menu nav_Menu = navigationView.getMenu();
-//            nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(true);
-//            nav_Menu.findItem(R.id.nav_qldonhang).setVisible(true);
-//
-//        }else {
-//            navigationView = (NavigationView) findViewById(R.id.nav_view);
-//            Menu nav_Menu = navigationView.getMenu();
-//            nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(false);
-//            nav_Menu.findItem(R.id.nav_qldonhang).setVisible(false);
-//        }
+        Menu nav_Menu = navigationView.getMenu();
+        View headerView = navigationView.getHeaderView(vitri);
+         tend = (TextView) headerView.findViewById(R.id.tennd);
+        TextView quyend = (TextView) headerView.findViewById(R.id.quyennd);
+         quyenadmin = (TextView) headerView.findViewById(R.id.quyenadmin);
+        ImageView avtlogo = (ImageView) headerView.findViewById(R.id.avtlogo);
+
+        getNguoiDung(getemail);
+        String admin = quyenadmin.getText().toString();
+        quyend.setText(""+getemail);
+        if (admin.equalsIgnoreCase("Admin")){
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(true);
+            nav_Menu.findItem(R.id.nav_qldonhang).setVisible(true);
+            nav_Menu.findItem(R.id.nav_qlnguoidung).setVisible(true);
+
+        }else {
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(false);
+            nav_Menu.findItem(R.id.nav_qldonhang).setVisible(false);
+            nav_Menu.findItem(R.id.nav_qlnguoidung).setVisible(false);
+        }
 
 
         Fragment home = new HomeFragment();
@@ -275,7 +297,7 @@ public class Main2Activity extends AppCompatActivity{
                     List<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String text1 = result.get(0);
                     text.setText(text1);
-                    tts("Bạn Đang Tìm "+text1+"Cảm Ơn Bạn");
+                    tts("Đây Là Sản Phẩm "+text1+"Mà Bạn Tìm Kiếm Cảm Ơn Bạn");
                     String danhap= text.getText().toString();
                     Fragment fragment = new SearchFragment();
                     FragmentManager fmgr = Main2Activity.this.getSupportFragmentManager();
@@ -293,6 +315,28 @@ public class Main2Activity extends AppCompatActivity{
             break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void getNguoiDung(String mail){
+        final String[] ten1 = {""};
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("NguoiDung").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    DangKy dangKy = dataSnapshot.getValue(DangKy.class);
+                    if (dangKy.getEmail().contains(mail)){
+                        tend.setText("Xin chào : "+dangKy.getHoTen());
+                        quyenadmin.setText(dangKy.getPhanQuyen());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     @Override
     public boolean onSupportNavigateUp() {

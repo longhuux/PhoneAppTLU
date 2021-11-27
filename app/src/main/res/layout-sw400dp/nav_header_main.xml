@@ -25,11 +25,18 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-
         android:id="@+id/quyennd"
         android:layout_width="match_parent"
         android:layout_marginBottom="10dp"
         android:textColor="#FDFDFB"
         android:layout_height="wrap_content"
         android:text="ngothanhthongcode@gmail.com" />
+    <TextView
+        android:id="@+id/quyenadmin"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textSize="1sp"
+        android:textColor="@color/register_bk_color"
+        android:layout_height="wrap_content"
+        android:text="Admin" />
 </LinearLayout>

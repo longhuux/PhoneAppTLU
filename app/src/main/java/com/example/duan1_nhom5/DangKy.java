@@ -14,14 +14,21 @@ public class DangKy {
     private DangKy() {
     }
 
-    public DangKy(String id, String hoTen, String email, String diaChi, int SDT, String password, String phanQuyen) {
+    public DangKy(String id, String hoTen, String email, String diaChi, int sdt, String password, String phanQuyen) {
         Id = id;
         HoTen = hoTen;
         Email = email;
         DiaChi = diaChi;
-        this.SDT = SDT;
+        SDT = sdt;
         Password = password;
         PhanQuyen = phanQuyen;
+    }
+
+    public DangKy(String email, int sdt, String hoTen, String diaChi) {
+        Email=email;
+        SDT = sdt;
+        HoTen = hoTen;
+        DiaChi = diaChi;
     }
 
     public String getId() {
@@ -60,8 +67,8 @@ public class DangKy {
         return SDT;
     }
 
-    public void setSDT(int SDT) {
-        this.SDT = SDT;
+    public void setSDT(int sdt) {
+        this.SDT = sdt;
     }
 
     public String getPassword() {
@@ -83,10 +90,9 @@ public class DangKy {
     public Map<String,Object> toMap(){
         HashMap<String,Object> result = new HashMap<>();
         result.put("email",Email);
+        result.put("sdt",SDT);
         result.put("hoTen",HoTen);
-        result.put("password",Password);
-        result.put("phanQuyen",PhanQuyen);
-
+        result.put("diaChi",DiaChi);
         return result;
     }
 }

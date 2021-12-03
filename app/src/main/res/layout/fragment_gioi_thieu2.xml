@@ -17,16 +17,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GIỚI THIỆU VỀ HỆ THỐNG FIVE FRIEND SHOP"
+        android:text="HÃY CHỌN  CHIẾC ĐIỆN TUYỆT VỜI CHO RIÊNG BẠN."
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="12dp"
         android:textStyle="bold"
         android:paddingTop="30dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
-        android:text="FIVE FRIEND SHOP Luôn Tự Hào Với Những Sản Phẩm Chất Lượng Nhập Từ Những Nước Có Thị Trường Lớn, Chúng Tôi Luôn Có Những Sản Phẩm Chất Lượng Nhất Mang Đến Với Tất Cả Khách Hàng , Luôn Đặt Chất Lượng Của Khách Hàng Lên Hàng Đầu"
+        android:text="Hiện có vô số smartphone sở hữu những tính năng nổi trội, thiết kế đẹp, cấu hình siêu khủng, nhưng đâu là sản phẩm bạn tâm đắc nhất. Mời tham khảo các mẫu điện thoại của chúng tôi để có thể chọn mua được chiếc smartphone thích hợp cho riêng bạn."
         android:textSize="15dp"
-        android:textColor="#0099FF"/>
+        android:textColor="@color/black"/>
 </LinearLayout>

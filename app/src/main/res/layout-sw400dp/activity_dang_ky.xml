@@ -30,7 +30,7 @@
                     style="@style/viewParent.headerText.NoMode"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="Here’s\nyour first\nstep with \nus! "
+                    android:text="Đây là\nlần đầu\nbạn truy cập ! "
                     android:textColor="@color/whiteTextColor" />
 
                 <ImageView
@@ -85,6 +85,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputPassword"
                         style="@style/parent"
+                        app:passwordToggleEnabled="true"
                         android:layout_marginTop="@dimen/loginViewsMargin">
 
                         <EditText
@@ -111,7 +112,7 @@
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin"
                         android:onClick="onLoginClick"
-                        android:text="Already have an account?"
+                        android:text="Đã có tài khoản?"
                         android:textAlignment="center"
                         android:textColor="@color/themeColor"
                         android:textSize="17sp"

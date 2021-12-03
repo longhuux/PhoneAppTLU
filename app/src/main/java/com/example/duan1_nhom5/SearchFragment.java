@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,7 +79,27 @@ public class SearchFragment extends Fragment {
         Bundle bundle = this.getArguments();
         String ten1 = bundle.getString("keyw");
         getlist(ten1);
-        adapter = new SearchAdapter(getContext(), dsls);
+        adapter = new SearchAdapter(getContext(), dsls, new SearchAdapter.chuyenFrag() {
+            @Override
+            public void chuyenFrag(DienThoai dienThoai) {
+                Fragment fragment = new ChiTietDienThoaiFragment();
+                FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putString("name", dienThoai.getTen());
+                bundle.putInt("gia", dienThoai.getGiaTien());
+                bundle.putString("chitiet", dienThoai.getChiTiet());
+                bundle.putString("anh", dienThoai.getLinkAnh());
+                bundle.putFloat("tim", dienThoai.getSoLike());
+                bundle.putInt("daban", dienThoai.getDaBan());
+                bundle.putString("keydt",dienThoai.getId());
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = fmgr.beginTransaction();
+                ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
         recyclerView.setAdapter(adapter);
 
 

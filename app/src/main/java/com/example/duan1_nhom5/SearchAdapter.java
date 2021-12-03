@@ -32,8 +32,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     DienThoai dienThoai;
     DatabaseReference databaseReference;
     FirebaseAuth mAuth;
+    private chuyenFrag chuyenFrag;
+    public interface chuyenFrag{
+        void chuyenFrag(DienThoai dienThoai);
+    }
 
-    public SearchAdapter(Context c, ArrayList<DienThoai> dsm) {
+    public SearchAdapter(Context c, ArrayList<DienThoai> dsm,chuyenFrag chuyenFrag) {
+        this.chuyenFrag = chuyenFrag;
         this.dsm = dsm;
         this.dsm1 = dsm;
         this.c = c;
@@ -57,6 +62,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         byte[] manghinh = Base64.getDecoder().decode(lg.getLinkAnh());
         Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
         holder.anhdt.setImageBitmap(bm);
+        holder.anhdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chuyenFrag.chuyenFrag(lg);
+            }
+        });
 
     }
 

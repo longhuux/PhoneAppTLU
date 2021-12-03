@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +34,7 @@ public class TaiKhoanFragment extends Fragment {
     DatabaseReference databaseReference;
     ArrayList<DangKy> list = new ArrayList<>();
     TaiKhoanAdapter adapter;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -74,7 +77,13 @@ public class TaiKhoanFragment extends Fragment {
         list.clear();
         getNguoiDung(getemail);
 
-        adapter = new TaiKhoanAdapter(getContext(),list);
+        adapter = new TaiKhoanAdapter(getContext(), list, new TaiKhoanAdapter.chuyenFrag() {
+            @Override
+            public void chuyenFrag() {
+                Intent i = new Intent(getContext(),LoginActivity.class);
+                startActivity(i);
+            }
+        });
         recyclerView.setAdapter(adapter);
 
 

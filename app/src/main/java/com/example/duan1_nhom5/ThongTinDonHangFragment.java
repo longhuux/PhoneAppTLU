@@ -11,14 +11,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
@@ -36,6 +38,8 @@ public class ThongTinDonHangFragment extends Fragment {
     EditText nhapten,nhapdiachi,nhapsdt;
     RadioButton thanhtoan;
     Button xacnhan,trove;
+    ImageView anhdt;
+    TextView tendt,giadttt;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
 
@@ -73,6 +77,11 @@ public class ThongTinDonHangFragment extends Fragment {
         nhapdiachi = view.findViewById(R.id.nhapdiachi);
         nhapsdt = view.findViewById(R.id.nhapsodt);
         xacnhan = view.findViewById(R.id.btn_xacnhan);
+        anhdt = view.findViewById(R.id.anhdtthongtin);
+        tendt = view.findViewById(R.id.tendtthongtin);
+        giadttt = view.findViewById(R.id.tongtienthongtin);
+        String getemail = firebaseAuth.getInstance().getCurrentUser().getEmail();
+        getNguoiDung(getemail);
 
         //lấy thông tin từ bundle
         Bundle bundle = this.getArguments();
@@ -83,6 +92,11 @@ public class ThongTinDonHangFragment extends Fragment {
         int giadt = bundle.getInt("giaspgio");
         int soluong = Integer.parseInt(bundle.getString("soluong"));
         String anhsp = bundle.getString("anhgh");
+        tendt.setText(tensp);
+        giadttt.setText(""+giasp);
+        byte[] manghinh = Base64.getDecoder().decode(anhsp);
+        Bitmap bm = BitmapFactory.decodeByteArray(manghinh,0, manghinh.length);
+        anhdt.setImageBitmap(bm);
 
         xacnhan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +108,7 @@ public class ThongTinDonHangFragment extends Fragment {
                 int sdt = Integer.parseInt(nhapsdt.getText().toString());
                 String trangthai = "Chờ Xác Nhận";
                 String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
-                String ngay = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                String ngay = new SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(new Date());
                 ThongTinDonHang donHang = new ThongTinDonHang(keydh,uid,key,tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai,ngay,giadt);
 
                 databaseReference.child("DienThoai").child(key).child("daBan").setValue(daban+1);
@@ -129,6 +143,29 @@ public class ThongTinDonHangFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
     }
+
+    public void getNguoiDung(String mail){
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("NguoiDung").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    DangKy dangKy = dataSnapshot.getValue(DangKy.class);
+                    if (dangKy.getEmail().contains(mail)){
+                        nhapten.setText(""+dangKy.getHoTen());
+                        nhapdiachi.setText(dangKy.getDiaChi());
+                        nhapsdt.setText(""+dangKy.getSDT());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

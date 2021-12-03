@@ -28,5 +28,5 @@
         android:paddingTop="20dp"
         android:text="FIVE FRIEND SHOP Luôn Tự Hào Với Những Sản Phẩm Chất Lượng Nhập Từ Những Nước Có Thị Trường Lớn, Chúng Tôi Luôn Có Những Sản Phẩm Chất Lượng Nhất Mang Đến Với Tất Cả Khách Hàng , Luôn Đặt Chất Lượng Của Khách Hàng Lên Hàng Đầu"
         android:textSize="15dp"
-        android:textColor="#0099FF"/>
+        android:textColor="@color/black"/>
 </LinearLayout>

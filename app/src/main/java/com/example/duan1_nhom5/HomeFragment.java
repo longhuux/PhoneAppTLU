@@ -1,5 +1,14 @@
 package com.example.duan1_nhom5;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.google.android.material.color.MaterialColors.getColor;
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -25,7 +35,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class HomeFragment extends Fragment {
@@ -238,8 +251,14 @@ public class HomeFragment extends Fragment {
 
         AnimationDrawable drawable1 = (AnimationDrawable) anhslide.getBackground();
             drawable1.start();
+
+
+        // tạo nofication
+
         super.onViewCreated(view, savedInstanceState);
     }
+
+
     private void yeuthich(){
         databaseReference = FirebaseDatabase.getInstance().getReference().child("DienThoai");
         Query query = databaseReference.orderByChild("soLike").equalTo(5);

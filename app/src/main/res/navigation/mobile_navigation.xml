@@ -30,5 +30,15 @@
         android:name="com.example.duan1_nhom5.QuanLyDonHangFragment"
         android:label=""
         tools:layout="@layout/fragment_quan_ly_don_hang" />
+    <fragment
+        android:id="@+id/nav_thongke"
+        android:name="com.example.duan1_nhom5.ThongKeFragment"
+        android:label=""
+        tools:layout="@layout/fragment_thongke" />
+    <fragment
+        android:id="@+id/nav_thongbao"
+        android:name="com.example.duan1_nhom5.ThongBaoFragment"
+        android:label=""
+        tools:layout="@layout/fragment_thong_bao" />
 
 </navigation>

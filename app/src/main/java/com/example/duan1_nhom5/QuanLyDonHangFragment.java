@@ -94,8 +94,7 @@ public class QuanLyDonHangFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.rvqldh);
-        sua = view.findViewById(R.id.suadh);
-        xoa = view.findViewById(R.id.xoadh);
+
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         dsdh.clear();

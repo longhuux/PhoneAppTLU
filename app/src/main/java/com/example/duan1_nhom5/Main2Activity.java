@@ -60,8 +60,8 @@ public class Main2Activity extends AppCompatActivity{
     int countdon;
     EditText text;
     int vitri=0;
-    String getemail;
     String getten;
+    NavigationView navigationView;
     String tenne;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     Context context = Main2Activity.this;
@@ -74,19 +74,20 @@ public class Main2Activity extends AppCompatActivity{
 
         String getuid = firebaseAuth.getInstance().getCurrentUser().getUid();
 
-        getemail = firebaseAuth.getInstance().getCurrentUser().getEmail();
+
 
 
         binding = ActivityMain2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
         DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
+         navigationView = binding.navView;
          text = binding.appBarMain.timkiemappbar;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_qlnguoidung,R.id.nav_dienthoai, R.id.nav_qldienthoai,R.id.nav_qldonhang)
+                R.id.nav_home, R.id.nav_qlnguoidung,R.id.nav_dienthoai, R.id.nav_qldienthoai,R.id.nav_qldonhang,
+                R.id.nav_thongke,R.id.nav_thongbao)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -94,28 +95,21 @@ public class Main2Activity extends AppCompatActivity{
         NavigationUI.setupWithNavController(navigationView, navController);
 
         Menu nav_Menu = navigationView.getMenu();
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(vitri);
          tend = (TextView) headerView.findViewById(R.id.tennd);
         TextView quyend = (TextView) headerView.findViewById(R.id.quyennd);
          quyenadmin = (TextView) headerView.findViewById(R.id.quyenadmin);
         ImageView avtlogo = (ImageView) headerView.findViewById(R.id.avtlogo);
-
+        String getemail = firebaseAuth.getInstance().getCurrentUser().getEmail();
         getNguoiDung(getemail);
-        String admin = quyenadmin.getText().toString();
+
         quyend.setText(""+getemail);
-        if (admin.equalsIgnoreCase("Admin")){
-            navigationView = (NavigationView) findViewById(R.id.nav_view);
-            nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(true);
-            nav_Menu.findItem(R.id.nav_qldonhang).setVisible(true);
-            nav_Menu.findItem(R.id.nav_qlnguoidung).setVisible(true);
-
-        }else {
-            navigationView = (NavigationView) findViewById(R.id.nav_view);
-            nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(false);
-            nav_Menu.findItem(R.id.nav_qldonhang).setVisible(false);
-            nav_Menu.findItem(R.id.nav_qlnguoidung).setVisible(false);
-        }
-
+        nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(false);
+        nav_Menu.findItem(R.id.nav_qldonhang).setVisible(false);
+        nav_Menu.findItem(R.id.nav_qlnguoidung).setVisible(false);
+        nav_Menu.findItem(R.id.nav_thongbao).setVisible(false);
+        nav_Menu.findItem(R.id.nav_thongke).setVisible(false);
 
         Fragment home = new HomeFragment();
         Fragment gio = new GioHangFragment();
@@ -318,7 +312,6 @@ public class Main2Activity extends AppCompatActivity{
     }
 
     public void getNguoiDung(String mail){
-        final String[] ten1 = {""};
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("NguoiDung").addValueEventListener(new ValueEventListener() {
             @Override
@@ -328,6 +321,24 @@ public class Main2Activity extends AppCompatActivity{
                     if (dangKy.getEmail().contains(mail)){
                         tend.setText("Xin chào : "+dangKy.getHoTen());
                         quyenadmin.setText(dangKy.getPhanQuyen());
+                        String admin = quyenadmin.getText().toString();
+                        if (admin.equalsIgnoreCase("Admin")){
+                            navigationView = (NavigationView) findViewById(R.id.nav_view);
+                            Menu nav_Menu = navigationView.getMenu();
+                            nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(true);
+                            nav_Menu.findItem(R.id.nav_qldonhang).setVisible(true);
+                            nav_Menu.findItem(R.id.nav_qlnguoidung).setVisible(true);
+                            nav_Menu.findItem(R.id.nav_thongbao).setVisible(true);
+                            nav_Menu.findItem(R.id.nav_thongke).setVisible(true);
+                        }if (!admin.equalsIgnoreCase("Admin")){
+                            navigationView = (NavigationView) findViewById(R.id.nav_view);
+                            Menu nav_Menu = navigationView.getMenu();
+                            nav_Menu.findItem(R.id.nav_qldienthoai).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_qldonhang).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_qlnguoidung).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_thongbao).setVisible(false);
+                            nav_Menu.findItem(R.id.nav_thongke).setVisible(false);
+                        }
                     }
                 }
             }

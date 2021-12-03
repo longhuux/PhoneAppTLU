@@ -60,6 +60,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textPassword"
                 style="@style/parent"
+                app:passwordToggleEnabled="true"
                 android:layout_marginTop="@dimen/loginViewsMargin">
 
                 <EditText

@@ -80,7 +80,7 @@ public class QuanLyDonHangAdapter extends RecyclerView.Adapter<QuanLyDonHangAdap
                 sua = v1.findViewById(R.id.capnhatdh);
                 huy = v1.findViewById(R.id.huydh);
                 String[] arrTT = {"Chờ Xác Nhận","Đã Xác Nhận","Chờ Giao Hàng","Đang Giao Hàng","Đã Nhận Hàng"};
-                ArrayAdapter<String> spnadapter = new ArrayAdapter<>(c, android.R.layout.simple_spinner_item,arrTT);
+                ArrayAdapter<String> spnadapter = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item,arrTT);
                 nhaptrangthai.setAdapter(spnadapter);
 
                 sua.setOnClickListener(new View.OnClickListener() {

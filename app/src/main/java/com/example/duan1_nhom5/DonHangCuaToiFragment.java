@@ -161,7 +161,7 @@ public class DonHangCuaToiFragment extends Fragment {
                         Bundle bundle = new Bundle();
                         bundle.putString("madonhang", getRef(i).getKey());
                         bundle.putString("tennguoinhanhang", donHang.getTenNguoiNhan());
-                        bundle.putString("ngaydathang", donHang.getNgaydat());
+                        bundle.putString("ngaydathang", String.valueOf(donHang.getNgaydat()));
                         bundle.putString("diachidonhang", donHang.getDiaChi());
                         bundle.putInt("sdtdonhang", donHang.getSdt());
                         bundle.putInt("giadtdonhang", donHang.getGiaDT());

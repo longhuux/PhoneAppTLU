@@ -60,12 +60,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textPassword"
                 style="@style/parent"
+                app:passwordToggleEnabled="true"
                 android:layout_marginTop="@dimen/loginViewsMargin">
 
                 <EditText
                     android:id="@+id/passdn"
                     style="@style/modifiedEditText"
-                    app:passwordToggleEnabled="true"
                     android:hint="@string/login_password_hint"
                     android:inputType="textPassword"
                     android:maxLines="1" />

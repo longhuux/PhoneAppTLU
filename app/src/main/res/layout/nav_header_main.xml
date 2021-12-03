@@ -38,5 +38,5 @@
         android:textSize="1sp"
         android:textColor="@color/register_bk_color"
         android:layout_height="wrap_content"
-        android:text="Admin" />
+        android:text="" />
 </LinearLayout>

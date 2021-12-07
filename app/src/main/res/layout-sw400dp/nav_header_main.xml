@@ -9,12 +9,12 @@
     android:paddingLeft="40dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avtlogo"
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:paddingTop="1sp"
-        app:srcCompat="@drawable/logovip2" />
+        android:src="@drawable/profile1" />
 
     <TextView
         android:id="@+id/tennd"
@@ -34,7 +34,6 @@
     <TextView
         android:id="@+id/quyenadmin"
         android:layout_width="wrap_content"
-        android:layout_marginBottom="10dp"
         android:textSize="1sp"
         android:textColor="@color/register_bk_color"
         android:layout_height="wrap_content"

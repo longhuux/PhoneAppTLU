@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class DanhGiaFragment extends Fragment {
     EditText nhanxet;
     float saobandau;
     String uid;
+    String tennd;
     String key;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -158,52 +160,73 @@ public class DanhGiaFragment extends Fragment {
         cmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 databaseReference = FirebaseDatabase.getInstance().getReference();
                 uid = databaseReference.push().getKey();
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("ThongTin", MODE_PRIVATE);
-                String email = sharedPref.getString("email","");
-                String noidung = nhanxet.getText().toString();
-                String ngay = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                if (saobandau!=0.0) {
-                    float sosaosau = Float.parseFloat(sosao.getText().toString());
-                    float tongsao = saobandau + sosaosau;
-                    float tongsao1 = tongsao / 2;
-                    BinhLuan binhLuan = new BinhLuan(uid, email, noidung, ngay, tongsao1);
+                String email = sharedPref.getString("email", "");
+                databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child("NguoiDung").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            DangKy dangKy = dataSnapshot.getValue(DangKy.class);
+                            if (dangKy.getEmail().contains(email)) {
+                                tennd = dangKy.getHoTen();
+                            }
+                            String noidung = nhanxet.getText().toString();
+                            String ngay = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                            if (saobandau != 0.0) {
+                                float sosaosau = Float.parseFloat(sosao.getText().toString());
+                                float tongsao = saobandau + sosaosau;
+                                float tongsao1 = tongsao / 2;
+                                BinhLuan binhLuan = new BinhLuan(uid, tennd, noidung, ngay, tongsao1);
+                                databaseReference.child("DienThoai").child(key).child("BinhLuan").child(uid).setValue(binhLuan);
+                                databaseReference.child("DienThoai").child(key).child("soLike").setValue(tongsao1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Fragment fragment = new DonHangCuaToiFragment();
+                                        FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction ft = fmgr.beginTransaction();
+                                        ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                        ft.addToBackStack(null);
+                                        ft.commit();
+                                    }
+                                });
+                            } else {
+                                float sosaosau = Float.parseFloat(sosao.getText().toString());
+                                BinhLuan binhLuan = new BinhLuan(uid, tennd, noidung, ngay, sosaosau);
+                                databaseReference.child("DienThoai").child(key).child("BinhLuan").child(uid).setValue(binhLuan);
+                                databaseReference.child("DienThoai").child(key).child("soLike").setValue(sosaosau).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Fragment fragment = new DonHangCuaToiFragment();
+                                        FragmentManager fmgr = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction ft = fmgr.beginTransaction();
+                                        ft.replace(R.id.nav_host_fragment_content_main, fragment);
+                                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                        ft.addToBackStack(null);
+                                        ft.commit();
+                                    }
 
+                                });
 
-                    databaseReference.child("DienThoai").child(key).child("BinhLuan").child(uid).setValue(binhLuan);
-                    databaseReference.child("DienThoai").child(key).child("soLike").setValue(tongsao1).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Fragment fragment = new DonHangCuaToiFragment();
-                            FragmentManager fmgr = getActivity().getSupportFragmentManager();
-                            FragmentTransaction ft = fmgr.beginTransaction();
-                            ft.replace(R.id.nav_host_fragment_content_main, fragment);
-                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                            ft.addToBackStack(null);
-                            ft.commit();
+                            }
                         }
-                    });
-                }
-                else {
-                    float sosaosau = Float.parseFloat(sosao.getText().toString());
-                    BinhLuan binhLuan = new BinhLuan(uid, email, noidung, ngay, sosaosau);
-                    databaseReference.child("DienThoai").child(key).child("BinhLuan").child(uid).setValue(binhLuan);
-                    databaseReference.child("DienThoai").child(key).child("soLike").setValue(sosaosau).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Fragment fragment = new DonHangCuaToiFragment();
-                            FragmentManager fmgr = getActivity().getSupportFragmentManager();
-                            FragmentTransaction ft = fmgr.beginTransaction();
-                            ft.replace(R.id.nav_host_fragment_content_main, fragment);
-                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                            ft.addToBackStack(null);
-                            ft.commit();
-                        }
-                    });
-                }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
-        });
+                });
+
+
+
+
     }
     private void getSao(String key){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -220,6 +243,8 @@ public class DanhGiaFragment extends Fragment {
             }
         });
     }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

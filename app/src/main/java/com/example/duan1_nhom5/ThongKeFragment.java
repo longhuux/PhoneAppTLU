@@ -1,6 +1,9 @@
 package com.example.duan1_nhom5;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,9 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,21 +36,25 @@ import org.eazegraph.lib.models.ValueLinePoint;
 import org.eazegraph.lib.models.ValueLineSeries;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 
 public class ThongKeFragment extends Fragment {
-
+    BarChart mBarChart;
     DatabaseReference databaseReference;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
     TextView tongdoanhthu,tongdonhang,ngaybd,ngaykt,tongtv,tongsp,tinhtong,sobl;
+    Spinner chonthang;
     SimpleDateFormat spfm1 = new SimpleDateFormat("ddMMyyyy");
     int mYear;
     int mMonth;
     int mDay;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -74,6 +85,7 @@ public class ThongKeFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -83,89 +95,55 @@ public class ThongKeFragment extends Fragment {
         sobl = view.findViewById(R.id.sobinhluan);
         tinhtong = view.findViewById(R.id.tinhtong);
         tongsp = view.findViewById(R.id.tongsanpham);
-        ngaybd = view.findViewById(R.id.ngaybd);
-        ngaykt = view.findViewById(R.id.ngaykt);
-
+        ngaybd = view.findViewById(R.id.thang);
+        chonthang = view.findViewById(R.id.chonthang);
         getDuLieu();
         getthanhvien();
         getsanpham();
         getbinhluan();
-
-        DatePickerDialog.OnDateSetListener mDatetungay = new DatePickerDialog.OnDateSetListener() {
+        String[] arrTT = {"0","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030"};
+        ArrayAdapter<String> spnadapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,arrTT);
+        chonthang.setAdapter(spnadapter);
+        chonthang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int day, int month, int year) {
-                mDay = day;
-                mMonth = month;
-                mYear = year;
-                GregorianCalendar c = new GregorianCalendar(mDay,mMonth,mYear);
-                ngaybd.setText(spfm1.format(c.getTime()));
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ngaybd.setText(""+arrTT[i]);
+                int namlay = Integer.parseInt(ngaybd.getText().toString());
+                if (namlay == 0){
+                    getDuLieu();
+                }
+                    tinhTheoNgay(namlay);
+                    mBarChart.clearChart();
+                    tinhTheoThang(1,namlay);
+                    tinhTheoThang(2,namlay);
+                    tinhTheoThang(3,namlay);
+                    tinhTheoThang(4,namlay);
+                    tinhTheoThang(5,namlay);
+                    tinhTheoThang(6,namlay);
+                    tinhTheoThang(7,namlay);
+                    tinhTheoThang(8,namlay);
+                    tinhTheoThang(9,namlay);
+                    tinhTheoThang(10,namlay);
+                    tinhTheoThang(11,namlay);
+                    tinhTheoThang(12,namlay);
             }
-        };
-        DatePickerDialog.OnDateSetListener mDatedenngay = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int day, int month, int year) {
-                mDay = day;
-                mMonth = month;
-                mYear = year;
-                GregorianCalendar c = new GregorianCalendar(mDay,mMonth,mYear);
-                ngaykt.setText(spfm1.format(c.getTime()));
-            }
-        };
 
-        ngaybd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Calendar c = Calendar.getInstance();
-                mDay = c.get(Calendar.DAY_OF_MONTH);
-                mMonth = c.get(Calendar.MONTH);
-                mYear = c.get(Calendar.YEAR);
-                DatePickerDialog d = new DatePickerDialog(getActivity(),
-                        0,mDatetungay, mDay,mMonth,mYear);
-                d.show();
-            }
-        });
-        ngaykt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar c = Calendar.getInstance();
-                mDay = c.get(Calendar.DAY_OF_MONTH);
-                mMonth = c.get(Calendar.MONTH);
-                mYear = c.get(Calendar.YEAR);
-                DatePickerDialog d = new DatePickerDialog(getActivity(),
-                        0,mDatedenngay, mDay,mMonth,mYear);
-                d.show();
-
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
         tinhtong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tinhTheoNgay();
+                getDuLieu();
             }
         });
 
 
-        ValueLineChart mCubicValueLineChart = (ValueLineChart) view.findViewById(R.id.cubiclinechart);
 
-        ValueLineSeries series = new ValueLineSeries();
-        series.setColor(0xFF56B7F1);
 
-        series.addPoint(new ValueLinePoint("1", 50000));
-        series.addPoint(new ValueLinePoint("2", 3.4f));
-        series.addPoint(new ValueLinePoint("3", .4f));
-        series.addPoint(new ValueLinePoint("4", 1.2f));
-        series.addPoint(new ValueLinePoint("5", 2.6f));
-        series.addPoint(new ValueLinePoint("6", 1.0f));
-        series.addPoint(new ValueLinePoint("̀7", 3.5f));
-        series.addPoint(new ValueLinePoint("8", 2.4f));
-        series.addPoint(new ValueLinePoint("9", 2.4f));
-        series.addPoint(new ValueLinePoint("10", 3.4f));
-        series.addPoint(new ValueLinePoint("11", .4f));
-        series.addPoint(new ValueLinePoint("12", 1.3f));
-
-        mCubicValueLineChart.addSeries(series);
-        mCubicValueLineChart.startAnimation();
+         mBarChart = (BarChart) view.findViewById(R.id.barchart);
     }
 
 
@@ -177,11 +155,12 @@ public class ThongKeFragment extends Fragment {
                 int tong = 0;
                 for (DataSnapshot dataSnapshot:snapshot.getChildren() ){
                     tongdonhang.setText(""+dataSnapshot.getChildrenCount()+" Đơn Hàng");
-                    for (DataSnapshot snapshot1:dataSnapshot.getChildren() ) {
-                        ThongTinDonHang donHang = snapshot1.getValue(ThongTinDonHang.class);
+                    for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren() ) {
+                        ThongTinDonHang donHang = dataSnapshot1.getValue(ThongTinDonHang.class);
                         tong += donHang.getGiaSP();
                         Log.d("Tong Doanh Thu", String.valueOf(tong));
                         tongdoanhthu.setText("" + formatter.format(tong) + " VNĐ");
+
                     }
                 }
 
@@ -193,36 +172,94 @@ public class ThongKeFragment extends Fragment {
             }
         });
     }
-    private void tinhTheoNgay(){
-        String tungay1 = ngaybd.getText().toString().trim();
-        String denngay1 = ngaykt.getText().toString().trim();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("ThongTinDonHang").addValueEventListener(new ValueEventListener() {
+    private void tinhTheoNgay(int namne){
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("ThongKe");
+        Query query = databaseReference.orderByChild("nam").equalTo(namne);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    for (DataSnapshot snapshot1:dataSnapshot.getChildren()){
-                        Query query = databaseReference.orderByChild("ngaydat").startAt(tungay1).endAt(denngay1);
-                        query.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot12) {
-                                int tong = 0;
-                                ThongTinDonHang donHang = snapshot1.getValue(ThongTinDonHang.class);
-                                    tong += donHang.getGiaSP();
-                                    Log.d("Tong Doanh Thu Theo Ngay", String.valueOf(tong));
-                                    tongdoanhthu.setText("" + formatter.format(tong) + " VNĐ");
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
+                int tong1 = 0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        ThongTinDonHang donHang = dataSnapshot.getValue(ThongTinDonHang.class);
+                        tong1 += donHang.getGiaSP();
+                        Log.d("Tong Doanh Thu Theo Nam", String.valueOf(tong1));
+                        tongdoanhthu.setText("" + formatter.format(tong1) + " VNĐ");
                     }
+                }
 
-}
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void tinhTheoThang(int thang,int nam){
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("ThongKe");
+        Query query = databaseReference.orderByChild("thang").equalTo(thang);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int tongthang12=0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    ThongTinDonHang donHang = dataSnapshot.getValue(ThongTinDonHang.class);
+                    if (nam == donHang.getNam()){
+                        tongthang12 += donHang.getGiaSP();
+
+                    }else {
+                        tongthang12 = 0;
+                    }
+                }
+                if (thang==1){
+                    mBarChart.addBar(new BarModel("1", tongthang12, 0xff663397));
+                    Log.d("Tong Doanh Thu Theo Thang 1", String.valueOf(tongthang12));
+                }
+                else if (thang==2){
+                    mBarChart.addBar(new BarModel("2", tongthang12, 0xff4183d7));
+                    Log.d("Tong Doanh Thu Theo Thang 2", String.valueOf(tongthang12));
+                }
+                else if (thang==3){
+                    mBarChart.addBar(new BarModel("3", tongthang12, 0xff19b5fe));
+                    Log.d("Tong Doanh Thu Theo Thang 3", String.valueOf(tongthang12));
+                }
+                else if (thang==4){
+                    mBarChart.addBar(new BarModel("4", tongthang12, 0xff1e8bc3));
+                    Log.d("Tong Doanh Thu Theo Thang 4", String.valueOf(tongthang12));
+                }
+                else if (thang==5){
+                    mBarChart.addBar(new BarModel("5", tongthang12, 0xff36d7b7));
+                    Log.d("Tong Doanh Thu Theo Thang 5", String.valueOf(tongthang12));
+                }
+                else if (thang==6){
+                    mBarChart.addBar(new BarModel("6", tongthang12, 0xff663397));
+                    Log.d("Tong Doanh Thu Theo Thang 6", String.valueOf(tongthang12));
+                }
+                else if (thang==7){
+                    mBarChart.addBar(new BarModel("7", tongthang12, 0xff4183d7));
+                    Log.d("Tong Doanh Thu Theo Thang 7", String.valueOf(tongthang12));
+                }
+                else if (thang==8){
+                    mBarChart.addBar(new BarModel("8", tongthang12, 0xff19b5fe));
+                    Log.d("Tong Doanh Thu Theo Thang 8", String.valueOf(tongthang12));
+                }
+                else if (thang==9){
+                    mBarChart.addBar(new BarModel("9", tongthang12, 0xff1e8bc3));
+                    Log.d("Tong Doanh Thu Theo Thang 9", String.valueOf(tongthang12));
+                }
+                else if (thang==10){
+                    mBarChart.addBar(new BarModel("10", tongthang12, 0xff36d7b7));
+                    Log.d("Tong Doanh Thu Theo Thang 10", String.valueOf(tongthang12));
+                }
+                else if (thang==11){
+                    mBarChart.addBar(new BarModel("11", tongthang12, 0xff1e8bc3));
+                    Log.d("Tong Doanh Thu Theo Thang 11", String.valueOf(tongthang12));
+                }
+                else{
+                    mBarChart.addBar(new BarModel("12", tongthang12, 0xff19b5fe));
+                    Log.d("Tong Doanh Thu Theo Thang 12", String.valueOf(tongthang12));
+                }
+                mBarChart.startAnimation();
             }
 
             @Override
@@ -265,16 +302,10 @@ public class ThongKeFragment extends Fragment {
 
     private void getbinhluan(){
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("DienThoai").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("DienThoai").child("BinhLuan").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    for (DataSnapshot snapshot1:dataSnapshot.getChildren()){
-                        sobl.setText("Lượt Đánh Giá: "+snapshot1.getChildrenCount());
-
-                    }
-                }
-
+                    sobl.setText("Lượt Đánh Giá: "+snapshot.getChildrenCount());
             }
 
             @Override
@@ -286,7 +317,6 @@ public class ThongKeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_thongke, container, false);
+        return inflater.inflate(R.layout.fragment_thongke1, container, false);
     }
 }

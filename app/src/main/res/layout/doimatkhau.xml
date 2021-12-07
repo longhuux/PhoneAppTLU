@@ -8,6 +8,7 @@
     <TextView
         android:background="@drawable/dialog"
         android:id="@+id/doimk"
+
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="center"

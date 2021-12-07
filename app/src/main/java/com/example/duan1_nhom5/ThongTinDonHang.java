@@ -16,12 +16,14 @@ public class ThongTinDonHang {
     private int SoLuong;
     private String AnhSP;
     private String TrangThai;
-    private String ngaydat;
+    private int ngay;
+    private int thang;
+    private int nam;
     private int GiaDT;
     public ThongTinDonHang() {
     }
 
-    public ThongTinDonHang(String keyDH, String UID, String keyDT, String tenNguoiNhan, String diaChi, int sdt, String tenSP, int giaSP, int soLuong, String anhSP, String trangThai, String ngaydat, int giaDT) {
+    public ThongTinDonHang(String keyDH, String UID, String keyDT, String tenNguoiNhan, String diaChi, int sdt, String tenSP, int giaSP, int soLuong, String anhSP, String trangThai, int ngay, int thang, int nam, int giaDT) {
         KeyDH = keyDH;
         this.UID = UID;
         KeyDT = keyDT;
@@ -33,7 +35,9 @@ public class ThongTinDonHang {
         SoLuong = soLuong;
         AnhSP = anhSP;
         TrangThai = trangThai;
-        this.ngaydat = ngaydat;
+        this.ngay = ngay;
+        this.thang = thang;
+        this.nam = nam;
         GiaDT = giaDT;
     }
 
@@ -125,12 +129,28 @@ public class ThongTinDonHang {
         TrangThai = trangThai;
     }
 
-    public String getNgaydat() {
-        return ngaydat;
+    public int getNgay() {
+        return ngay;
     }
 
-    public void setNgaydat(String ngaydat) {
-        this.ngaydat = ngaydat;
+    public void setNgay(int ngay) {
+        this.ngay = ngay;
+    }
+
+    public int getThang() {
+        return thang;
+    }
+
+    public void setThang(int thang) {
+        this.thang = thang;
+    }
+
+    public int getNam() {
+        return nam;
+    }
+
+    public void setNam(int nam) {
+        this.nam = nam;
     }
 
     public int getGiaDT() {

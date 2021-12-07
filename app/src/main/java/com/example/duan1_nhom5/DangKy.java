@@ -11,26 +11,20 @@ public class DangKy {
     private int SDT;
     private String Password;
     private String PhanQuyen;
+    private String Anh;
     private DangKy() {
     }
 
-    public DangKy(String id, String hoTen, String email, String diaChi, int sdt, String password, String phanQuyen) {
+    public DangKy(String id, String hoTen, String email, String diaChi, int SDT, String password, String phanQuyen, String anh) {
         Id = id;
         HoTen = hoTen;
         Email = email;
         DiaChi = diaChi;
-        SDT = sdt;
+        this.SDT = SDT;
         Password = password;
         PhanQuyen = phanQuyen;
+        Anh = anh;
     }
-
-    public DangKy(String email, int sdt, String hoTen, String diaChi) {
-        Email=email;
-        SDT = sdt;
-        HoTen = hoTen;
-        DiaChi = diaChi;
-    }
-
     public String getId() {
         return Id;
     }
@@ -67,8 +61,8 @@ public class DangKy {
         return SDT;
     }
 
-    public void setSDT(int sdt) {
-        this.SDT = sdt;
+    public void setSDT(int SDT) {
+        this.SDT = SDT;
     }
 
     public String getPassword() {
@@ -87,12 +81,21 @@ public class DangKy {
         PhanQuyen = phanQuyen;
     }
 
+    public String getAnh() {
+        return Anh;
+    }
+
+    public void setAnh(String anh) {
+        Anh = anh;
+    }
+
     public Map<String,Object> toMap(){
         HashMap<String,Object> result = new HashMap<>();
-        result.put("email",Email);
+
         result.put("sdt",SDT);
         result.put("hoTen",HoTen);
         result.put("diaChi",DiaChi);
+        result.put("anh",Anh);
         return result;
     }
 }

@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
+    android:background="@color/white"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
-        android:background="@drawable/dialog"
+        android:background="@color/register_bk_color"
         android:id="@+id/tvudls"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -15,7 +15,12 @@
         android:text="ĐỔI THÔNG TIN"
         android:textAlignment="center"
         android:textSize="30sp" />
-
+    <ImageView
+        android:id="@+id/udanhnd"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="150dp"
+        android:src="@drawable/profile1"/>
     <EditText
         android:id="@+id/sdtcu"
         android:layout_width="350dp"
@@ -92,7 +97,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@drawable/joinbtn"
-            android:text="Hủy"
+            android:text="Quay Lại"
             android:textColor="@color/whitecolor"
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>

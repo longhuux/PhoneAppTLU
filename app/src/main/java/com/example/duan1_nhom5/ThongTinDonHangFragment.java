@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -30,7 +31,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -108,11 +111,16 @@ public class ThongTinDonHangFragment extends Fragment {
                 int sdt = Integer.parseInt(nhapsdt.getText().toString());
                 String trangthai = "Chờ Xác Nhận";
                 String uid = firebaseAuth.getInstance().getCurrentUser().getUid();
-                String ngay = new SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(new Date());
-                ThongTinDonHang donHang = new ThongTinDonHang(keydh,uid,key,tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai,ngay,giadt);
+                Calendar c = Calendar.getInstance();
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                int mMonth = c.get(Calendar.MONTH)+1;
+                int mYear = c.get(Calendar.YEAR);
+
+                ThongTinDonHang donHang = new ThongTinDonHang(keydh,uid,key,tenngnhan,diachi,sdt,tensp,giasp,soluong,anhsp,trangthai,mDay,mMonth,mYear,giadt);
 
                 databaseReference.child("DienThoai").child(key).child("daBan").setValue(daban+1);
                 databaseReference.child("ThongTinDonHang").child(uid).child(keydh).setValue(donHang);
+                databaseReference.child("ThongKe").child(keydh).setValue(donHang);
                 databaseReference.child("ThongTinDonHang").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

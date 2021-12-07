@@ -3,6 +3,8 @@ package com.example.duan1_nhom5;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,8 +46,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Main2Activity extends AppCompatActivity{
 
@@ -55,6 +60,7 @@ public class Main2Activity extends AppCompatActivity{
     ArrayList<DangKy> dstv = new ArrayList<DangKy>();
     FirebaseAuth firebaseAuth;
     TextView tend,quyenadmin;
+    CircleImageView avtlogo;
     int count;
     int countgio;
     int countdon;
@@ -73,10 +79,6 @@ public class Main2Activity extends AppCompatActivity{
         firebaseAuth = FirebaseAuth.getInstance();
 
         String getuid = firebaseAuth.getInstance().getCurrentUser().getUid();
-
-
-
-
         binding = ActivityMain2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -98,6 +100,7 @@ public class Main2Activity extends AppCompatActivity{
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(vitri);
          tend = (TextView) headerView.findViewById(R.id.tennd);
+         avtlogo = headerView.findViewById(R.id.avtlogo);
         TextView quyend = (TextView) headerView.findViewById(R.id.quyennd);
          quyenadmin = (TextView) headerView.findViewById(R.id.quyenadmin);
         ImageView avtlogo = (ImageView) headerView.findViewById(R.id.avtlogo);
@@ -321,6 +324,9 @@ public class Main2Activity extends AppCompatActivity{
                     if (dangKy.getEmail().contains(mail)){
                         tend.setText("Xin chào : "+dangKy.getHoTen());
                         quyenadmin.setText(dangKy.getPhanQuyen());
+                        byte[] manghinh = Base64.getDecoder().decode(dangKy.getAnh());
+                        Bitmap bm = BitmapFactory.decodeByteArray(manghinh, 0, manghinh.length);
+                        avtlogo.setImageBitmap(bm);
                         String admin = quyenadmin.getText().toString();
                         if (admin.equalsIgnoreCase("Admin")){
                             navigationView = (NavigationView) findViewById(R.id.nav_view);

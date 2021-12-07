@@ -33,7 +33,7 @@
     <EditText
         android:id="@+id/nhapnoidung"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="212dp"
         android:layout_marginEnd="20dp"
@@ -49,50 +49,55 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/saodau"
         app:layout_constraintEnd_toStartOf="@+id/sao2"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/sao2"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/saodau"
         app:layout_constraintEnd_toStartOf="@+id/sao3"
         app:layout_constraintStart_toEndOf="@+id/sao1"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/sao3"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/saodau"
         app:layout_constraintEnd_toStartOf="@+id/sao4"
         app:layout_constraintStart_toEndOf="@+id/sao2"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/sao4"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/saodau"
         app:layout_constraintEnd_toStartOf="@+id/sao5"
         app:layout_constraintStart_toEndOf="@+id/sao3"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/sao5"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/saodau"
         app:layout_constraintStart_toEndOf="@+id/sao4"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/ketquasao"
@@ -124,11 +129,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
+        android:layout_marginTop="19dp"
         android:layout_marginBottom="16dp"
         android:text="Whats your rate?"
         android:textSize="23sp"
         app:layout_constraintBottom_toTopOf="@+id/sao1"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/anhdtbl" />
 
     <TextView
         android:id="@+id/textView6"

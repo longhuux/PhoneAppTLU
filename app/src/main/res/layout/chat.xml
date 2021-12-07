@@ -40,7 +40,7 @@
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="1dp"
-            android:src="@drawable/sao"
+            android:src="@drawable/namsao"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/tvUser"
             tools:ignore="MissingConstraints" />

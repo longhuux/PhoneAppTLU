@@ -147,7 +147,7 @@ public class DonHangCuaToiFragment extends Fragment {
                     holder.huy.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(holder.itemView.getContext(), "Không Thể Hủy Do Đơn Hàng Này Đã Xác Nhận", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(holder.itemView.getContext(), "Không Thể Hủy Do Đơn Hàng Này "+holder.trangthai.getText().toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -161,7 +161,7 @@ public class DonHangCuaToiFragment extends Fragment {
                         Bundle bundle = new Bundle();
                         bundle.putString("madonhang", getRef(i).getKey());
                         bundle.putString("tennguoinhanhang", donHang.getTenNguoiNhan());
-                        bundle.putString("ngaydathang", String.valueOf(donHang.getNgaydat()));
+                        bundle.putString("ngaydathang", String.valueOf(donHang.getNgay() +""+ donHang.getThang()+""+ donHang.getNam()));
                         bundle.putString("diachidonhang", donHang.getDiaChi());
                         bundle.putInt("sdtdonhang", donHang.getSdt());
                         bundle.putInt("giadtdonhang", donHang.getGiaDT());
@@ -195,7 +195,7 @@ public class DonHangCuaToiFragment extends Fragment {
     public static class DonHangCuaToiViewHolder extends RecyclerView.ViewHolder {
         ImageView anh;
         TextView tendt , gia , trangthai ,tongtien;
-        Button huy;
+        TextView huy;
 
 
         public DonHangCuaToiViewHolder(View view) {

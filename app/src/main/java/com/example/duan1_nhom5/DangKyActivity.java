@@ -215,14 +215,6 @@ public class DangKyActivity extends AppCompatActivity {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(DangKyActivity.this);
         builder1.setMessage("Thiết bị chưa kết nối Internet.");
         builder1.setTitle("Lỗi");
-        builder1.setPositiveButton(
-                "Tôi hiểu",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        finish();
-                        System.exit(0);
-                    }
-                });
         AlertDialog alert11 = builder1.create();
         alert11.show();
         return false;

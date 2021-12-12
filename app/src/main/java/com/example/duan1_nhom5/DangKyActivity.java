@@ -5,7 +5,12 @@ import static android.service.controls.ControlsProviderService.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,6 +69,7 @@ public class DangKyActivity extends AppCompatActivity {
         passdk = findViewById(R.id.textInputPassword);
         login = findViewById(R.id.cirRegisterButton);
         mAuth = FirebaseAuth.getInstance();
+        isOnline();
         getlist();
         changeStatusBarColor();
         login.setOnClickListener(new View.OnClickListener() {
@@ -199,5 +205,26 @@ public class DangKyActivity extends AppCompatActivity {
     public void onLoginClick(View view){
         startActivity(new Intent(this,LoginActivity.class));
         overridePendingTransition(R.anim.slide_in_left,android.R.anim.slide_out_right);
+    }
+    private Boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if(ni != null && ni.isConnected()) {
+            return true;
+        }
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(DangKyActivity.this);
+        builder1.setMessage("Thiết bị chưa kết nối Internet.");
+        builder1.setTitle("Lỗi");
+        builder1.setPositiveButton(
+                "Tôi hiểu",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                        System.exit(0);
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+        return false;
     }
 }

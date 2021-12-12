@@ -7,8 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         quenpass = findViewById(R.id.quenpass);
         mAuth = FirebaseAuth.getInstance();
         mAuth.getInstance().signOut();
+        isOnline();
 
         quenpass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,5 +197,27 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginClick(View View){
         startActivity(new Intent(this,DangKyActivity.class));
         overridePendingTransition(R.anim.slide_in_right,R.anim.stay);
+    }
+
+    private Boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if(ni != null && ni.isConnected()) {
+            return true;
+        }
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(LoginActivity.this);
+        builder1.setMessage("Thiết bị chưa kết nối Internet.");
+        builder1.setTitle("Lỗi");
+        builder1.setPositiveButton(
+                "Tôi hiểu",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                        System.exit(0);
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+        return false;
     }
 }

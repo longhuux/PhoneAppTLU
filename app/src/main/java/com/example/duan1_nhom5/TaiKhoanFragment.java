@@ -92,7 +92,8 @@ public class TaiKhoanFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-         recyclerView = view.findViewById(R.id.rvtk);
+
+        recyclerView = view.findViewById(R.id.rvtk);
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 

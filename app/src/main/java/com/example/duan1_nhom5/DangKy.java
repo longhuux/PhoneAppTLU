@@ -91,7 +91,6 @@ public class DangKy {
 
     public Map<String,Object> toMap(){
         HashMap<String,Object> result = new HashMap<>();
-
         result.put("sdt",SDT);
         result.put("hoTen",HoTen);
         result.put("diaChi",DiaChi);

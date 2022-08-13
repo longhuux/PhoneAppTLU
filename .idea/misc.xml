@@ -29,6 +29,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/mic.xml" value="0.21388888888888888" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/muahang.xml" value="0.188" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/nen_appbar.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/saodau.xml" value="0.18949771689497716" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/saosau.xml" value="0.2203125" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/search.xml" value="0.21388888888888888" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/drawable/smartphone.xml" value="0.188" />
@@ -173,7 +174,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/taikhoanfragment.xml" value="0.1671195652173913" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/thongbao_item.xml" value="0.16847826086956522" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/thongbao_nd.xml" value="0.1598731884057971" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/thongtin.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/thongtin.xml" value="0.16" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/topthinhhanh.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/two_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/layout/updatedienthoai.xml" value="0.17657657657657658" />
@@ -184,6 +185,10 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/menu/main2.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/menu/navigation.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DuAn1_Nhom5/app/src/main/res/menu/search.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/Administrator/Downloads/New WinRAR archive/app/src/main/res/layout/doisdt.xml" value="0.22" />
+        <entry key="..\:/Users/Administrator/Downloads/New WinRAR archive/app/src/main/res/layout/fragment_thanh_vien.xml" value="0.1" />
+        <entry key="..\:/Users/Administrator/Downloads/New WinRAR archive/app/src/main/res/layout/fragment_thong_bao.xml" value="0.1" />
+        <entry key="..\:/Users/Administrator/Downloads/New WinRAR archive/app/src/main/res/layout/quenmatkhau.xml" value="0.1" />
       </map>
     </option>
   </component>

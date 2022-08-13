@@ -157,7 +157,6 @@ public class QuanLyDienThoaiFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Toast.makeText(getContext(), "Thêm Điện Thoại Thành Công", Toast.LENGTH_SHORT).show();
-
                         dialog.dismiss();
                     }
 

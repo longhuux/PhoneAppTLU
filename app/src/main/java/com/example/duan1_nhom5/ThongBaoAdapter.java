@@ -24,7 +24,6 @@ public class ThongBaoAdapter extends RecyclerView.Adapter<ThongBaoAdapter.ThongB
     private ArrayList<ThongBao> dsm;
     private Context c;
     public ThongBaoAdapter(Context c, ArrayList<ThongBao> dsm) {
-
         this.dsm = dsm;
         this.c = c;
     }
@@ -60,7 +59,6 @@ public class ThongBaoAdapter extends RecyclerView.Adapter<ThongBaoAdapter.ThongB
             tieude = view.findViewById(R.id.tieudetb);
             noidung = view.findViewById(R.id.noidungtb);
             cardView = view.findViewById(R.id.cardviewloai21);
-
 
         }
     }

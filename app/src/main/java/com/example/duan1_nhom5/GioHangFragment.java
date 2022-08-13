@@ -39,9 +39,9 @@ import java.text.DecimalFormat;
 import java.util.Base64;
 import java.util.List;
 
-public class GioHangFragment<sohang> extends Fragment {
+public class GioHangFragment extends Fragment {
     DecimalFormat formatter = new DecimalFormat("###,###,###");
-    FirebaseRecyclerAdapter<GioHang,GioHangAdapter.GioHangViewHolder> mFirebaseAdapter;
+
     RecyclerView recyclerView;
     Button btn_thanhtoan;
     int tongtiengh;
@@ -107,8 +107,6 @@ public class GioHangFragment<sohang> extends Fragment {
                 new FirebaseRecyclerOptions.Builder<GioHang>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("GioHang").child(uid), GioHang.class)
                         .build();
-
-
 
             FirebaseRecyclerAdapter<GioHang, GioHangViewHolder> adapter =
                     new FirebaseRecyclerAdapter<GioHang, GioHangViewHolder>(options) {

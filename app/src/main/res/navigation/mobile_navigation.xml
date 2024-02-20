@@ -7,37 +7,37 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.duan1_nhom5.HomeFragment"
+        android:name="com.example.appphonecode.HomeFragment"
         android:label=""
         tools:layout="@layout/fragment_home2" />
     <fragment
         android:id="@+id/nav_qlnguoidung"
-        android:name="com.example.duan1_nhom5.ThanhVienFragment"
+        android:name="com.example.appphonecode.ThanhVienFragment"
         android:label=""
         tools:layout="@layout/fragment_thanh_vien" />
     <fragment
         android:id="@+id/nav_dienthoai"
-        android:name="com.example.duan1_nhom5.DienThoaiFragment"
+        android:name="com.example.appphonecode.DienThoaiFragment"
         android:label=""
         tools:layout="@layout/fragment_dien_thoai" />
     <fragment
         android:id="@+id/nav_qldienthoai"
-        android:name="com.example.duan1_nhom5.QuanLyDienThoaiFragment"
+        android:name="com.example.appphonecode.QuanLyDienThoaiFragment"
         android:label=""
         tools:layout="@layout/fragment_quanlydienthoai" />
     <fragment
         android:id="@+id/nav_qldonhang"
-        android:name="com.example.duan1_nhom5.QuanLyDonHangFragment"
+        android:name="com.example.appphonecode.QuanLyDonHangFragment"
         android:label=""
         tools:layout="@layout/fragment_quan_ly_don_hang" />
     <fragment
         android:id="@+id/nav_thongke"
-        android:name="com.example.duan1_nhom5.ThongKeFragment"
+        android:name="com.example.appphonecode.ThongKeFragment"
         android:label=""
         tools:layout="@layout/fragment_thongke" />
     <fragment
         android:id="@+id/nav_thongbao"
-        android:name="com.example.duan1_nhom5.ThongBaoFragment"
+        android:name="com.example.appphonecode.ThongBaoFragment"
         android:label=""
         tools:layout="@layout/fragment_thong_bao" />
 
